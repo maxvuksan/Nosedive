@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0821045c79dd1e4ca7d6726ad1a0145, type: 3}
+  m_Name: Sounds
+  m_EditorClassIdentifier: Assembly-CSharp::SoundGroup
+  sounds:
+  - name: Bird_FlyAway
+    clips:
+    - {fileID: 8300000, guid: 3f91369ec7854eb46b7256972011b212, type: 3}
+    - {fileID: 8300000, guid: 8558e944e7c5491428d1fa9dd08ed650, type: 3}
+    - {fileID: 8300000, guid: 5078ccce6572aff46b32c0203e79c30c, type: 3}
+    - {fileID: 8300000, guid: 0b562e7e8f32c2c41980398caed0df6d, type: 3}
+    volume: 0.852
+    pitch: 1
+    pitch_variation: 0.025
+  - name: Footstep_Left
+    clips:
+    - {fileID: 8300000, guid: f5386e260a447184a80f56f51cf4bee4, type: 3}
+    - {fileID: 8300000, guid: 2cb6b919a7b2f79498625f81bbbb23e9, type: 3}
+    - {fileID: 8300000, guid: f6cc8bef7a6884b4082af87082f46f0c, type: 3}
+    volume: 0.392
+    pitch: 1.1
+    pitch_variation: 0.025
+  - name: Footstep_Right
+    clips:
+    - {fileID: 8300000, guid: 5f07373b66029d24099ea1bd41f32f81, type: 3}
+    - {fileID: 8300000, guid: 57766ff9a01b68046802a12c8d17d61c, type: 3}
+    - {fileID: 8300000, guid: 2ef917fec2236334dacd8dfec4b2f2db, type: 3}
+    volume: 0.392
+    pitch: 1.1
+    pitch_variation: 0.025
+  - name: DeathImpact
+    clips:
+    - {fileID: 8300000, guid: bbfa7eabc2e73e34f9b9d7368e4dddde, type: 3}
+    volume: 0.731
+    pitch: 1
+    pitch_variation: 0.025
+  - name: DeathImpactBones
+    clips:
+    - {fileID: 8300000, guid: c350fab247b01de48946163b664b8b8b, type: 3}
+    volume: 0.33
+    pitch: 0.95
+    pitch_variation: 0.035
+  - name: MetalFootstep_Left
+    clips:
+    - {fileID: 8300000, guid: 2071fcf7b8675c14b9d6484b1c80296c, type: 3}
+    - {fileID: 8300000, guid: c89e4a329ee3a434e889bb801f402500, type: 3}
+    - {fileID: 8300000, guid: dc90ced3629ef91429b04c695c03bc91, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitch_variation: 0.025
+  - name: MetalFootstep_Right
+    clips:
+    - {fileID: 8300000, guid: 9aec333c47e8eb04fa6fcd8ff84e9f98, type: 3}
+    - {fileID: 8300000, guid: debac2d39606cac4f8d327c386a186e0, type: 3}
+    - {fileID: 8300000, guid: 6e4865f2cbc2474488eb7921c23b93ff, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitch_variation: 0.025
+  - name: WoodBoardFootstep_Left
+    clips:
+    - {fileID: 8300000, guid: 5d4b1442a100e94459b618e19970f253, type: 3}
+    - {fileID: 8300000, guid: 1c0990cf5b3a02f4d81475e36f916f6c, type: 3}
+    - {fileID: 8300000, guid: 0c75b2b3e35f7794facde29f7eaba6d4, type: 3}
+    - {fileID: 8300000, guid: 1271be7e5b045fb4a93cd5b16e4faa98, type: 3}
+    volume: 0.354
+    pitch: 1.2
+    pitch_variation: 0.025
+  - name: WoodBoardFootstep_Right
+    clips:
+    - {fileID: 8300000, guid: 79d67c650431c7347b43e7bf9c6f5b4f, type: 3}
+    - {fileID: 8300000, guid: 2113c43535ebe5d4fb713b9696fce3c3, type: 3}
+    - {fileID: 8300000, guid: c9e1f63408aa26c4c89c9713f206472c, type: 3}
+    - {fileID: 8300000, guid: 5b8ed9888a09a924fb8b802469f02b4c, type: 3}
+    volume: 0.354
+    pitch: 1.2
+    pitch_variation: 0.025
+  - name: FootstepLayer_GlassCrunch
+    clips:
+    - {fileID: 8300000, guid: 0eaf8e0f2b9b52d488c7e06d2a2b45a7, type: 3}
+    - {fileID: 8300000, guid: 48b146b4fb9136c40aedf69d8ed15123, type: 3}
+    volume: 0.202
+    pitch: 1
+    pitch_variation: 0.025
+  - name: FootstepLayer_Wetness
+    clips:
+    - {fileID: 8300000, guid: da0e9f0b9508dea488ce63c01a641964, type: 3}
+    - {fileID: 8300000, guid: 01a128ec4ef7d35439323f6f9f742776, type: 3}
+    - {fileID: 8300000, guid: c9c88dce9034f87498edc68975440e5b, type: 3}
+    - {fileID: 8300000, guid: 301f57b73557a9549847dc36d2f37efe, type: 3}
+    - {fileID: 8300000, guid: bf003d8a5cdda8c4ea405aab95b47132, type: 3}
+    - {fileID: 8300000, guid: 62fa15768329b964ea3d686f6c75218d, type: 3}
+    - {fileID: 8300000, guid: 00dd13c58d149204b87e4d3d67e9c61e, type: 3}
+    - {fileID: 8300000, guid: e6a17daf5df579a4cbcd95dcde660620, type: 3}
+    volume: 0.332
+    pitch: 1
+    pitch_variation: 0.025
+  - name: UiBlip_Up
+    clips:
+    - {fileID: 8300000, guid: 4bc0d1b3e387ae6419d5c6d2869c32a7, type: 3}
+    volume: 0.163
+    pitch: 3
+    pitch_variation: 0.01
+  - name: UiBlip_Down
+    clips:
+    - {fileID: 8300000, guid: 4bc0d1b3e387ae6419d5c6d2869c32a7, type: 3}
+    volume: 0.163
+    pitch: 2.4
+    pitch_variation: 0.01
+  - name: UiBlip_Submit
+    clips:
+    - {fileID: 8300000, guid: 4bc0d1b3e387ae6419d5c6d2869c32a7, type: 3}
+    volume: 0.163
+    pitch: 2
+    pitch_variation: 0.01
