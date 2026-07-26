@@ -41,7 +41,7 @@ public class AudioZoneManager : MonoBehaviour {
     /// <summary>
     /// All the audio zones currently within the active levels
     /// </summary>
-    private List<AudioZone> _zonePool = new();
+    private static List<AudioZone> s_zonePool = new();
 
     /// <summary>
     /// Footstep layers to apply
@@ -73,18 +73,24 @@ public class AudioZoneManager : MonoBehaviour {
     /// Adds an audio zone to the active pool
     /// </summary>
     /// <param name="zone">The zone to add</param>
-    public void AddZone(AudioZone zone)
+    /// <returns>True if added successfully, false otherwise</returns>
+    public static void AddZone(AudioZone zone)
     {
-        _zonePool.Add(zone);
+        if (s_zonePool.Contains(zone))
+        {
+            return;
+        }
+        s_zonePool.Add(zone);
     }
 
     /// <summary>
     /// Removes an audio zone from the active pool
     /// </summary>
     /// <param name="zone">The zone to remove</param>
-    public void RemoveZone(AudioZone zone)
+    /// <returns>True if remove successfully, false otherwise</returns>
+    public static void RemoveZone(AudioZone zone)
     {
-        _zonePool.Remove(zone);
+        s_zonePool.Remove(zone);
     }
 
     void FixedUpdate() 
@@ -109,7 +115,7 @@ public class AudioZoneManager : MonoBehaviour {
         _inRangeZoneLooped.Clear();
         
 
-        foreach(var zone in _zonePool)
+        foreach(var zone in s_zonePool)
         {
             float influence = zone.GetInfluenceFactor(_player.transform.position);
 
@@ -147,10 +153,17 @@ public class AudioZoneManager : MonoBehaviour {
                 sound.volumeScaler = zone.Influence;
                 sound.fadeIn = true;
 
-                sound.LowPassFilter.cutoffFrequency = Mathf.Lerp(
+                if(sound.LowPassFilter != null)
+                {
+                    sound.LowPassFilter.cutoffFrequency = Mathf.Lerp(
                     zone.Zone.LowPassFilterSettings.MinCutoffFrequency, 
                     zone.Zone.LowPassFilterSettings.MaxCutoffFrequency, 
-                    zone.LowPassFilterInfluence);
+                    zone.LowPassFilterInfluence);   
+                }
+                else
+                {
+                    Debug.Log("Low pass filter on audio zone source is null, is this expected case?");
+                }
             }
         }
     }

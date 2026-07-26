@@ -7,28 +7,38 @@ using UnityEngine;
 public struct LevelEnviromentSettings
 {
     /// <summary>
+    /// When the player goes below this height, they die
+    /// </summary>
+    public float DeathZoneHeight;
+
+    /// <summary>
     /// Scales the number of rain particles, and the volume of the rain sound loop
     /// </summary>
     [Range(0, 1)]
     public float RainStrength;
+
     /// <summary>
-    /// Scales the strength of the wind, and the volume of the wind sound loop
+    /// Scales the volume of the wind sound loop
     /// </summary>
     [Range(0, 1)]
     public float WindStrength;
 
     /// <summary>
-    /// Controls the colour of the camera background
+    /// Controls the opacity of the cavity lighting effect
     /// </summary>
-    public Color BackgroundColour;
-
+    [Range(0, 1)]
+    public float CavityLightingOpacity;
+    
     /// <summary>
-    /// Controls the colour of the fog albedo
+    /// Directly controls the assigned FogProfile
     /// </summary>
+    [Header("Fog Profile Settings")]
+
+
     public Color FogColour;
+    [Range(0, 0.05f)]
+    public float FogDensity;
+    [Range(0, 1)]
+    public float FogBlobNoiseIntensity;
 
-    /// <summary>
-    /// When the player goes below this height, they die
-    /// </summary>
-    public float DeathZoneHeight;
 }

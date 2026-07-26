@@ -6,13 +6,17 @@ using UnityEngine;
 /// </summary>
 public class EnviromentManager : MonoBehaviour
 {
-    [Header("Wind Settings")]
 
-    [SerializeField] private float _fogMinDensity = 0.03f;
-    [SerializeField] private float _fogMaxDensity = 0.05f;
-    [Range(0, 1)]
-    [SerializeField] private float _fogDensityLerpSpeed;
-    private LoopingSound _windSound;
+    [SerializeField] private FogProfile _fogProfile;
+    
+    /// <summary>
+    /// The ground fog sits at the current player death height, this offset shifts that fog
+    /// </summary>
+    [SerializeField] private int _fogGroundLayerOffset; 
+
+
+    [Header("Cavity/Rim Light Settings")]
+    [SerializeField] private Material _cavityMaterial;
 
 
     [Header("Rain Settings")]
@@ -20,9 +24,33 @@ public class EnviromentManager : MonoBehaviour
     [SerializeField] private float _rainHeightAbovePlayer;
     [SerializeField] private ParticleSystem _rainParticleSource;
     [SerializeField] private int _rainPerSecond = 1000;
+
     private LoopingSound _rainSound;
+    private LoopingSound _windSound;
     
-    [SerializeField] private float _lerpT;
+
+    [Header("Collectable Sphere Settings")]
+    public CollectablePulse CollectableSpherePulse;
+    [SerializeField] private CollectablePulseColours[] _collectablePulseConfigurations;
+    [HideInInspector] public float CollectableWireBlendT = 0;
+    public float CollectableWireBlendIncreaseSpeed = 0.1f;
+    [SerializeField] private Material _collectableWireBlendMaterial;
+    [SerializeField] private Color _collectableWireOffColour;
+    [SerializeField] private float _collectableWireIncreaseRate;
+    private Color _collectableWireOverrideColour;
+    private bool _collectableWireOverrideIsIncreasing;
+    private float _collectableWireOverrideTrackedT = 0;
+ 
+    // The fog override colour fades in (increase rate) then when reaches full intensity begins fading out (decrease rate)
+    [SerializeField] private float _overrideFogColourIncreaseRate;
+    [SerializeField] private float _overrideFogColourDecreaseRate;
+    private float _overrideFogColourTrackedT = 0;
+    private bool _overrideFogColourIncreasing = false;
+    private Color _overrideFogColour;
+
+    
+    
+    private float _lerpT;
 
     /// <summary>
     /// The level which we are pulling the enviromental state from
@@ -35,8 +63,39 @@ public class EnviromentManager : MonoBehaviour
     public LevelEnviromentSettings EnviromentState { get => _enviromentState;}
     private LevelEnviromentSettings _enviromentState;
     public static EnviromentManager Singleton;
+
     private CameraFollow _playerCamera;
     private Camera _mainCamera;
+
+    /// <summary>
+    /// Gets the collectable pulse colour data set at a specific collectable index
+    /// </summary>
+    public CollectablePulseColours GetCollectablePulseColours(int index)
+    {
+        index %= _collectablePulseConfigurations.Length;
+        return _collectablePulseConfigurations[index];
+    }
+
+    /// <summary>
+    /// Temporarily overrides the colour of the fog, this override colour slowly fades back to the active colour
+    /// </summary>
+    public void SetTemporarilyFogColourOverride(Color fogOverrideColour)
+    {
+        _overrideFogColourTrackedT = 0;
+        _overrideFogColour = fogOverrideColour;
+        _overrideFogColourIncreasing = true;
+    }
+
+    /// <summary>
+    /// Overrides the colour of the wire powered colour
+    /// </summary>
+    /// <param name="wireOverrideColour">The colour the wire should be</param>
+    public void SetTemporaryCollectableWireColourOveride(Color wireOverrideColour)
+    {
+        _collectableWireOverrideColour = wireOverrideColour;
+        _collectableWireOverrideIsIncreasing = true;
+    }
+
 
     private void Awake()
     {
@@ -45,11 +104,13 @@ public class EnviromentManager : MonoBehaviour
         _mainCamera = Camera.main;
         _playerCamera = FindFirstObjectByType<CameraFollow>(FindObjectsInactive.Include);
     }
+
     private void Start()
     {
+        _collectableWireBlendMaterial.SetColor("_OffColour", _collectableWireOffColour);
+
         _enviromentState = LevelFullMap.Singleton.Levels[0].EnviromentSettings;
         ApplyEnviromentState();
-
     }
 
     private void OnEnable()
@@ -66,24 +127,23 @@ public class EnviromentManager : MonoBehaviour
 
     private void ApplyEnviromentState()
     {
-        float windPercent = Mathf.Clamp01(WindSimulator.Singleton.CurrentWindMagnitude / 10f);
-        float windT = 0.5f + (windPercent - 0.5f) / 2.0f * _enviromentState.WindStrength;
-        float targetDensity = Mathf.Lerp(_fogMinDensity, _fogMaxDensity, windT);
-        
         _windSound.volumeScaler = _enviromentState.WindStrength;
         _rainSound.volumeScaler = _enviromentState.RainStrength;
 
-        RenderSettings.fogDensity = Mathf.Lerp(
-            RenderSettings.fogDensity, 
-            targetDensity, 
-            _fogDensityLerpSpeed
-        );
-
         RenderSettings.fogColor = _enviromentState.FogColour;
-        _mainCamera.backgroundColor = _enviromentState.BackgroundColour;
+        _mainCamera.backgroundColor = _enviromentState.FogColour;
 
         var emission = _rainParticleSource.emission;
         emission.rateOverTime = Mathf.Lerp(0, _rainPerSecond, _enviromentState.RainStrength);
+
+        _cavityMaterial.SetFloat("_Opacity", _enviromentState.CavityLightingOpacity);
+
+        // apply custom fog profile
+
+        _fogProfile.Data.Density = _enviromentState.FogDensity;
+        _fogProfile.Data.Colour = _enviromentState.FogColour;
+        _fogProfile.Data.BlobNoiseIntensity = _enviromentState.FogBlobNoiseIntensity;
+        _fogProfile.Data.GroundFogStartHeight = _enviromentState.DeathZoneHeight + _fogGroundLayerOffset;
     }
 
     private void Update() 
@@ -113,14 +173,53 @@ public class EnviromentManager : MonoBehaviour
         LevelEnviromentSettings stateCurrent = LevelFullMap.Singleton.Levels[_activeLevelIndex].EnviromentSettings;
         LevelEnviromentSettings stateNext = LevelFullMap.Singleton.Levels[nextIndex].EnviromentSettings;
 
-        // TODO: Cache these or use a temporary struct instead of overwriting 
-        _enviromentState.BackgroundColour = Color.Lerp(stateCurrent.BackgroundColour, stateNext.BackgroundColour, _lerpT);
-        _enviromentState.FogColour = Color.Lerp(stateCurrent.FogColour, stateNext.FogColour, _lerpT);
         _enviromentState.WindStrength = Mathf.Lerp(stateCurrent.WindStrength, stateNext.WindStrength, _lerpT);
         _enviromentState.RainStrength = Mathf.Lerp(stateCurrent.RainStrength, stateNext.RainStrength, _lerpT);
         _enviromentState.DeathZoneHeight = Mathf.Lerp(stateCurrent.DeathZoneHeight, stateNext.DeathZoneHeight, _lerpT);
-    }
 
+        _enviromentState.FogDensity = Mathf.Lerp(stateCurrent.FogDensity, stateNext.FogDensity, _lerpT);
+        _enviromentState.FogBlobNoiseIntensity = Mathf.Lerp(stateCurrent.FogBlobNoiseIntensity, stateNext.FogBlobNoiseIntensity, _lerpT);
+        _enviromentState.CavityLightingOpacity = Mathf.Lerp(stateCurrent.CavityLightingOpacity, stateNext.CavityLightingOpacity, _lerpT);
+
+        CollectableSphere.UpdateCurrentPulse(_fogProfile, CollectableSpherePulse);
+
+        if (_overrideFogColourIncreasing)
+        {
+            _overrideFogColourTrackedT += Time.deltaTime * _overrideFogColourIncreaseRate;
+
+            if(_overrideFogColourTrackedT >= 1)
+            {
+                _overrideFogColourIncreasing = false;
+            }
+        }
+        else
+        {
+            _overrideFogColourTrackedT -= Time.deltaTime * _overrideFogColourDecreaseRate;
+        }
+        _overrideFogColourTrackedT = Mathf.Clamp01(_overrideFogColourTrackedT);
+        
+        Color trueFogColour = Color.Lerp(stateCurrent.FogColour, stateNext.FogColour, _lerpT);
+        _enviromentState.FogColour = Color.Lerp(trueFogColour, _overrideFogColour, _overrideFogColourTrackedT);
+
+
+        if (_collectableWireOverrideIsIncreasing)
+        {
+            _collectableWireOverrideIsIncreasing = false;
+            _collectableWireOverrideTrackedT += Time.deltaTime * _collectableWireIncreaseRate;
+
+        }
+        else
+        {
+            _collectableWireOverrideTrackedT -= Time.deltaTime * _collectableWireIncreaseRate * 2;
+        }
+        _collectableWireOverrideTrackedT = Mathf.Clamp01(_collectableWireOverrideTrackedT);
+
+        _collectableWireBlendMaterial.SetFloat("_Blend", CollectableWireBlendT);
+
+        _collectableWireBlendMaterial.SetColor("_OnColour", Color.Lerp(_collectableWireOffColour, _collectableWireOverrideColour, _collectableWireOverrideTrackedT));
+
+
+    }
 
     /// <summary>
     /// Projects the players position on the axis between the curret and next spawn point, this allows us to calculate the lerp T value between these points

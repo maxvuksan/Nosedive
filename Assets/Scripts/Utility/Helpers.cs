@@ -58,13 +58,6 @@ public class Helpers : MonoBehaviour
         DontDestroyOnLoad(Singleton.gameObject);
     }
 
-    public static float EaseInOutQuint(float t)
-    {
-        return t < 0.5f
-            ? 16f * t * t * t * t * t
-            : 1f - Mathf.Pow(-2f * t + 2f, 5f) / 2f;
-    }
-
     /// <summary>
     /// Calls .SetActive() on every element of an array
     /// </summary>
@@ -112,5 +105,17 @@ public class Helpers : MonoBehaviour
                     $"{subscriber.Target?.GetType().Name}: {ex}");
             }
         }
+    }
+
+    public static float EaseOutExponential(float t)
+    {
+        return t <= 0f ? 0f : 1f - Mathf.Pow(2f, -10f * t);
+    }
+
+    public static float EaseInOutQuint(float t)
+    {
+        return t < 0.5f
+            ? 16f * t * t * t * t * t
+            : 1f - Mathf.Pow(-2f * t + 2f, 5f) / 2f;
     }
 }

@@ -15,15 +15,29 @@ MonoBehaviour:
   sounds:
   - label: Music_BoardedOpening
     scheduledForSyncing: 0
-    clip: {fileID: 8300000, guid: 3fc1d56ccde417448be287ae41afc41d, type: 3}
+    clip: {fileID: 8300000, guid: e87a60827c6742c4789d238b8bf337aa, type: 3}
     loopCategory: 0
     volumeScaler: 1
-    volume: 0.427
-    minVolumeScale: 0.879
+    volume: 0.816
+    minVolumeScale: 0.754
+    maxVolumeScale: 1
+    volumeModulationRate: 0.5
+    fadeTimeTracked: 0
+    fadeTime: 0
+    fadeIn: 0
+    PoolIndex: 0
+    LowPassFilter: {fileID: 0}
+  - label: Music_FoggedClouds
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: d406fc1370dca2f49baf2af0ea8774a4, type: 3}
+    loopCategory: 0
+    volumeScaler: 0
+    volume: 0.555
+    minVolumeScale: 0.729
     maxVolumeScale: 1
     volumeModulationRate: 0.5
     fadeTimeTracked: 0
     fadeTime: 0
     fadeIn: 1
-    PoolIndex: 0
+    PoolIndex: 1
     LowPassFilter: {fileID: 0}

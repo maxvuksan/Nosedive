@@ -1,5 +1,6 @@
 
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -26,7 +27,31 @@ public class SimpleWalker : MonoBehaviour
     public float deceleration = 50f;
     public float airControlMultiplier = 0.3f; // Reduced control in air
     public float airAcceleration = 40f;
+    [SerializeField] private float airDecceleration = 5;
     [SerializeField] private string _footstepWetnessLayerSoundLabel;
+    [SerializeField] float _maxSpeed;
+
+
+    [Header("Crouching / Sliding")]
+    [SerializeField] private float _crouchingBodyScaleY = 0.2f;
+    
+    /// <summary>
+    /// The time it takes for the body to transition from non-crouching to crouching (vice-versa)
+    /// </summary>
+    [SerializeField] private float _crouchingBodyScaleSpeed;
+
+    [SerializeField] private PhysicsMaterial _bouncingPhysicsMaterial;
+    [SerializeField] private PhysicsMaterial _slidingPhysicsMaterial;
+    [SerializeField] private float _slidingInitalDownwardVelocity = 5;
+    [SerializeField] private float _slidingInitalForwardBoost;
+    [SerializeField] private float _slidingDeceleration = 8f;
+    [SerializeField] private float _slidingTurnRateDegrees = 360; // max degrees/second
+    [SerializeField] private float _slidingMinSpeed = 2f;
+    [SerializeField] private float _slidingGravityAccelMultiplier = 3;
+    private bool _sliding;
+    private bool _crouching;
+    private float _crouchingBodyScaleYTracked;
+
 
     [Header("Jumping")]
     
@@ -34,7 +59,6 @@ public class SimpleWalker : MonoBehaviour
     /// <summary>
     /// How long we allow the player to be considered grounded after leaving the ground (enables jumping right after grounded)
     /// </summary>
-    /// 
     [SerializeField] private float _coyteTime; 
     /// <summary>
     /// How long we consider the jump input to be pressed after it was pressed (enables jumping right before grounded)
@@ -53,7 +77,6 @@ public class SimpleWalker : MonoBehaviour
     /// The magnitude of the sudden change in velocity that would kill the player
     /// </summary>
     [SerializeField] private float _yVelocityDeathThreshold = 12;
-    [SerializeField] private float _debugFlySpeed = 15;
 
     [Header("Camera")]
     public float CameraMinFov = 50;
@@ -94,6 +117,9 @@ public class SimpleWalker : MonoBehaviour
     private LoopingSound soundLoopFallingWind;
     private bool _grounded = false;
     private MaterialTypes _groundedMaterialType;
+    private Vector2 _inputMovementVector;
+    private Vector3 _groundedNormal;
+
 
     void Awake()
     {
@@ -178,6 +204,8 @@ public class SimpleWalker : MonoBehaviour
     void OnEnable()
     {
         soundLoopFallingWind = LoopingAudioManager.Singleton.EnableLoop("FallingWind");
+        _crouching = false;
+        _crouchingBodyScaleYTracked = 1;
     }
 
     void OnDisable()
@@ -189,6 +217,7 @@ public class SimpleWalker : MonoBehaviour
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, _jumpHeight, rb.linearVelocity.z);
         _timeSinceLastJumpPerformed = 0;
+        _crouching = false;
     }
 
     private void DetectIfBelowDeathHeight(float deltaTime)
@@ -214,48 +243,112 @@ public class SimpleWalker : MonoBehaviour
     void FixedUpdate()
     {
         UpdateGround();
-
+        TryToLoseOrWin();
         _timeSinceLastJumpPerformed += Time.fixedDeltaTime;
         _timeSinceLastJumpInput += Time.fixedDeltaTime;
 
-        TryToLoseOrWin();
+
+        if (_crouching)
+        {
+            _crouchingBodyScaleYTracked = Mathf.MoveTowards(_crouchingBodyScaleYTracked, _crouchingBodyScaleY, Time.fixedDeltaTime * _crouchingBodyScaleSpeed);
+            capsuleCollider.material = _slidingPhysicsMaterial;
+        }
+        else
+        {
+            _crouchingBodyScaleYTracked = Mathf.MoveTowards(_crouchingBodyScaleYTracked, 1, Time.fixedDeltaTime * _crouchingBodyScaleSpeed);
+            capsuleCollider.material = _bouncingPhysicsMaterial;
+        }
+
+        transform.localScale = new Vector3(1, _crouchingBodyScaleYTracked, 1);
 
         // add extra gravity force
         rb.AddForce(new Vector3(0, -_extraGravity * Time.fixedDeltaTime, 0));
 
-        var kb = Keyboard.current;
 
-        float x = 0f, y = 0f;
 
-        if (kb != null)
+        if (_crouching && _grounded)
         {
-            if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) x -= 1f;
-            if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) x += 1f;
-            if (kb.sKey.isPressed || kb.downArrowKey.isPressed) y -= 1f;
-            if (kb.wKey.isPressed || kb.upArrowKey.isPressed) y += 1f;
+            ApplyPhysicsSliding();
+        }
+        else
+        {
+            ApplyPhysicsWalking();
+            _sliding = false;
         }
 
-        bool running = (kb != null && kb.leftShiftKey.isPressed);
-        bool hasInput = (x != 0 || y != 0);
+        _previousVelocity = rb.linearVelocity;
 
+    }
+
+    private void ApplyPhysicsSliding()
+    {
+        if(rb.linearVelocity.magnitude > _slidingMinSpeed)
+        {
+            Vector3 horizontalVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+
+            if (!_sliding)
+            {
+                // Always launch in the direction the player is facing, not leftover walk velocity
+                Vector3 startDir = bodyRotation.forward;
+                float startSpeed = Mathf.Max(horizontalVel.magnitude, runSpeed) * _slidingInitalForwardBoost;
+                Vector3 boosted = startDir * startSpeed;
+                rb.linearVelocity = new Vector3(boosted.x, rb.linearVelocity.y, boosted.z);
+                horizontalVel = new Vector3(boosted.x, 0, boosted.z);
+            }
+
+            _sliding = true;
+
+            float speed = horizontalVel.magnitude;
+            Vector3 currentDir = speed > 0.0001f ? horizontalVel.normalized : bodyRotation.forward;
+
+            // Steering: rotate direction towards input (this is the ONLY thing that changes direction)
+            if (_inputMovementVector.sqrMagnitude > 0.01f)
+            {
+                Vector3 steerDir = (bodyRotation.forward * _inputMovementVector.y + bodyRotation.right * _inputMovementVector.x).normalized;
+                float maxRadiansDelta = _slidingTurnRateDegrees * Mathf.Deg2Rad * Time.fixedDeltaTime;
+                currentDir = Vector3.RotateTowards(currentDir, steerDir, maxRadiansDelta, 0f).normalized;
+            }
+
+            // Slope-driven speed change: gravity's pull along the slope, projected onto OUR direction
+            // (this is a scalar dot product - it doesn't rotate currentDir, only scales speed)
+            Vector3 gravityAlongSlope = Vector3.ProjectOnPlane(Physics.gravity, _groundedNormal);
+            float downhillAccel = Vector3.Dot(gravityAlongSlope, currentDir) * _slidingGravityAccelMultiplier;
+
+            speed += downhillAccel * Time.fixedDeltaTime;
+            speed -= _slidingDeceleration * Time.fixedDeltaTime;
+            speed = Mathf.Clamp(speed, 0f, _maxSpeed);
+
+            Vector3 newHorizontal = currentDir * speed;
+            rb.linearVelocity = new Vector3(newHorizontal.x, rb.linearVelocity.y, newHorizontal.z);
+        }
+        else
+        {
+            _crouching = false;
+            _sliding = false;
+        }
+    }
+
+    private void ApplyPhysicsWalking()
+    {
+        float x = _inputMovementVector.x, y = _inputMovementVector.y;
+        bool hasInput = (_inputMovementVector.x != 0 || _inputMovementVector.y != 0);
         GetComponent<Animator>().SetBool("Moving", hasInput);
-        GetComponent<Animator>().SetBool("Running", running);
 
-        Vector3 inputDirection = bodyRotation.transform.forward * y + bodyRotation.transform.right * x;
-        
         if (hasInput)
         {
             // Player is giving input - use acceleration
-            inputDirection.Normalize();
             
+            Vector3 moveDirection = bodyRotation.transform.forward * y + bodyRotation.transform.right * x;
+            moveDirection.Normalize();
+
             if (_grounded)
             {
-                rb.AddForce(inputDirection * runSpeed * acceleration, ForceMode.Acceleration);
+                rb.AddForce(moveDirection * runSpeed * acceleration, ForceMode.Acceleration);
             }
             else
             {
                 // Reduced control mid air
-                rb.AddForce(inputDirection * runSpeed * airAcceleration * airControlMultiplier, ForceMode.Acceleration);
+                rb.AddForce(moveDirection * runSpeed * airAcceleration * airControlMultiplier, ForceMode.Acceleration);
             }
         }
         else
@@ -270,21 +363,65 @@ public class SimpleWalker : MonoBehaviour
         Vector3 velocity = rb.linearVelocity;
         Vector3 horizontalVel = new Vector3(velocity.x, 0, velocity.z);
         
-        if (horizontalVel.magnitude > maxHorizontalVelocity)
+        if (horizontalVel.magnitude > _maxSpeed)
         {
-            horizontalVel = horizontalVel.normalized * maxHorizontalVelocity;
+            horizontalVel = horizontalVel.normalized * _maxSpeed;
             rb.linearVelocity = new Vector3(horizontalVel.x, velocity.y, horizontalVel.z);
         }
+    }
 
-        _previousVelocity = rb.linearVelocity;
+    private void CalculateInputs()
+    {
+        // Movement ...
 
+        if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        {
+            _inputMovementVector.x = -1;
+        }
+        else if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        {
+            _inputMovementVector.x = 1;
+        }
+        else
+        {
+            _inputMovementVector.x = 0;
+        }
+
+        if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+        {
+            _inputMovementVector.y = 1;
+        }
+        else if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+        {
+            _inputMovementVector.y = -1;
+        }
+        else
+        {
+            _inputMovementVector.y = 0;
+        }
+
+        // Crouching / Sliding ...
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            _crouching = true;
+            rb.AddForce(new Vector3(0, _slidingInitalDownwardVelocity, 0), ForceMode.Impulse);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            _crouching = false;
+        }
+
+        // Jumping ...
+
+        if(Input.GetKeyDown(KeyCode.Space)){
+            _timeSinceLastJumpInput = 0;
+        }
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)){
-            _timeSinceLastJumpInput = 0;
-        }
+        CalculateInputs();
 
         if (_timeSinceLastJumpInput < _inputCacheTime 
         && _timeSinceLastGrounded < _coyteTime
@@ -317,18 +454,20 @@ public class SimpleWalker : MonoBehaviour
     {
         _footstepTimeTracked += Time.deltaTime * rb.linearVelocity.magnitude;
 
-
         if (_grounded)
         {
             float volume = Mathf.Lerp(1, Mathf.Clamp01(rb.linearVelocity.magnitude / FootstepMaxVolumeSpeed), FootstepVolumeInfluence);
             PerformFootstepSound(volume);            
         }
-
-        
     }
 
     private void PerformFootstepSound(float volume)
     {
+        if (_crouching)
+        {
+            return;
+        }
+
         if(_footstepTimeTracked > FootstepDelayBetweenStepSounds)
         {
             var materialProperties = MaterialManager.Singleton.Properties[(int)_groundedMaterialType];
@@ -414,6 +553,7 @@ public class SimpleWalker : MonoBehaviour
             Vector3.Angle(hit.normal, Vector3.up) <= slopeLimit)
         {
 
+
             ApplyMaterial applyMat = hit.collider.GetComponent<ApplyMaterial>();
 
             if(applyMat != null)
@@ -426,7 +566,7 @@ public class SimpleWalker : MonoBehaviour
                 _groundedMaterialType = (MaterialTypes)0;
             }
 
-
+            _groundedNormal = hit.normal;
             _timeSinceLastGrounded = 0;
             _grounded = true;
         

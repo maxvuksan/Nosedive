@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09cf4de0e075d4a42b95ebb8cc4b0e45, type: 3}
+  m_Name: FogProfile
+  m_EditorClassIdentifier: Assembly-CSharp::FogProfile
+  Data:
+    Colour: {r: 0.22954354, g: 0.22954354, b: 0.22954354, a: 1}
+    Density: 0.002567353
+    BlobNoiseScale: 0.0067
+    BlobNoiseIntensity: 0.058165766
+    RandomNoise: 0.165
+    WindDirection: {x: 2, y: 1, z: 1}
+    WindSpeed: 200
+    GroundFogStartHeight: -1440.7289
+    GroundFogDepth: 20000
+    LuminanceThresholdMin: 0.9
+    LuminanceThresholdMax: 1
+    LuminanceCutThroughStrength: 1
+    _padding1: {x: 0, y: 0, z: 0}
+    HighlightRingColour: {r: 1, g: 1, b: 1, a: 0.00076190213}
+    HighlightRingOriginPosition: {x: -807.37646, y: -27.028595, z: 607.69055}
+    HighlightRingRadius: 300.64853
+    HighlightRingBandSize: 2.99716
+    HighlightRingFeather: 14.99006
+    HighlightRingDistanceFalloffStart: 500
+    HighlightRingDistanceFalloffEnd: 1000

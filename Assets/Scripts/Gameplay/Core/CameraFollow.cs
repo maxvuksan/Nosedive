@@ -15,27 +15,34 @@ public class CameraFollow : MonoBehaviour
     /// </summary>
     public Vector3 TargetOffset = new(0,0,0);
     
-    /// <summary>
-    /// How fast the camera smoothly moves towards the target position
-    /// </summary>
-    public float PositionSmoothTime = 0.1f;
+    [Tooltip("Time in seconds to reach the target position.")]
+    public float PositionSmoothTime = 0.025f;
 
-    /// <summary>
-    /// How fast the camera smoothly rotates towards the target rotation
-    /// </summary>
-    public float RotationSmoothTime = 0.1f;
+    [Tooltip("Speed multiplier for rotation. Higher = faster tracking.")]
+    public float RotationSmoothSpeed = 5.0f;
 
     private Vector3 _positionVelocity;
 
 
-    void Update()
+    void LateUpdate()
     {
         if (Target == null) return;
 
-        transform.position = Vector3.SmoothDamp(transform.position, Target.position + TargetOffset, ref _positionVelocity, PositionSmoothTime);
+        // 1. Position Smoothing (SmoothDamp is excellent, keep this!)
+        transform.position = Vector3.SmoothDamp(
+            transform.position, 
+            Target.position + TargetOffset, 
+            ref _positionVelocity, 
+            PositionSmoothTime
+        );
 
-        Quaternion targetRotation = Target.rotation;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f - Mathf.Exp(-RotationSmoothTime * Time.deltaTime));
+        // 2. Corrected Rotation Smoothing
+        // Using a higher speed factor makes the exponential decay responsive.
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation, 
+            Target.rotation, 
+            1f - Mathf.Exp(-RotationSmoothSpeed * Time.deltaTime)
+        );
     }
 
 

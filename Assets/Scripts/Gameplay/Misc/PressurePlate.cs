@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
@@ -7,12 +8,18 @@ public class PressurePlate : MonoBehaviour
     [SerializeField] public Material _onMaterial;
     [SerializeField] public MeshRenderer _mesh;
     [SerializeField] public PressurePlateListener[] _listeners;
+    [SerializeField] private Animator _animator;
+
     /// <summary>
     /// The index provided to the listener, allows listeners to tell pressure plates apart
     /// </summary>
     [SerializeField] public int _plateIndex; 
     private bool _onState;
     private bool _shouldTurnOff = false;
+
+    private void OnEnable() {
+        _animator.SetBool("Pressed", false);
+    }
 
     private void OnTriggerStay(Collider other) 
     {
@@ -43,6 +50,12 @@ public class PressurePlate : MonoBehaviour
         if(state == _onState)
         {
             return;
+        }
+
+        if (state)
+        {
+            _animator.SetBool("Pressed", true);
+            AudioManager.Singleton.Play("PressurePlate_Switch");
         }
 
         _onState = state;

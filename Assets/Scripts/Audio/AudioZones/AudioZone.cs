@@ -20,13 +20,24 @@ public class AudioZone : MonoBehaviour
 
     void OnEnable()
     {
-        AudioZoneManager.Singleton.AddZone(this);    
+        AudioZoneManager.AddZone(this);    
+    }
+
+    void Start()
+    {
+        AudioZoneManager.AddZone(this);    
     }
     
     void OnDisable()
     {
-        AudioZoneManager.Singleton.RemoveZone(this);    
+        AudioZoneManager.RemoveZone(this);    
     }
+
+    void OnDestroy()
+    {
+        AudioZoneManager.RemoveZone(this);    
+    }
+
 
     /// <summary>
     /// Gets the amount of influence the audio zone should have to a specific world position

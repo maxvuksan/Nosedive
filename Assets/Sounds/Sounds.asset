@@ -122,3 +122,15 @@ MonoBehaviour:
     volume: 0.163
     pitch: 2
     pitch_variation: 0.01
+  - name: CollectableSphere_Pulse
+    clips:
+    - {fileID: 8300000, guid: c94da3085eaec1e47b0a85e490c69f86, type: 3}
+    volume: 0.98
+    pitch: 1
+    pitch_variation: 0.01
+  - name: PressurePlate_Switch
+    clips:
+    - {fileID: 8300000, guid: 9999bcf112265ea4495345267dde9f46, type: 3}
+    volume: 1
+    pitch: 1
+    pitch_variation: 0.01

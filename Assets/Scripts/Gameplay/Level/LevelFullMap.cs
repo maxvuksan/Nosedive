@@ -56,6 +56,11 @@ public class LevelFullMap : MonoBehaviour
  
     void Awake()
     {   
+        #if UNITY_EDITOR
+            PreprocessData();
+        #endif
+
+
         Helpers.CreateSingleton(ref Singleton, this);
 
         // tell each level its own index
