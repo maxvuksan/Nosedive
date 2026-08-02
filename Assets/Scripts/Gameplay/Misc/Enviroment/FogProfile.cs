@@ -105,6 +105,11 @@ public struct FogDataStruct
     /// </summary>
     public float HighlightRingDistanceFalloffStart;
     public float HighlightRingDistanceFalloffEnd;
+
+    [Header("Camera Position Point Light")]
+    public float CameraPointLightRadius;
+    [Range(0,1)]
+    public float CameraPointLightStrength;
     
 }
 

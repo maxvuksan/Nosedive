@@ -46,14 +46,14 @@ Shader "Hidden/CustomFog"
                 float distance = length(rayDir);
                 rayDir = normalize(rayDir);
 
-                // LAYER 1: GROUND FOG
+                // Ground Fog
                 float volumetricGroundFactor = CalculateGroundFog(rayStart, rayDir, distance);
                 float3 layer1Color = lerp(sceneColor, _FogColour.rgb, volumetricGroundFactor);
 
-                // LAYER 2: GLOBAL BLOB FOG 
+                // Main Fog 
                 float3 fogOutput = CalculateBlobFog(layer1Color, worldPos, input.uv, distance);
 
-                // LUMINANCE HOLE CUT-THROUGH
+                // Ensure bright objects ignore fog
                 float luminance = dot(sceneColor, float3(0.2126, 0.7152, 0.0722));
                 float brightMask = smoothstep(_LumThresholdMin, _LumThresholdMax, luminance) * _CutThroughStrength;
                 float3 finalColor = lerp(fogOutput.rgb, sceneColor, brightMask);

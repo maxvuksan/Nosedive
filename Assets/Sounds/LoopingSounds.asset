@@ -22,30 +22,30 @@ MonoBehaviour:
     minVolumeScale: 0.917
     maxVolumeScale: 1
     volumeModulationRate: 0.38
-    fadeTimeTracked: 0.05
+    fadeTimeTracked: 0
     fadeTime: 0.05
     fadeIn: 0
-    PoolIndex: 2
+    PoolIndex: 4
     LowPassFilter: {fileID: 0}
   - label: WeatherWind
     scheduledForSyncing: 0
     clip: {fileID: 8300000, guid: 5a31d6c10007de04495376675df770af, type: 3}
     loopCategory: 1
-    volumeScaler: 1
-    volume: 0.715
+    volumeScaler: 0.34
+    volume: 0.881
     minVolumeScale: 0.966
     maxVolumeScale: 1
     volumeModulationRate: 0.38
     fadeTimeTracked: 0
     fadeTime: 0.05
     fadeIn: 0
-    PoolIndex: 3
+    PoolIndex: 5
     LowPassFilter: {fileID: 0}
   - label: WeatherRain
     scheduledForSyncing: 0
     clip: {fileID: 8300000, guid: 3d0fb9c9f4687904f9e90c79ee9456a0, type: 3}
     loopCategory: 1
-    volumeScaler: 1
+    volumeScaler: 0
     volume: 0.321
     minVolumeScale: 0.946
     maxVolumeScale: 1
@@ -53,19 +53,33 @@ MonoBehaviour:
     fadeTimeTracked: 0
     fadeTime: 0.05
     fadeIn: 0
-    PoolIndex: 4
+    PoolIndex: 6
     LowPassFilter: {fileID: 0}
   - label: WindChimes
     scheduledForSyncing: 0
     clip: {fileID: 8300000, guid: 8fbc149c7220371449f3f67b73d96967, type: 3}
     loopCategory: 1
-    volumeScaler: 0.21004415
+    volumeScaler: 1
     volume: 0.602
     minVolumeScale: 0.946
     maxVolumeScale: 1
     volumeModulationRate: 0.38
     fadeTimeTracked: 0
     fadeTime: 0
+    fadeIn: 0
+    PoolIndex: 7
+    LowPassFilter: {fileID: 0}
+  - label: CarEngineIdle
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: ac86e0dafd6165b45bde42776293d1d9, type: 3}
+    loopCategory: 1
+    volumeScaler: 0.06154589
+    volume: 0.517
+    minVolumeScale: 0.946
+    maxVolumeScale: 1
+    volumeModulationRate: 0.38
+    fadeTimeTracked: 0
+    fadeTime: 0
     fadeIn: 1
-    PoolIndex: 5
+    PoolIndex: 8
     LowPassFilter: {fileID: 0}

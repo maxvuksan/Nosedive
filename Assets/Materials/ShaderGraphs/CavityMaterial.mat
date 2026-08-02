@@ -41,10 +41,10 @@ Material:
     - _DepthThreshold: 3.57
     - _Edge_Power: 1
     - _Exponent: 1.92
-    - _Intensity: 0.0075
+    - _Intensity: 0
     - _Multiplier: 1.44
     - _NormalMultiplier: 0
-    - _Opacity: 0
+    - _Opacity: 0.543
     - _Radius: 0.46
     - _Sharpness: 1
     m_Colors: []

@@ -144,6 +144,7 @@ public class EnviromentManager : MonoBehaviour
         _fogProfile.Data.Colour = _enviromentState.FogColour;
         _fogProfile.Data.BlobNoiseIntensity = _enviromentState.FogBlobNoiseIntensity;
         _fogProfile.Data.GroundFogStartHeight = _enviromentState.DeathZoneHeight + _fogGroundLayerOffset;
+        _fogProfile.Data.CameraPointLightStrength = _enviromentState.CameraLightSourceIntensity;
     }
 
     private void Update() 
@@ -180,6 +181,7 @@ public class EnviromentManager : MonoBehaviour
         _enviromentState.FogDensity = Mathf.Lerp(stateCurrent.FogDensity, stateNext.FogDensity, _lerpT);
         _enviromentState.FogBlobNoiseIntensity = Mathf.Lerp(stateCurrent.FogBlobNoiseIntensity, stateNext.FogBlobNoiseIntensity, _lerpT);
         _enviromentState.CavityLightingOpacity = Mathf.Lerp(stateCurrent.CavityLightingOpacity, stateNext.CavityLightingOpacity, _lerpT);
+        _enviromentState.CameraLightSourceIntensity = Mathf.Lerp(stateCurrent.CameraLightSourceIntensity, stateNext.CameraLightSourceIntensity, _lerpT);
 
         CollectableSphere.UpdateCurrentPulse(_fogProfile, CollectableSpherePulse);
 

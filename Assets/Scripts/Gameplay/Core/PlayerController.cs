@@ -51,6 +51,10 @@ public class SimpleWalker : MonoBehaviour
     private bool _sliding;
     private bool _crouching;
     private float _crouchingBodyScaleYTracked;
+    private bool _freeCam;
+    private float _flyVerticalInput;
+    [SerializeField] private float _flySpeed = 10;
+    
 
 
     [Header("Jumping")]
@@ -242,6 +246,20 @@ public class SimpleWalker : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (_freeCam)
+        {   
+            float x = _inputMovementVector.x, y = _inputMovementVector.y;
+            Vector3 moveDirection = bodyRotation.transform.forward * y + bodyRotation.transform.right * x;
+            moveDirection.Normalize();
+            
+            moveDirection.y = _flyVerticalInput;
+            
+            rb.linearVelocity = moveDirection * _flySpeed;
+
+            return;
+        }
+
+
         UpdateGround();
         TryToLoseOrWin();
         _timeSinceLastJumpPerformed += Time.fixedDeltaTime;
@@ -372,6 +390,28 @@ public class SimpleWalker : MonoBehaviour
 
     private void CalculateInputs()
     {
+        // Debug
+
+        if(Helpers.Singleton.DebugMode){
+
+            if(Input.GetKeyDown(KeyCode.F))
+            {   
+                _freeCam = !_freeCam;
+            }
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                _flyVerticalInput = -1;
+            }
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                _flyVerticalInput = 1;
+            }
+            else
+            {
+                _flyVerticalInput = 0;
+            }
+        }
+
         // Movement ...
 
         if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
@@ -463,6 +503,11 @@ public class SimpleWalker : MonoBehaviour
 
     private void PerformFootstepSound(float volume)
     {
+        if (_freeCam)
+        {
+            return;
+        }
+
         if (_crouching)
         {
             return;
@@ -539,7 +584,12 @@ public class SimpleWalker : MonoBehaviour
 
         float speedPercent = Mathf.Clamp01(deadlyVelocity / fallingWindSpeedToReachFullVolume);
         float targetVolumeScaler = Mathf.Lerp(0, 1, speedPercent);
-        
+
+        if (_freeCam)
+        {
+            targetVolumeScaler = 0;
+        }
+
         // Frame-rate independent smoothing
         soundLoopFallingWind.volumeScaler = Mathf.Lerp(soundLoopFallingWind.volumeScaler, targetVolumeScaler, 1f - Mathf.Exp(-fallingWindLerpSpeed * Time.deltaTime));
     }
@@ -583,6 +633,11 @@ public class SimpleWalker : MonoBehaviour
     /// </summary>
     private void TryToLoseOrWin()
     {
+        if (_freeCam)
+        {
+            return;
+        }
+
         if(Mathf.Abs(_previousVelocity.y - rb.linearVelocity.y) > _yVelocityDeathThreshold)
         {
             if (ReachedWinFlag)

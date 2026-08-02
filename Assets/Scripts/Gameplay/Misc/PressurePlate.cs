@@ -9,15 +9,18 @@ public class PressurePlate : MonoBehaviour
     [SerializeField] public MeshRenderer _mesh;
     [SerializeField] public PressurePlateListener[] _listeners;
     [SerializeField] private Animator _animator;
+    [SerializeField] private bool _staysTriggered;
 
     /// <summary>
     /// The index provided to the listener, allows listeners to tell pressure plates apart
     /// </summary>
     [SerializeField] public int _plateIndex; 
-    private bool _onState;
+    private bool _onState = false;
     private bool _shouldTurnOff = false;
 
     private void OnEnable() {
+        
+        _mesh.material = _offMaterial;
         _animator.SetBool("Pressed", false);
     }
 
@@ -28,7 +31,6 @@ public class PressurePlate : MonoBehaviour
             return;
         }
 
-        _mesh.material = _onMaterial;
 
         SetOnState(true);
         _shouldTurnOff = false;
@@ -38,7 +40,6 @@ public class PressurePlate : MonoBehaviour
     {
         if (_shouldTurnOff)
         {
-            _mesh.material = _offMaterial;
            SetOnState(false);
         }
 
@@ -47,6 +48,11 @@ public class PressurePlate : MonoBehaviour
 
     private void SetOnState(bool state)
     {
+        if(_onState && _staysTriggered)
+        {
+            return;
+        }
+
         if(state == _onState)
         {
             return;
@@ -54,8 +60,13 @@ public class PressurePlate : MonoBehaviour
 
         if (state)
         {
+            _mesh.material = _onMaterial;
             _animator.SetBool("Pressed", true);
             AudioManager.Singleton.Play("PressurePlate_Switch");
+        }
+        else
+        {
+            _mesh.material = _offMaterial;
         }
 
         _onState = state;

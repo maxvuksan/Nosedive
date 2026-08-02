@@ -31,13 +31,41 @@ MonoBehaviour:
     scheduledForSyncing: 0
     clip: {fileID: 8300000, guid: d406fc1370dca2f49baf2af0ea8774a4, type: 3}
     loopCategory: 0
-    volumeScaler: 0
+    volumeScaler: 1
     volume: 0.555
     minVolumeScale: 0.729
     maxVolumeScale: 1
     volumeModulationRate: 0.5
     fadeTimeTracked: 0
     fadeTime: 0
-    fadeIn: 1
+    fadeIn: 0
     PoolIndex: 1
+    LowPassFilter: {fileID: 0}
+  - label: Music_WalledInCity_Guitar
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: 83b7b72e2136926499959fabdbd39dcd, type: 3}
+    loopCategory: 0
+    volumeScaler: 1
+    volume: 0.81
+    minVolumeScale: 0.875
+    maxVolumeScale: 1
+    volumeModulationRate: 0.11
+    fadeTimeTracked: 0
+    fadeTime: 0
+    fadeIn: 1
+    PoolIndex: 2
+    LowPassFilter: {fileID: 0}
+  - label: Music_WalledInCity_Pad
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: f2f006b10035f1246a05d977f8250f12, type: 3}
+    loopCategory: 0
+    volumeScaler: 1
+    volume: 0.915
+    minVolumeScale: 0.87
+    maxVolumeScale: 1
+    volumeModulationRate: 0.18
+    fadeTimeTracked: 0
+    fadeTime: 0
+    fadeIn: 1
+    PoolIndex: 3
     LowPassFilter: {fileID: 0}

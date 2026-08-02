@@ -34,11 +34,17 @@ public struct LevelEnviromentSettings
     /// </summary>
     [Header("Fog Profile Settings")]
 
-
     public Color FogColour;
+
     [Range(0, 0.05f)]
     public float FogDensity;
+    
+    [Tooltip("The intensity which the fog density fluctuates (this is driven by 3D noise)")]
     [Range(0, 1)]
     public float FogBlobNoiseIntensity;
+    
+    [Tooltip("The fake fake based light source emitted from the cameras position through the fog")]
+    [Range(0,1)]
+    public float CameraLightSourceIntensity;
 
 }
