@@ -12,7 +12,6 @@ Shader "Custom/FogAwareTransparentShader"
 
         Pass
         {
-
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off
 
@@ -23,10 +22,12 @@ Shader "Custom/FogAwareTransparentShader"
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "HelperCalculations.hlsl"
+            
             struct Attributes
             {
                 float4 positionOS : POSITION;
-                float2 uv : TEXCOORD0;
+                float2 uv         : TEXCOORD0;
+                float4 color      : COLOR; 
             };
 
             struct Varyings
@@ -34,6 +35,7 @@ Shader "Custom/FogAwareTransparentShader"
                 float4 positionCS   : SV_POSITION;
                 float3 positionWS   : TEXCOORD1;
                 float2 uv           : TEXCOORD0;
+                float4 color        : COLOR; 
             };
 
             TEXTURE2D(_BaseMap);
@@ -48,15 +50,12 @@ Shader "Custom/FogAwareTransparentShader"
             {
                 Varyings OUT;
 
-                // Object space -> World space
                 float3 positionWS = TransformObjectToWorld(IN.positionOS.xyz);
+
                 OUT.positionWS = positionWS;
-
-                // World space -> Clip space
                 OUT.positionCS = TransformWorldToHClip(positionWS);
-
-                // Pass UVs through (apply tiling/offset here, not in frag)
                 OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
+                OUT.color = IN.color;
 
                 return OUT;
             }
@@ -65,16 +64,15 @@ Shader "Custom/FogAwareTransparentShader"
             {
                 input.uv.y = 1.0 - input.uv.y;
 
-                float4 texColor = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv) * _BaseColor;
+                float4 texColor = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv) * _BaseColor * input.color;
 
-                float alpha = _BaseColor.a * texColor.a;
+                float alpha = texColor.a;
 
                 float3 worldPos = input.positionWS;
                 float3 cameraPosition = GetCameraPositionWS();
 
                 float3 finalColour = CalculateObjectSpaceFoggedColour(texColor.rgb, worldPos, cameraPosition);
 
-                // Return final color while respecting the source alpha of your map
                 return float4(finalColour.rgb, alpha);
             }
             ENDHLSL

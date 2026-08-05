@@ -48,7 +48,7 @@ public class AudioZoneLooped : AudioZone
     /// Gets the amount of filter influence this zone should have at a specific world position
     /// </summary>
     /// <param name="worldPosition">The position to calculate for</param>
-    /// <returns>A value from 0-1 indicating the filter strength (0 is none/outer edge, 1 is full/inner core)</returns>
+    /// <returns>A value from 0-1 indicating the filter strength (0 is no filter, 1 is full filter (max))</returns>
     public float GetFilterInfluenceFactor(Vector3 worldPosition)
     {
         if (!UseLowPassFilter){ 
@@ -84,25 +84,10 @@ public class AudioZoneLooped : AudioZone
     {
         if (!UseLowPassFilter) return;  
 
-        // Cache matrix and match the parent object's local transformation
-        Matrix4x4 oldMatrix = Gizmos.matrix;
-        Gizmos.matrix = transform.localToWorldMatrix;
+        float outerPortion = Mathf.Clamp01(LowPassFilterSettings.Size);
+        float innerPortion = outerPortion * Mathf.Clamp01(1f - LowPassFilterSettings.Feather);
 
-        // Set gizmo colour to solid red
-        Gizmos.color = Color.red;
-
-        // Outer box (matches the filter size percentage relative to the parent Size)
-        Vector3 maxBoxSize = Size * Mathf.Clamp01(LowPassFilterSettings.Size);
-
-        // Inner box (scaled down by the feather percentage)
-        float innerScale = Mathf.Clamp01(1f - LowPassFilterSettings.Feather);
-        Vector3 minBoxSize = maxBoxSize * innerScale;
-
-        // Draw the simple wireframes
-        Gizmos.DrawWireCube(Vector3.zero, minBoxSize);
-        Gizmos.DrawWireCube(Vector3.zero, maxBoxSize);
-
-        // Restore matrix state
-        Gizmos.matrix = oldMatrix;
+        DrawGizmoInfluence(outerPortion, Color.red);
+        DrawGizmoInfluence(innerPortion, Color.red);
     }
 }

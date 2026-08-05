@@ -73,7 +73,7 @@ MonoBehaviour:
     scheduledForSyncing: 0
     clip: {fileID: 8300000, guid: ac86e0dafd6165b45bde42776293d1d9, type: 3}
     loopCategory: 1
-    volumeScaler: 0.06154589
+    volumeScaler: 0
     volume: 0.517
     minVolumeScale: 0.946
     maxVolumeScale: 1
@@ -82,4 +82,18 @@ MonoBehaviour:
     fadeTime: 0
     fadeIn: 1
     PoolIndex: 8
+    LowPassFilter: {fileID: 0}
+  - label: CarAlarmBlare
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: 6d021b3724f5c1f4fb27a22d9eeaa3f6, type: 3}
+    loopCategory: 1
+    volumeScaler: 1
+    volume: 0.555
+    minVolumeScale: 0.946
+    maxVolumeScale: 1
+    volumeModulationRate: 0.38
+    fadeTimeTracked: 0
+    fadeTime: 0
+    fadeIn: 1
+    PoolIndex: 9
     LowPassFilter: {fileID: 0}
