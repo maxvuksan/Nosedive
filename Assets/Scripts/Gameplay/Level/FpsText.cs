@@ -11,7 +11,7 @@ public class FpsText : MonoBehaviour
 
     void OnGUI()
     {
-        if (!Helpers.Singleton.DebugMode){
+        if (!Helpers.Singleton.RenderFpsText){
             return;
         }
 

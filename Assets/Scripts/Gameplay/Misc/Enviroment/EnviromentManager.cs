@@ -1,11 +1,15 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 /// <summary>
 /// Orchestrates the state of enviromental effects 
 /// </summary>
 public class EnviromentManager : MonoBehaviour
 {
+
+
+    [SerializeField] private Light _mainDirectionalLight;
 
     [SerializeField] private FogProfile _fogProfile;
     
@@ -130,7 +134,6 @@ public class EnviromentManager : MonoBehaviour
         _windSound.volumeScaler = _enviromentState.WindStrength;
         _rainSound.volumeScaler = _enviromentState.RainStrength;
 
-        RenderSettings.fogColor = _enviromentState.FogColour;
         _mainCamera.backgroundColor = _enviromentState.FogColour;
 
         var emission = _rainParticleSource.emission;
@@ -145,6 +148,9 @@ public class EnviromentManager : MonoBehaviour
         _fogProfile.Data.BlobNoiseIntensity = _enviromentState.FogBlobNoiseIntensity;
         _fogProfile.Data.GroundFogStartHeight = _enviromentState.DeathZoneHeight + _fogGroundLayerOffset;
         _fogProfile.Data.CameraPointLightStrength = _enviromentState.CameraLightSourceIntensity;
+        _fogProfile.Data.CameraPointLightRadius = _enviromentState.CameraLightSourceRadius;
+        _fogProfile.Data.CameraPointLightStrength = _enviromentState.CameraLightSourceIntensity;
+        _mainDirectionalLight.intensity = _enviromentState.DirectionalLightSourceIntensity;
     }
 
     private void Update() 
@@ -165,7 +171,7 @@ public class EnviromentManager : MonoBehaviour
         int nextIndex = _activeLevelIndex + 1;
 
         // Handle end of the map safely
-        if (nextIndex >= LevelFullMap.Singleton.Levels.Length)
+        if (nextIndex >= LevelFullMap.Singleton.Levels.Length) 
         {
             _enviromentState = LevelFullMap.Singleton.Levels[_activeLevelIndex].EnviromentSettings;
             return;
@@ -182,6 +188,8 @@ public class EnviromentManager : MonoBehaviour
         _enviromentState.FogBlobNoiseIntensity = Mathf.Lerp(stateCurrent.FogBlobNoiseIntensity, stateNext.FogBlobNoiseIntensity, _lerpT);
         _enviromentState.CavityLightingOpacity = Mathf.Lerp(stateCurrent.CavityLightingOpacity, stateNext.CavityLightingOpacity, _lerpT);
         _enviromentState.CameraLightSourceIntensity = Mathf.Lerp(stateCurrent.CameraLightSourceIntensity, stateNext.CameraLightSourceIntensity, _lerpT);
+        _enviromentState.CameraLightSourceRadius = Mathf.Lerp(stateCurrent.CameraLightSourceRadius, stateNext.CameraLightSourceRadius, _lerpT);
+        _enviromentState.DirectionalLightSourceIntensity = Mathf.Lerp(stateCurrent.DirectionalLightSourceIntensity, stateNext.DirectionalLightSourceIntensity, _lerpT);
 
         CollectableSphere.UpdateCurrentPulse(_fogProfile, CollectableSpherePulse);
 

@@ -20,7 +20,7 @@ Shader "Custom/FogAwareBillboardTransparent"
         Pass
         {
             Name "ForwardTransparent"
-            Tags { "LightMode" = "UniversalForward" }
+            Tags { "LightMode" = "UniversalForwardOnly" }
 
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off
@@ -35,7 +35,7 @@ Shader "Custom/FogAwareBillboardTransparent"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareOpaqueTexture.hlsl"
 
-            #include "HelperCalculations.hlsl"
+            #include "Assets/Shaders/HelperCalculations.hlsl"
 
             struct Attributes
             {
@@ -90,6 +90,7 @@ Shader "Custom/FogAwareBillboardTransparent"
                 output.positionCS = TransformWorldToHClip(rotatedPosWS);
                 output.uv = input.uv;
                 
+
                 return output;
             }
 

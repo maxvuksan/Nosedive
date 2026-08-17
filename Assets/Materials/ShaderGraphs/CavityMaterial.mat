@@ -44,7 +44,7 @@ Material:
     - _Intensity: 0
     - _Multiplier: 1.44
     - _NormalMultiplier: 0
-    - _Opacity: 0.543
+    - _Opacity: 0
     - _Radius: 0.46
     - _Sharpness: 1
     m_Colors: []

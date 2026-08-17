@@ -128,7 +128,25 @@ MonoBehaviour:
     volume: 0.98
     pitch: 1
     pitch_variation: 0.01
-  - name: PressurePlate_Switch
+  - name: SignalTransmitter_Blip
+    clips:
+    - {fileID: 8300000, guid: f1f7e5c1e71f9f542a96f9417ccd23fe, type: 3}
+    volume: 1
+    pitch: 1
+    pitch_variation: 0.01
+  - name: CrumblingBridge_Explode
+    clips:
+    - {fileID: 8300000, guid: 8dcc33dbaadc15445a95ce56713af443, type: 3}
+    volume: 0.99
+    pitch: 1
+    pitch_variation: 0.01
+  - name: PressurePlate_SwitchDown
+    clips:
+    - {fileID: 8300000, guid: 9999bcf112265ea4495345267dde9f46, type: 3}
+    volume: 1
+    pitch: 0.85
+    pitch_variation: 0.01
+  - name: PressurePlate_SwitchUp
     clips:
     - {fileID: 8300000, guid: 9999bcf112265ea4495345267dde9f46, type: 3}
     volume: 1

@@ -21,20 +21,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WindowSoft
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: 4800000, guid: a85e9d9ef270179488470d59427b5d35, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _EMISSION
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _RECEIVE_SHADOWS_OFF
   - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords: []
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   - DepthOnly
@@ -138,8 +136,8 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.36862746}
-    - _Color: {r: 1, g: 1, b: 1, a: 0.36862746}
+    - _BaseColor: {r: 0.24313726, g: 0.24313726, b: 0.24313726, a: 0.5882353}
+    - _Color: {r: 0.35849053, g: 0.35849053, b: 0.35849053, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _OffColour: {r: 0, g: 0, b: 0, a: 1}
     - _OnColour: {r: 1, g: 1, b: 1, a: 1}

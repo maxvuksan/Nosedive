@@ -17,6 +17,7 @@ public class Helpers : MonoBehaviour
     }
 
     public bool DebugMode;
+    public bool RenderFpsText;
     public LayerMask GroundLayerMask;
     public Material BezierCurveWireMaterial;
 
@@ -31,6 +32,10 @@ public class Helpers : MonoBehaviour
     public string UiBlipSubmitSoundLabel = "UiBlip_Submit";
     public string UiBlipUpSoundLabel = "UiBlip_Up";
     public string UiBlipDownSoundLabel = "UiBlip_Down";
+
+    [Header("World")]
+    public Material MaterialEmissiveWhite;
+    public Material MaterialEmissiveDim;
     
     void Awake()
     {

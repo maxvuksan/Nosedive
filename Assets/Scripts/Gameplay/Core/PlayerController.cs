@@ -255,7 +255,6 @@ public class SimpleWalker : MonoBehaviour
             moveDirection.y = _flyVerticalInput;
             
             rb.linearVelocity = moveDirection * _flySpeed;
-
             return;
         }
 
@@ -281,7 +280,6 @@ public class SimpleWalker : MonoBehaviour
 
         // add extra gravity force
         rb.AddForce(new Vector3(0, -_extraGravity * Time.fixedDeltaTime, 0));
-
 
 
         if (_crouching && _grounded)
@@ -397,6 +395,15 @@ public class SimpleWalker : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.F))
             {   
                 _freeCam = !_freeCam;
+
+                if (_freeCam)
+                {
+                    rb.useGravity = false;
+                }
+                else
+                {
+                    rb.useGravity = true;
+                }
             }
             if (Input.GetKey(KeyCode.LeftControl))
             {

@@ -16,7 +16,6 @@ public class PressurePlate : MonoBehaviour
     /// </summary>
     [SerializeField] public int _plateIndex; 
     private bool _onState = false;
-    private bool _shouldTurnOff = false;
 
     private void OnEnable() {
         
@@ -24,26 +23,24 @@ public class PressurePlate : MonoBehaviour
         _animator.SetBool("Pressed", false);
     }
 
-    private void OnTriggerStay(Collider other) 
+    private void OnTriggerEnter(Collider other) 
     {
         if(other.GetComponent<SimpleWalker>() == null)
         {
             return;
         }
 
-
         SetOnState(true);
-        _shouldTurnOff = false;
     }
 
-    void FixedUpdate()
+    private void OnTriggerExit(Collider other) 
     {
-        if (_shouldTurnOff)
+        if(other.GetComponent<SimpleWalker>() == null)
         {
-           SetOnState(false);
+            return;
         }
 
-        _shouldTurnOff = true;
+        SetOnState(false);
     }
 
     private void SetOnState(bool state)
@@ -57,19 +54,21 @@ public class PressurePlate : MonoBehaviour
         {
             return;
         }
+        
+        _onState = state;
 
         if (state)
         {
             _mesh.material = _onMaterial;
             _animator.SetBool("Pressed", true);
-            AudioManager.Singleton.Play("PressurePlate_Switch");
+            AudioManager.Singleton.Play("PressurePlate_SwitchDown");
         }
         else
         {
             _mesh.material = _offMaterial;
+            AudioManager.Singleton.Play("PressurePlate_SwitchUp");
         }
 
-        _onState = state;
 
         foreach(var listener in _listeners){
             listener.OnSwitchState(_onState);

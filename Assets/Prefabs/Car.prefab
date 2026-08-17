@@ -304,7 +304,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cfc9c84ae82fbf46a51d0909007fe26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioZoneLooped
+  Radius: 1
   Size: {x: 2.61, y: 2.61, z: 2.2}
+  Shape: 0
   Feathering: 0.779
   UseLowPassFilter: 1
   LowPassFilterSettings:
