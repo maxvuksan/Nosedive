@@ -49,10 +49,19 @@ public class CollectableSphere : PressurePlateListener
     private bool _active;
     private float _wireLerpT;
     private bool _lastPressurePlateState;
+    
 
-    private void OnEnable() 
+    private void Awake() 
     {
         _active = true;    
+    }
+
+    private void OnEnable()
+    {
+        if (!_active)
+        {
+            GetComponent<Animator>().SetTrigger("Off");
+        }
     }
 
     /// <summary>
@@ -68,7 +77,7 @@ public class CollectableSphere : PressurePlateListener
     }
 
     /// <summary>
-    /// Sets the intensity of every point light
+    /// Sets the intensity of every point light on the sphere
     /// </summary>
     void SetPointLightsIntensity(float intensity)
     {
@@ -104,8 +113,6 @@ public class CollectableSphere : PressurePlateListener
     /// <summary>
     /// Increments the state of the fog pulse animation
     /// </summary>
-    /// <param name="fogProfile">The profile to apply to</param>
-    /// <param name="pulseData">The pulse data to apply</param>
     public static void UpdateCurrentPulse(FogProfile fogProfile, CollectablePulse pulseData)
     {
         if (pulseData.PulseCompleted)

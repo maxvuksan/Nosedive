@@ -19,6 +19,7 @@ public class PressurePlate : MonoBehaviour
 
     private void OnEnable() {
         
+        _onState = false;
         _mesh.material = _offMaterial;
         _animator.SetBool("Pressed", false);
     }
@@ -54,7 +55,7 @@ public class PressurePlate : MonoBehaviour
         {
             return;
         }
-        
+
         _onState = state;
 
         if (state)
@@ -71,6 +72,11 @@ public class PressurePlate : MonoBehaviour
 
 
         foreach(var listener in _listeners){
+            
+            if(listener == null){
+                continue;
+            }
+
             listener.OnSwitchState(_onState);
             listener.OnSwitchState(_onState, _plateIndex);
         }
