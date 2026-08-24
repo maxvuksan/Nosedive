@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: FogProfile
   m_EditorClassIdentifier: Assembly-CSharp::FogProfile
   Data:
-    Colour: {r: 0.33836812, g: 0.33836812, b: 0.33836812, a: 1}
-    Density: 0.0031299896
+    Colour: {r: 0.28600243, g: 0.28600243, b: 0.28600243, a: 1}
+    Density: 0.0033884398
     BlobNoiseScale: 0.0067
-    BlobNoiseIntensity: 0.11771716
+    BlobNoiseIntensity: 0.066
     RandomNoise: 0
     WindDirection: {x: 2, y: 1, z: 1}
     WindSpeed: 300
-    GroundFogStartHeight: -1239
+    GroundFogStartHeight: -1104.9844
     GroundFogDepth: 7028
     LuminanceThresholdMin: 0.9
     LuminanceThresholdMax: 1
