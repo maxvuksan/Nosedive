@@ -49,10 +49,12 @@ public class CollectableSphere : PressurePlateListener
     private bool _active;
     private float _wireLerpT;
     private bool _lastPressurePlateState;
+    private Level _level;
     
 
     private void Awake() 
     {
+        _level = GetComponentInParent<Level>();
         _active = true;    
     }
 
@@ -71,9 +73,16 @@ public class CollectableSphere : PressurePlateListener
     {
         if (!_lastPressurePlateState && pressurePlateState)
         {
+            MarkSphereAsCollectedInSaveData();
+
             _wireLerpT = 0;
         }
         _lastPressurePlateState = pressurePlateState;
+    }
+
+    private void MarkSphereAsCollectedInSaveData()
+    {
+        _level.MarkSphereAsCollectedInSaveData();
     }
 
     /// <summary>
@@ -146,6 +155,11 @@ public class CollectableSphere : PressurePlateListener
         }
     }
 
+    public void PlaySparkNoise()
+    {
+        AudioManager.Singleton.Play("CollectableSphere_Pulse", transform.position);
+    }
+
     /// <summary>
     /// Begins the collection sphere fog pulse effect
     /// </summary>
@@ -157,6 +171,5 @@ public class CollectableSphere : PressurePlateListener
         EnviromentManager.Singleton.CollectableSpherePulse.ColourMax = EnviromentManager.Singleton.GetCollectablePulseColours(_sphereIndex).ColourMax;
         EnviromentManager.Singleton.CollectableSpherePulse.PulseCompleted = false;
         EnviromentManager.Singleton.SetTemporarilyFogColourOverride(EnviromentManager.Singleton.GetCollectablePulseColours(_sphereIndex).FogColour);
-        AudioManager.Singleton.Play("CollectableSphere_Pulse", transform.position);
     }
 }

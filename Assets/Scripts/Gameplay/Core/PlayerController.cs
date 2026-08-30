@@ -1,12 +1,12 @@
 
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
-public class SimpleWalker : MonoBehaviour
+[RequireComponent(typeof(CapsuleCollider))]
+[RequireComponent(typeof(PlayerBreathing))]
+public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     public Transform bodyRotation;
@@ -31,26 +31,11 @@ public class SimpleWalker : MonoBehaviour
     [SerializeField] private string _footstepWetnessLayerSoundLabel;
     [SerializeField] float _maxSpeed;
 
-
-    [Header("Crouching / Sliding")]
-    [SerializeField] private float _crouchingBodyScaleY = 0.2f;
-    
     /// <summary>
     /// The time it takes for the body to transition from non-crouching to crouching (vice-versa)
     /// </summary>
     [SerializeField] private float _crouchingBodyScaleSpeed;
 
-    [SerializeField] private PhysicsMaterial _bouncingPhysicsMaterial;
-    [SerializeField] private PhysicsMaterial _slidingPhysicsMaterial;
-    [SerializeField] private float _slidingInitalDownwardVelocity = 5;
-    [SerializeField] private float _slidingInitalForwardBoost;
-    [SerializeField] private float _slidingDeceleration = 8f;
-    [SerializeField] private float _slidingTurnRateDegrees = 360; // max degrees/second
-    [SerializeField] private float _slidingMinSpeed = 2f;
-    [SerializeField] private float _slidingGravityAccelMultiplier = 3;
-    private bool _sliding;
-    private bool _crouching;
-    private float _crouchingBodyScaleYTracked;
     private bool _freeCam;
     private float _flyVerticalInput;
     [SerializeField] private float _flySpeed = 10;
@@ -108,7 +93,7 @@ public class SimpleWalker : MonoBehaviour
     public float FootstepMaxVolumeSpeed = 15; // where footstep volume reaches peak
     private float _footstepTimeTracked = 0;
     private bool _footstepLeftRightFlipFlop = false;
-
+    public bool Grounded => _grounded;
 
     /// <summary>
     /// Mark this flag as true, if the level win has been reached
@@ -117,18 +102,19 @@ public class SimpleWalker : MonoBehaviour
 
     private CapsuleCollider capsuleCollider;   
     private Rigidbody rb;
+    private PlayerBreathing _playerBreathing;
     private Vector3 _previousVelocity;
     private LoopingSound soundLoopFallingWind;
     private bool _grounded = false;
     private MaterialTypes _groundedMaterialType;
     private Vector2 _inputMovementVector;
-    private Vector3 _groundedNormal;
 
 
     void Awake()
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
+        _playerBreathing = GetComponent<PlayerBreathing>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
@@ -208,8 +194,6 @@ public class SimpleWalker : MonoBehaviour
     void OnEnable()
     {
         soundLoopFallingWind = LoopingAudioManager.Singleton.EnableLoop("FallingWind");
-        _crouching = false;
-        _crouchingBodyScaleYTracked = 1;
     }
 
     void OnDisable()
@@ -220,8 +204,8 @@ public class SimpleWalker : MonoBehaviour
     void Jump()
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, _jumpHeight, rb.linearVelocity.z);
+        _playerBreathing.PlaySound_Gasp();
         _timeSinceLastJumpPerformed = 0;
-        _crouching = false;
     }
 
     private void DetectIfBelowDeathHeight(float deltaTime)
@@ -264,84 +248,13 @@ public class SimpleWalker : MonoBehaviour
         _timeSinceLastJumpPerformed += Time.fixedDeltaTime;
         _timeSinceLastJumpInput += Time.fixedDeltaTime;
 
-
-        if (_crouching)
-        {
-            _crouchingBodyScaleYTracked = Mathf.MoveTowards(_crouchingBodyScaleYTracked, _crouchingBodyScaleY, Time.fixedDeltaTime * _crouchingBodyScaleSpeed);
-            capsuleCollider.material = _slidingPhysicsMaterial;
-        }
-        else
-        {
-            _crouchingBodyScaleYTracked = Mathf.MoveTowards(_crouchingBodyScaleYTracked, 1, Time.fixedDeltaTime * _crouchingBodyScaleSpeed);
-            capsuleCollider.material = _bouncingPhysicsMaterial;
-        }
-
-        transform.localScale = new Vector3(1, _crouchingBodyScaleYTracked, 1);
-
         // add extra gravity force
         rb.AddForce(new Vector3(0, -_extraGravity * Time.fixedDeltaTime, 0));
 
-
-        if (_crouching && _grounded)
-        {
-            ApplyPhysicsSliding();
-        }
-        else
-        {
-            ApplyPhysicsWalking();
-            _sliding = false;
-        }
+        ApplyPhysicsWalking();
 
         _previousVelocity = rb.linearVelocity;
 
-    }
-
-    private void ApplyPhysicsSliding()
-    {
-        if(rb.linearVelocity.magnitude > _slidingMinSpeed)
-        {
-            Vector3 horizontalVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-
-            if (!_sliding)
-            {
-                // Always launch in the direction the player is facing, not leftover walk velocity
-                Vector3 startDir = bodyRotation.forward;
-                float startSpeed = Mathf.Max(horizontalVel.magnitude, runSpeed) * _slidingInitalForwardBoost;
-                Vector3 boosted = startDir * startSpeed;
-                rb.linearVelocity = new Vector3(boosted.x, rb.linearVelocity.y, boosted.z);
-                horizontalVel = new Vector3(boosted.x, 0, boosted.z);
-            }
-
-            _sliding = true;
-
-            float speed = horizontalVel.magnitude;
-            Vector3 currentDir = speed > 0.0001f ? horizontalVel.normalized : bodyRotation.forward;
-
-            // Steering: rotate direction towards input (this is the ONLY thing that changes direction)
-            if (_inputMovementVector.sqrMagnitude > 0.01f)
-            {
-                Vector3 steerDir = (bodyRotation.forward * _inputMovementVector.y + bodyRotation.right * _inputMovementVector.x).normalized;
-                float maxRadiansDelta = _slidingTurnRateDegrees * Mathf.Deg2Rad * Time.fixedDeltaTime;
-                currentDir = Vector3.RotateTowards(currentDir, steerDir, maxRadiansDelta, 0f).normalized;
-            }
-
-            // Slope-driven speed change: gravity's pull along the slope, projected onto OUR direction
-            // (this is a scalar dot product - it doesn't rotate currentDir, only scales speed)
-            Vector3 gravityAlongSlope = Vector3.ProjectOnPlane(Physics.gravity, _groundedNormal);
-            float downhillAccel = Vector3.Dot(gravityAlongSlope, currentDir) * _slidingGravityAccelMultiplier;
-
-            speed += downhillAccel * Time.fixedDeltaTime;
-            speed -= _slidingDeceleration * Time.fixedDeltaTime;
-            speed = Mathf.Clamp(speed, 0f, _maxSpeed);
-
-            Vector3 newHorizontal = currentDir * speed;
-            rb.linearVelocity = new Vector3(newHorizontal.x, rb.linearVelocity.y, newHorizontal.z);
-        }
-        else
-        {
-            _crouching = false;
-            _sliding = false;
-        }
     }
 
     private void ApplyPhysicsWalking()
@@ -447,18 +360,6 @@ public class SimpleWalker : MonoBehaviour
             _inputMovementVector.y = 0;
         }
 
-        // Crouching / Sliding ...
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            _crouching = true;
-            rb.AddForce(new Vector3(0, _slidingInitalDownwardVelocity, 0), ForceMode.Impulse);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            _crouching = false;
-        }
-
         // Jumping ...
 
         if(Input.GetKeyDown(KeyCode.Space)){
@@ -472,7 +373,7 @@ public class SimpleWalker : MonoBehaviour
 
         if (_timeSinceLastJumpInput < _inputCacheTime 
         && _timeSinceLastGrounded < _coyteTime
-        && _timeSinceLastJumpPerformed > _coyteTime)
+        && _timeSinceLastJumpPerformed > _coyteTime * 2)
         {
             Jump();
         }
@@ -515,11 +416,6 @@ public class SimpleWalker : MonoBehaviour
             return;
         }
 
-        if (_crouching)
-        {
-            return;
-        }
-
         if(_footstepTimeTracked > FootstepDelayBetweenStepSounds)
         {
             var materialProperties = MaterialManager.Singleton.Properties[(int)_groundedMaterialType];
@@ -554,9 +450,11 @@ public class SimpleWalker : MonoBehaviour
 
     void UpdateCameraMovementTilt()
     {
+        Vector3 localVelocity = bodyRotation.InverseTransformDirection(rb.linearVelocity);
+
         // Get horizontal velocity components (ignore vertical)
-        float xVelocity = rb.linearVelocity.x;
-        float zVelocity = rb.linearVelocity.z;
+        float xVelocity = localVelocity.x;
+        float zVelocity = localVelocity.z;
         
         // Calculate tilt percentages based on velocity
         float xPercent = Mathf.Clamp(xVelocity / cameraSpeedToReachMaxTilt, -1f, 1f);
@@ -623,7 +521,6 @@ public class SimpleWalker : MonoBehaviour
                 _groundedMaterialType = (MaterialTypes)0;
             }
 
-            _groundedNormal = hit.normal;
             _timeSinceLastGrounded = 0;
             _grounded = true;
         
@@ -650,7 +547,6 @@ public class SimpleWalker : MonoBehaviour
             if (ReachedWinFlag)
             {
                 GameStateManager.Singleton.SetState(GameStateManager.GameState.WinWhiteScreenWipe);   
-
             }
             else  
             {

@@ -17,7 +17,6 @@ public enum AudioZoneShape
 public class AudioZone : MonoBehaviour
 {
 
-
     [Header("Configuration")]
 
     private bool _isBox { get => Shape == AudioZoneShape.Box;}
@@ -28,21 +27,21 @@ public class AudioZone : MonoBehaviour
     /// </summary>
     [DisableIf("_isBox")]
     [Range(0,1000)]
-    [SerializeField] protected float Radius = 1;
+    public float Radius = 1;
 
     /// <summary>
     /// The size of the audio zone if our shape is a box
     /// </summary>
     [DisableIf("_isSphere")]
-    [SerializeField] protected Vector3 Size;
+    public Vector3 Size;
 
-    [SerializeField] protected AudioZoneShape Shape;
+    public AudioZoneShape Shape;
 
     /// <summary>
     /// How strongly the audio zones influence fades in
     /// </summary>
     [Range(0,1)]
-    [SerializeField] protected float Feathering;
+    public float Feathering;
 
     void OnEnable()
     {

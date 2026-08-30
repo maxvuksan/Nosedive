@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,9 +10,7 @@ using UnityEngine;
 /// </summary>
 public class LevelFullMap : MonoBehaviour
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     public Level[] Levels { get => _levels; }
 
     [SerializeField] private Level[] _levels;
@@ -77,17 +76,35 @@ public class LevelFullMap : MonoBehaviour
         LevelToSpawnAtIndex = SaveManager.Data.Progress.CurrentScene;
     }
 
+    #region Preprocessing
+
     /// <summary>
     /// Preprocesses things to prevent runtime computation, 
     /// </summary>
-    [ContextMenu("Preprocess data")]
+    [ContextMenu("PreprocessData()")]
+    [Button("Invoke PreprocessData()")]
     public void PreprocessData()
     {
         foreach(var level in _levels)
         {
+            PreprocessLevel_LogErrorIfMultipleCollectableSpheresArePresent(level);
             PreprocessLevel_RaycastBirdSpawnpoints(level);
             PreprocessLevel_RaycastPlayerSpawnpoint(level);
             PreprocessLevel_ComputeBounds(level);
+        }
+    }
+
+    /// <summary>
+    /// For serialization purposes, a level must only have one collectable sphere, 
+    /// this function will print errors if multiple are found under the provided level
+    /// </summary>
+    private void PreprocessLevel_LogErrorIfMultipleCollectableSpheresArePresent(Level level)
+    {
+        CollectableSphere[] instances = level.GetComponentsInChildren<CollectableSphere>();
+    
+        if(instances.Length > 1)
+        {
+            Debug.LogError($"Having multiple CollectableSpheres under one level/scene is not allowed. Name = '{level.gameObject.name}'");
         }
     }
 
@@ -123,7 +140,7 @@ public class LevelFullMap : MonoBehaviour
     /// <param name="level">The level to compute for</param>
     private void PreprocessLevel_RaycastPlayerSpawnpoint(Level level)
     {
-        level.PlayerSpawn.position = FindFirstObjectByType<SimpleWalker>(FindObjectsInactive.Include).ShiftSpawnpointToLevelWithGround(level.PlayerSpawn.position);
+        level.PlayerSpawn.position = FindFirstObjectByType<PlayerController>(FindObjectsInactive.Include).ShiftSpawnpointToLevelWithGround(level.PlayerSpawn.position);
     }
 
     /// <summary>
@@ -149,6 +166,8 @@ public class LevelFullMap : MonoBehaviour
             // if we do not hit a position, do nothing
         }
     }
+
+    #endregion
 
     /// <summary>
     /// Unloads the existing level then loads a level at a given index

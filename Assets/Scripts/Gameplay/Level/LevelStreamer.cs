@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class LevelStreamer : MonoBehaviour
 {
-    private SimpleWalker _player;
+    private PlayerController _player;
 
     /// <summary>
     /// Tracks the index of levels the player overlaps 
@@ -16,7 +16,7 @@ public class LevelStreamer : MonoBehaviour
     void Awake()
     {
         _overlappingLevelIndicies = new();
-        _player = FindFirstObjectByType<SimpleWalker>(FindObjectsInactive.Include);    
+        _player = FindFirstObjectByType<PlayerController>(FindObjectsInactive.Include);    
     }
 
     void FixedUpdate() 

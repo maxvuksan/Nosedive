@@ -14,7 +14,7 @@ public class PlayerSpawn : MonoBehaviour
     /// <param name="other">The player</param>
     public void OnTriggerEnter(Collider other)
     {
-        var player = other.GetComponent<SimpleWalker>();
+        var player = other.GetComponent<PlayerController>();
 
         if(player == null)
         {

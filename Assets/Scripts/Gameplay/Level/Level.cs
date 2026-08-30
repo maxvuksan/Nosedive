@@ -50,6 +50,12 @@ public class Level : MonoBehaviour
         _allColliders = GetComponentsInChildren<Collider>(true);
     }
 
+    public void MarkSphereAsCollectedInSaveData()
+    {
+        SaveManager.Data.Progress.SceneDataList[LevelIndex].CollectableSphereTriggered = true;
+    }
+
+
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.purple;

@@ -196,7 +196,7 @@ public class LevelSelection : MonoBehaviour
         LoadLevel(_selectedChip);
 
         HeadMovement playerHead = FindFirstObjectByType<HeadMovement>(FindObjectsInactive.Include);
-        SimpleWalker playerMovement = FindFirstObjectByType<SimpleWalker>(FindObjectsInactive.Include);
+        PlayerController playerMovement = FindFirstObjectByType<PlayerController>(FindObjectsInactive.Include);
 
         var cameraFollow = Camera.main.GetComponentInParent<CameraFollow>();
         

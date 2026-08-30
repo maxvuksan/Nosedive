@@ -23,7 +23,7 @@ public class FinishLine : MonoBehaviour
     {
         // The player has reached the finish line
 
-        SimpleWalker player = other.GetComponent<SimpleWalker>();
+        PlayerController player = other.GetComponent<PlayerController>();
         
         if(player == null)
         {

@@ -220,7 +220,8 @@ public class EnviromentManager : MonoBehaviour
         }
         else
         {
-            _collectableWireOverrideTrackedT -= Time.deltaTime * _collectableWireIncreaseRate * 2;
+            // Lerp back to the off colour sharply
+            _collectableWireOverrideTrackedT -= Time.deltaTime * _collectableWireIncreaseRate * 6;
         }
         _collectableWireOverrideTrackedT = Mathf.Clamp01(_collectableWireOverrideTrackedT);
 

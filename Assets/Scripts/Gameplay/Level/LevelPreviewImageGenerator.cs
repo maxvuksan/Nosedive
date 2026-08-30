@@ -50,7 +50,7 @@ public class LevelPreviewImageGenerator : MonoBehaviour
             Vector3 initalCamPos = Camera.main.transform.position;
             Quaternion initalCamRot = Camera.main.transform.rotation;
             
-            Camera.main.fieldOfView = FindFirstObjectByType<SimpleWalker>().CameraMinFov;
+            Camera.main.fieldOfView = FindFirstObjectByType<PlayerController>().CameraMinFov;
 
             Camera.main.transform.position = level.CameraPreviewPosition.position;
             Camera.main.transform.rotation = level.CameraPreviewPosition.rotation;

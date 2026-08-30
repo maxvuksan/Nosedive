@@ -61,11 +61,11 @@ public class AudioZoneManager : MonoBehaviour {
     /// </summary>
     public string[] FootstepLayerSounds;
 
-    private SimpleWalker _player;
+    private PlayerController _player;
 
     public void Awake()
     {
-        _player = FindFirstObjectByType<SimpleWalker>(FindObjectsInactive.Include);
+        _player = FindFirstObjectByType<PlayerController>(FindObjectsInactive.Include);
         Helpers.CreateSingleton(ref Singleton, this);
     }
 
@@ -153,16 +153,19 @@ public class AudioZoneManager : MonoBehaviour {
                 sound.volumeScaler = zone.Influence;
                 sound.fadeIn = true;
 
-                if(sound.LowPassFilter != null)
+                if (zone.Zone.UseLowPassFilter)
                 {
-                    sound.LowPassFilter.cutoffFrequency = Mathf.Lerp(
-                    zone.Zone.LowPassFilterSettings.MinCutoffFrequency, 
-                    zone.Zone.LowPassFilterSettings.MaxCutoffFrequency, 
-                    zone.LowPassFilterInfluence);   
-                }
-                else
-                {
-                    Debug.Log("Low pass filter on audio zone source is null, is this expected case?");
+                    if(sound.LowPassFilter != null)
+                    {
+                        sound.LowPassFilter.cutoffFrequency = Mathf.Lerp(
+                        zone.Zone.LowPassFilterSettings.MinCutoffFrequency, 
+                        zone.Zone.LowPassFilterSettings.MaxCutoffFrequency, 
+                        zone.LowPassFilterInfluence);   
+                    }
+                    else
+                    {
+                        Debug.Log("Low pass filter on audio zone source is null, is this expected case?");
+                    }   
                 }
             }
         }

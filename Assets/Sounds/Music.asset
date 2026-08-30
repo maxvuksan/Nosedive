@@ -52,7 +52,7 @@ MonoBehaviour:
     volumeModulationRate: 0.11
     fadeTimeTracked: 0
     fadeTime: 0
-    fadeIn: 1
+    fadeIn: 0
     PoolIndex: 2
     LowPassFilter: {fileID: 0}
   - label: Music_WalledInCity_Pad
@@ -66,6 +66,62 @@ MonoBehaviour:
     volumeModulationRate: 0.18
     fadeTimeTracked: 0
     fadeTime: 0
-    fadeIn: 1
+    fadeIn: 0
     PoolIndex: 3
+    LowPassFilter: {fileID: 0}
+  - label: Music_RainOnCity_Mallets
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: 09bb718d3d5968c46998f5a8433900f0, type: 3}
+    loopCategory: 0
+    volumeScaler: 1
+    volume: 0.553
+    minVolumeScale: 0.482
+    maxVolumeScale: 1
+    volumeModulationRate: 0.448
+    fadeTimeTracked: 0
+    fadeTime: 0
+    fadeIn: 0
+    PoolIndex: 4
+    LowPassFilter: {fileID: 0}
+  - label: Music_RainOnCity_Pad
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: 9840d250ea88a764cbfe0f6e7bba6d5a, type: 3}
+    loopCategory: 0
+    volumeScaler: 1
+    volume: 0.867
+    minVolumeScale: 0.87
+    maxVolumeScale: 1
+    volumeModulationRate: 0.18
+    fadeTimeTracked: 0
+    fadeTime: 0
+    fadeIn: 0
+    PoolIndex: 5
+    LowPassFilter: {fileID: 0}
+  - label: Music_RainOnCity_Keys
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: 28fcb42157e844e48a62788b24e64cfb, type: 3}
+    loopCategory: 0
+    volumeScaler: 1
+    volume: 0.522
+    minVolumeScale: 0.454
+    maxVolumeScale: 1
+    volumeModulationRate: 0.272
+    fadeTimeTracked: 0
+    fadeTime: 0
+    fadeIn: 1
+    PoolIndex: 6
+    LowPassFilter: {fileID: 0}
+  - label: Music_RainOnCity_Lead
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: 92ad570d2df8d6b46b97a9fed56b9f3f, type: 3}
+    loopCategory: 0
+    volumeScaler: 1
+    volume: 0.584
+    minVolumeScale: 0.362
+    maxVolumeScale: 1
+    volumeModulationRate: 0.254
+    fadeTimeTracked: 0
+    fadeTime: 0
+    fadeIn: 1
+    PoolIndex: 7
     LowPassFilter: {fileID: 0}

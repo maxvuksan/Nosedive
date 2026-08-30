@@ -35,7 +35,7 @@ Shader "Custom/FogAwareBillboardTransparent"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareOpaqueTexture.hlsl"
 
-            #include "Assets/Shaders/HelperCalculations.hlsl"
+            #include "Assets/Shaders/FogPass/HelperCalculations.hlsl"
 
             struct Attributes
             {

@@ -155,7 +155,7 @@ public class BirdAI : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        SimpleWalker player = other.GetComponent<SimpleWalker>();
+        PlayerController player = other.GetComponent<PlayerController>();
 
         if(player == null)
         {

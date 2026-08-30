@@ -17,7 +17,7 @@ MonoBehaviour:
     scheduledForSyncing: 0
     clip: {fileID: 8300000, guid: 6a67cda0a96e7f5428e35ce1b28d1ae9, type: 3}
     loopCategory: 1
-    volumeScaler: 0
+    volumeScaler: 5.374826e-39
     volume: 0.901
     minVolumeScale: 0.917
     maxVolumeScale: 1
@@ -25,13 +25,13 @@ MonoBehaviour:
     fadeTimeTracked: 0
     fadeTime: 0.05
     fadeIn: 0
-    PoolIndex: 4
+    PoolIndex: 8
     LowPassFilter: {fileID: 0}
   - label: WeatherWind
     scheduledForSyncing: 0
     clip: {fileID: 8300000, guid: 5a31d6c10007de04495376675df770af, type: 3}
     loopCategory: 1
-    volumeScaler: 0.34
+    volumeScaler: 0.156
     volume: 0.881
     minVolumeScale: 0.966
     maxVolumeScale: 1
@@ -39,21 +39,21 @@ MonoBehaviour:
     fadeTimeTracked: 0
     fadeTime: 0.05
     fadeIn: 0
-    PoolIndex: 5
+    PoolIndex: 9
     LowPassFilter: {fileID: 0}
   - label: WeatherRain
     scheduledForSyncing: 0
     clip: {fileID: 8300000, guid: 3d0fb9c9f4687904f9e90c79ee9456a0, type: 3}
     loopCategory: 1
-    volumeScaler: 0
-    volume: 0.321
+    volumeScaler: 1
+    volume: 0.15
     minVolumeScale: 0.946
     maxVolumeScale: 1
     volumeModulationRate: 0.38
     fadeTimeTracked: 0
     fadeTime: 0.05
     fadeIn: 0
-    PoolIndex: 6
+    PoolIndex: 10
     LowPassFilter: {fileID: 0}
   - label: WindChimes
     scheduledForSyncing: 0
@@ -67,21 +67,21 @@ MonoBehaviour:
     fadeTimeTracked: 0
     fadeTime: 0
     fadeIn: 0
-    PoolIndex: 7
+    PoolIndex: 11
     LowPassFilter: {fileID: 0}
   - label: CarEngineIdle
     scheduledForSyncing: 0
     clip: {fileID: 8300000, guid: ac86e0dafd6165b45bde42776293d1d9, type: 3}
     loopCategory: 1
-    volumeScaler: 0
+    volumeScaler: 1
     volume: 0.517
     minVolumeScale: 0.946
     maxVolumeScale: 1
     volumeModulationRate: 0.38
     fadeTimeTracked: 0
     fadeTime: 0
-    fadeIn: 1
-    PoolIndex: 8
+    fadeIn: 0
+    PoolIndex: 12
     LowPassFilter: {fileID: 0}
   - label: CarAlarmBlare
     scheduledForSyncing: 0
@@ -94,6 +94,20 @@ MonoBehaviour:
     volumeModulationRate: 0.38
     fadeTimeTracked: 0
     fadeTime: 0
+    fadeIn: 0
+    PoolIndex: 13
+    LowPassFilter: {fileID: 0}
+  - label: Breathing_Idle
+    scheduledForSyncing: 0
+    clip: {fileID: 8300000, guid: a4f52572e4eb32f46a935f580d0cca92, type: 3}
+    loopCategory: 1
+    volumeScaler: 0.9887712
+    volume: 0.35
+    minVolumeScale: 0.893
+    maxVolumeScale: 1
+    volumeModulationRate: 0.38
+    fadeTimeTracked: 0.05
+    fadeTime: 0.05
     fadeIn: 1
-    PoolIndex: 9
+    PoolIndex: 14
     LowPassFilter: {fileID: 0}

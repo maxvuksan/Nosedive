@@ -8,7 +8,7 @@ public class ScreenFadeInGame : MonoBehaviour
 
     void OnEnable()
     {
-        bool showWinFade = FindFirstObjectByType<SimpleWalker>(FindObjectsInactive.Include).ReachedWinFlag;
+        bool showWinFade = FindFirstObjectByType<PlayerController>(FindObjectsInactive.Include).ReachedWinFlag;
 
         _screenFadeWhite.SetActive(showWinFade);
         _screenFadeBlack.SetActive(!showWinFade);

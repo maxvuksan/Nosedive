@@ -26,7 +26,7 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.GetComponent<SimpleWalker>() == null)
+        if(other.GetComponent<PlayerController>() == null)
         {
             return;
         }
@@ -36,7 +36,7 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerExit(Collider other) 
     {
-        if(other.GetComponent<SimpleWalker>() == null)
+        if(other.GetComponent<PlayerController>() == null)
         {
             return;
         }
