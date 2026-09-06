@@ -9,7 +9,7 @@ public enum MaterialTypes
     Conrete,
     Metal,
     WoodBoard,
-    Glass,
+    Dirt
 }
 
 /// <summary>

@@ -429,7 +429,7 @@ public class PlayerController : MonoBehaviour
                 AudioManager.Singleton.Play(materialProperties.PlayerFootstepSoundRight, Vector3.zero, volume);
             }
 
-            AudioZoneManager.Singleton.PlayFootstepLayerSounds();
+            AudioZoneManager.Singleton.PlayFootstepLayerSounds(_groundedMaterialType, _footstepLeftRightFlipFlop);
             AudioManager.Singleton.Play(_footstepWetnessLayerSoundLabel, Vector3.zero, EnviromentManager.Singleton.EnviromentState.RainStrength);
 
             _footstepLeftRightFlipFlop = !_footstepLeftRightFlipFlop;

@@ -101,3 +101,29 @@ MonoBehaviour:
     volume: 0.455
     pitch: 1.05
     pitch_variation: 0.045
+  - name: FootstepLayer_Grass_Left
+    clips:
+    - {fileID: 8300000, guid: 022286969e268f9478bab4d048525e6e, type: 3}
+    volume: 0.267
+    pitch: 1
+    pitch_variation: 0.067
+  - name: FootstepLayer_Grass_Right
+    clips:
+    - {fileID: 8300000, guid: 2c432bc4924e0e1499c9393be8f12159, type: 3}
+    volume: 0.359
+    pitch: 1
+    pitch_variation: 0.067
+  - name: Footstep_Dirt_Left
+    clips:
+    - {fileID: 8300000, guid: 40556370a52b5f54facb015cbd925e94, type: 3}
+    - {fileID: 8300000, guid: f7b22136d093aa14093ddcb8d59f279d, type: 3}
+    volume: 0.518
+    pitch: 1
+    pitch_variation: 0.067
+  - name: Footstep_Dirt_Right
+    clips:
+    - {fileID: 8300000, guid: 1fe66498538b22849a3f808dd616fc97, type: 3}
+    - {fileID: 8300000, guid: ef916210c1805004d92667574c9abd89, type: 3}
+    volume: 0.564
+    pitch: 1
+    pitch_variation: 0.067

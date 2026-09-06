@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Blend: 0.2
-    - _Intensity: 0.033
+    - _Intensity: 0.026
     - _OffColour: 0
     - _OnIntensity: 0
     - _QueueControl: 0
@@ -47,7 +47,7 @@ Material:
     - _SideScaler: 2.81
     m_Colors:
     - _EmissiveColour: {r: 1, g: 1, b: 1, a: 1}
-    - _OffColour: {r: 0.16, g: 0.16, b: 0.16, a: 1}
+    - _OffColour: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
     - _OnColour: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

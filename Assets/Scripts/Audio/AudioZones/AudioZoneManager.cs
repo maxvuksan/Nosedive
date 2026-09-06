@@ -59,7 +59,7 @@ public class AudioZoneManager : MonoBehaviour {
     /// <summary>
     /// This array should match the structure of the FootstepLayerTypes enum
     /// </summary>
-    public string[] FootstepLayerSounds;
+    public MaterialManager.MaterialProperties[] FootstepLayerSounds;
 
     private PlayerController _player;
 
@@ -175,11 +175,25 @@ public class AudioZoneManager : MonoBehaviour {
     /// <summary>
     /// Plays the footstep layer sounds using the computed influences as volume scalers
     /// </summary>
-    public void PlayFootstepLayerSounds()
+    public void PlayFootstepLayerSounds(MaterialTypes groundMaterial, bool isLeftFoot = true)
     {
         foreach(var zone in _inRangeZoneFootsteps)
         {
-            AudioManager.Singleton.Play(FootstepLayerSounds[(int)zone.Zone.Type], _player.transform.position, zone.Influence);
+            // The surface does not match the zones mask, ignore
+            if (zone.Zone.UseMask && zone.Zone.Mask != groundMaterial)
+            {
+                continue;
+            }
+
+            if (isLeftFoot)
+            {
+                AudioManager.Singleton.Play(FootstepLayerSounds[(int)zone.Zone.Type].PlayerFootstepSoundLeft, _player.transform.position, zone.Influence);
+            }
+            else
+            {
+                AudioManager.Singleton.Play(FootstepLayerSounds[(int)zone.Zone.Type].PlayerFootstepSoundRight, _player.transform.position, zone.Influence);
+            }
+
         }        
     }
 
