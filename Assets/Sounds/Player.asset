@@ -18,16 +18,16 @@ MonoBehaviour:
     - {fileID: 8300000, guid: f5386e260a447184a80f56f51cf4bee4, type: 3}
     - {fileID: 8300000, guid: 2cb6b919a7b2f79498625f81bbbb23e9, type: 3}
     - {fileID: 8300000, guid: f6cc8bef7a6884b4082af87082f46f0c, type: 3}
-    volume: 0.392
-    pitch: 1.1
+    volume: 0.226
+    pitch: 0.8
     pitch_variation: 0.025
   - name: Footstep_Right
     clips:
     - {fileID: 8300000, guid: 5f07373b66029d24099ea1bd41f32f81, type: 3}
     - {fileID: 8300000, guid: 57766ff9a01b68046802a12c8d17d61c, type: 3}
     - {fileID: 8300000, guid: 2ef917fec2236334dacd8dfec4b2f2db, type: 3}
-    volume: 0.392
-    pitch: 1.1
+    volume: 0.247
+    pitch: 0.8
     pitch_variation: 0.025
   - name: DeathImpact
     clips:
@@ -92,7 +92,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 62fa15768329b964ea3d686f6c75218d, type: 3}
     - {fileID: 8300000, guid: 00dd13c58d149204b87e4d3d67e9c61e, type: 3}
     - {fileID: 8300000, guid: e6a17daf5df579a4cbcd95dcde660620, type: 3}
-    volume: 0.332
+    volume: 0
     pitch: 1
     pitch_variation: 0.025
   - name: Breathing_Gasp
@@ -125,5 +125,21 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 1fe66498538b22849a3f808dd616fc97, type: 3}
     - {fileID: 8300000, guid: ef916210c1805004d92667574c9abd89, type: 3}
     volume: 0.564
+    pitch: 1
+    pitch_variation: 0.067
+  - name: Footstep_Sand_Left
+    clips:
+    - {fileID: 8300000, guid: c05b7fb72e2ebcb4e8299956f974a0cf, type: 3}
+    - {fileID: 8300000, guid: 3302e82824d437b4496ccdc260b0fc56, type: 3}
+    - {fileID: 8300000, guid: 45673fe8fa774a74c9ca3d34fc6bc426, type: 3}
+    volume: 0.226
+    pitch: 1
+    pitch_variation: 0.067
+  - name: Footstep_Sand_Right
+    clips:
+    - {fileID: 8300000, guid: fdbcee8bbd404fa46a78f8411e5a239f, type: 3}
+    - {fileID: 8300000, guid: b3c8f22eecd68e247a7bc75f54d30804, type: 3}
+    - {fileID: 8300000, guid: 5d039173323db6c4d88607f8229d59aa, type: 3}
+    volume: 0.196
     pitch: 1
     pitch_variation: 0.067
