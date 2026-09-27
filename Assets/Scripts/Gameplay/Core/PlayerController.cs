@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
     private bool _grounded = false;
     private MaterialTypes _groundedMaterialType;
     private Vector2 _inputMovementVector;
+    private bool _soundsEnabled;
 
 
     void Awake()
@@ -121,6 +122,11 @@ public class PlayerController : MonoBehaviour
         GameStateManager.OnStatePlay += OnStatePlay;
         GameStateManager.OnStateSelectingLevel += OnStateSelectingLevel;
 
+    }
+
+    void Start()
+    {
+        EnableSounds();
     }
 
     void OnDestroy()
@@ -193,14 +199,26 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        soundLoopFallingWind = LoopingAudioManager.Singleton.EnableLoop("FallingWind");
-        // Start volume at 0
-        soundLoopFallingWind.volumeScaler = 0;
+        EnableSounds();
+    }
+
+    private void EnableSounds()
+    {
+        if(_soundsEnabled || LoopingAudioManager.Singleton == null)
+        {
+            return;
+        }
+        
+        soundLoopFallingWind = LoopingAudioManager.Singleton.EnableLoop("FallingWind", LoopingAudioManager.Singleton.DefaultFadeInTime, 0);
+        _soundsEnabled = true;
     }
 
     void OnDisable()
     {
-        LoopingAudioManager.Singleton.DisableLoop("FallingWind");
+        if (_soundsEnabled)
+        {
+            LoopingAudioManager.Singleton.DisableLoop("FallingWind");
+        }
     }
 
     void Jump()

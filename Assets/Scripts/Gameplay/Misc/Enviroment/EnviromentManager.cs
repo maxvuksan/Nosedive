@@ -70,6 +70,7 @@ public class EnviromentManager : MonoBehaviour
 
     private CameraFollow _playerCamera;
     private Camera _mainCamera;
+    private bool _soundsEnabled = false;
 
     /// <summary>
     /// Gets the collectable pulse colour data set at a specific collectable index
@@ -116,22 +117,34 @@ public class EnviromentManager : MonoBehaviour
         _collectableWireBlendMaterial.SetColor("_OffColour",  Helpers.Colours.WireOff);
 
         _enviromentState = LevelFullMap.Singleton.Levels[0].EnviromentSettings;
+        EnableSounds();
         ApplyEnviromentState();
     }
 
     private void OnEnable()
     {
-        _windSound = LoopingAudioManager.Singleton.EnableLoop("WeatherWind");
-        _rainSound = LoopingAudioManager.Singleton.EnableLoop("WeatherRain");
+        EnableSounds();
+    }
+
+    private void EnableSounds()
+    {
+        // Looping Audio Manager singleton may not be ready when this is enabled
+        if(_soundsEnabled || LoopingAudioManager.Singleton == null)
+        {
+            return;
+        }
+        
         // Default volumes to 0 so initially volume does not spike 
-        _windSound.volumeScaler = 0;
-        _rainSound.volumeScaler = 0;
+        _windSound = LoopingAudioManager.Singleton.EnableLoop("WeatherWind", LoopingAudioManager.Singleton.DefaultFadeInTime, 0);
+        _rainSound = LoopingAudioManager.Singleton.EnableLoop("WeatherRain", LoopingAudioManager.Singleton.DefaultFadeInTime, 0);
+        _soundsEnabled = true;        
     }
 
     private void OnDisable()
     {
         LoopingAudioManager.Singleton.DisableLoop("WeatherWind");
         LoopingAudioManager.Singleton.DisableLoop("WeatherRain");
+        _soundsEnabled = true;
     }
 
     private void ApplyEnviromentState()
