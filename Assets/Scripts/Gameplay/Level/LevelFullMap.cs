@@ -21,7 +21,7 @@ public class LevelFullMap : MonoBehaviour
     public static Action<Level> OnLevelUnload;
 
     /// <summary>
-    /// Padding to apply to each levels precomputed bounds (to extend said bounds on each axis)
+    /// Padding to apply to each level's precomputed bounds (to extend said bounds on each axis)
     /// </summary>
     [SerializeField] private Vector3 _levelGeometryBoundsPadding;
     
@@ -58,7 +58,6 @@ public class LevelFullMap : MonoBehaviour
         #if UNITY_EDITOR
             PreprocessData();
         #endif
-
 
         Helpers.CreateSingleton(ref Singleton, this);
 

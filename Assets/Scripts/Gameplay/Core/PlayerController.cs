@@ -194,6 +194,8 @@ public class PlayerController : MonoBehaviour
     void OnEnable()
     {
         soundLoopFallingWind = LoopingAudioManager.Singleton.EnableLoop("FallingWind");
+        // Start volume at 0
+        soundLoopFallingWind.volumeScaler = 0;
     }
 
     void OnDisable()

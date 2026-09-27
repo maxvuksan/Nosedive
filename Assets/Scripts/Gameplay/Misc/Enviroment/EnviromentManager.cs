@@ -123,6 +123,9 @@ public class EnviromentManager : MonoBehaviour
     {
         _windSound = LoopingAudioManager.Singleton.EnableLoop("WeatherWind");
         _rainSound = LoopingAudioManager.Singleton.EnableLoop("WeatherRain");
+        // Default volumes to 0 so initially volume does not spike 
+        _windSound.volumeScaler = 0;
+        _rainSound.volumeScaler = 0;
     }
 
     private void OnDisable()
@@ -255,6 +258,12 @@ public class EnviromentManager : MonoBehaviour
 
     private void UpdateActiveLevelIndexByZAxis()
     {
+        // We are likley not in the WorldScene
+        if(LevelFullMap.Singleton == null)
+        {
+            return;
+        }
+        
         int totalLevels = LevelFullMap.Singleton.Levels.Length;
 
         if (totalLevels < 2) {

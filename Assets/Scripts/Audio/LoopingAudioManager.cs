@@ -25,7 +25,7 @@ public class LoopingAudioManager : MonoBehaviour
 
     void Awake()
     {
-        Helpers.CreateSingleton<LoopingAudioManager>(ref Singleton, this);
+        Helpers.CreateSingleton(ref Singleton, this);
 
         _soundDictionary = new();
         _loopingSourcePool = new();
