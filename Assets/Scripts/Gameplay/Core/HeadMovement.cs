@@ -24,7 +24,6 @@ public class HeadMovement : MonoBehaviour
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         GameStateManager.OnStatePlay += OnStatePlay;
     }
 

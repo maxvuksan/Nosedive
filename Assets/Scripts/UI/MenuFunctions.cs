@@ -12,6 +12,8 @@ public class MenuFunctions : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private CustomSlider _soundAudioSlider;
     [SerializeField] private CustomSlider _enviromentAudioSlider;
+    [SerializeField] private CustomSlider _mouseSensitivitySlider;
+    
     [SerializeField] private CustomTextCarousel _displayModeCarousel;
 
 
@@ -28,6 +30,7 @@ public class MenuFunctions : MonoBehaviour
     {
         _soundAudioSlider.Value = SaveManager.Data.Settings.SoundVolume;
         _enviromentAudioSlider.Value = SaveManager.Data.Settings.EnvironmentVolume;
+        _mouseSensitivitySlider.Value = SaveManager.Data.Settings.MouseSensitivityScaler;
         _displayModeCarousel.Index = SaveManager.Data.Settings.DisplayMode;
     }
 
@@ -45,8 +48,6 @@ public class MenuFunctions : MonoBehaviour
     public static void SetState_MainMenu()
     {
         GameStateManager.Singleton.SetState(GameStateManager.GameState.MainMenu);
-        // Note: We save here because this is the state we reach after leaving the settings (Options -> Menu)
-        SaveManager.Save();
     }
     public static void SetState_Inventory()
     {

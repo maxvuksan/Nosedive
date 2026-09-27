@@ -90,6 +90,8 @@ public class GameStateManager : MonoBehaviour
             case GameState.MainMenu:
             {
                 SetActiveArrayExclusive(enableWhenMainMenu);
+                // Note: We save here because this is the state we reach after leaving the settings (Options -> Menu)
+                SaveManager.Save();
                 break;
             }
             case GameState.OptionsMenu:

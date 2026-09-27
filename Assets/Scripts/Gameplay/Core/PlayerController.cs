@@ -218,6 +218,7 @@ public class PlayerController : MonoBehaviour
         if (_soundsEnabled)
         {
             LoopingAudioManager.Singleton.DisableLoop("FallingWind");
+            _soundsEnabled = false;
         }
     }
 

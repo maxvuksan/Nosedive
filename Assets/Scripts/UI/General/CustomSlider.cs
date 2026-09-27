@@ -42,6 +42,11 @@ public class CustomSlider : MonoBehaviour
             
             RefreshScaleObject();
 
+            #if UNITY_EDITOR
+                // In the editor it is useful to see slider values as they change
+                print("New Slider Value UI: " + _value);
+            #endif
+             
             _onValueChanged?.Invoke(_value);
         }
     }

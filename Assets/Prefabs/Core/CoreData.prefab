@@ -6347,6 +6347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   _soundAudioSlider: {fileID: 4690876436420575394}
   _enviromentAudioSlider: {fileID: 8170055420333433642}
+  _mouseSensitivitySlider: {fileID: 5086920581383750306}
   _displayModeCarousel: {fileID: 4663697255179412811}
 --- !u!1 &1954115205916245326
 GameObject:
@@ -14695,7 +14696,7 @@ GameObject:
   - component: {fileID: 3757777335639518997}
   - component: {fileID: 2516646886640396423}
   m_Layer: 5
-  m_Name: MOUSE SENSITIVITY
+  m_Name: MouseSensitivity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

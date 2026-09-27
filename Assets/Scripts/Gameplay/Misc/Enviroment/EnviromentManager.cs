@@ -3,12 +3,10 @@ using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
 /// <summary>
-/// Orchestrates the state of enviromental effects 
+/// Orchestrates the state of environmental effects 
 /// </summary>
 public class EnviromentManager : MonoBehaviour
 {
-
-
     [SerializeField] private Light _mainDirectionalLight;
 
     [SerializeField] private FogProfile _fogProfile;
@@ -142,9 +140,12 @@ public class EnviromentManager : MonoBehaviour
 
     private void OnDisable()
     {
-        LoopingAudioManager.Singleton.DisableLoop("WeatherWind");
-        LoopingAudioManager.Singleton.DisableLoop("WeatherRain");
-        _soundsEnabled = true;
+        if (_soundsEnabled)
+        {
+            LoopingAudioManager.Singleton.DisableLoop("WeatherWind");
+            LoopingAudioManager.Singleton.DisableLoop("WeatherRain");
+            _soundsEnabled = false;
+        }
     }
 
     private void ApplyEnviromentState()
