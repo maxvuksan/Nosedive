@@ -60,7 +60,7 @@ public class LevelFullMap : MonoBehaviour
         #endif
 
         Helpers.CreateSingleton(ref Singleton, this);
-
+        
         // tell each level its own index
         int i = 0;
         foreach(var level in _levels)
@@ -73,6 +73,12 @@ public class LevelFullMap : MonoBehaviour
     void Start()
     {
         LevelToSpawnAtIndex = SaveManager.Data.Progress.CurrentScene;
+
+        // Incase scenes have been added/removed or we are in debug scene
+        if (_levelToSpawnAtIndex > Levels.Length)
+        {
+            _levelToSpawnAtIndex = 0;
+        }
     }
 
     #region Preprocessing

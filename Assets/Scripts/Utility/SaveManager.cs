@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public struct UserSettings{
     public float SoundVolume;
     public float EnvironmentVolume;
+    public float MouseSensitivityScaler;
     public int DisplayMode;
 }
 
@@ -100,12 +101,13 @@ public static class SaveManager
         }
         else 
         {
-            // We do not have a save file yet, initalize default values...
+            // We do not have a save file yet, initialize default values...
 
             Data.Settings = new UserSettings 
             { 
                 SoundVolume = 1.0f, 
                 EnvironmentVolume = 1.0f, 
+                MouseSensitivityScaler = 1.0f,
                 DisplayMode = 0 
             };
 

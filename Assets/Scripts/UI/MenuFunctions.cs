@@ -45,6 +45,8 @@ public class MenuFunctions : MonoBehaviour
     public static void SetState_MainMenu()
     {
         GameStateManager.Singleton.SetState(GameStateManager.GameState.MainMenu);
+        // Note: We save here because this is the state we reach after leaving the settings (Options -> Menu)
+        SaveManager.Save();
     }
     public static void SetState_Inventory()
     {
@@ -78,6 +80,11 @@ public class MenuFunctions : MonoBehaviour
     public void OnEnviromentVolumeChange(float volume)
     {
         SaveManager.Data.Settings.EnvironmentVolume = volume;
+    }
+    
+    public void OnMouseSensitivityChange(float scaler)
+    {
+        SaveManager.Data.Settings.MouseSensitivityScaler = scaler;
     }
 
     public void OnDisplayModeChange(int displayModeIndex)

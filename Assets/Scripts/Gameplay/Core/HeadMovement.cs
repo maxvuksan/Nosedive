@@ -74,8 +74,8 @@ public class HeadMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * SaveManager.Data.Settings.MouseSensitivityScaler * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * SaveManager.Data.Settings.MouseSensitivityScaler * Time.deltaTime;
 
         _yRotation += mouseX;
         _xRotation -= mouseY;
