@@ -59,13 +59,9 @@ public class MenuFunctions : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
-    }
-
-    private void OnApplicationQuit()
-    {
-        // save on quit...
+        // Note: we can't save on OnApplicationQuit because the sliders may be destroyed first
         SaveManager.Save();
+        Application.Quit();
     }
 
     /// <summary>

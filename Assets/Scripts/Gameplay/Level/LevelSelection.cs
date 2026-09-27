@@ -29,19 +29,37 @@ public class LevelSelection : MonoBehaviour
     private bool _chipsGenerated = false;
     private List<LevelSelectionChipData> _levelChips;
     private int _selectedChip;
+    private bool _initalLoaded;
 
     public void Awake()
     {
         Helpers.CreateSingleton(ref Singleton, this);
     }
 
+    public void Start()
+    {
+        LoadInital();
+    }
+    
     public void OnEnable()
-    {        
+    {
+        LoadInital();
+    }
+
+    private void LoadInital()
+    {
+        if(_initalLoaded || LevelFullMap.Singleton == null)
+        {
+            return;
+        }
+        
         _selectedChip = LevelFullMap.Singleton.LevelToSpawnAtIndex; 
         LevelFullMap.Singleton.LoadLevel(-1);
         LoadLevelPreview();
         UpdateLevelSelectionChipColours();
         StepSelected(0);
+
+        _initalLoaded = true;
     }
 
     /// <summary>

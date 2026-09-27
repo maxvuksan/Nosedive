@@ -160,6 +160,13 @@ public class LoopingAudioManager : MonoBehaviour
 
     private LoopingSound FadeLoop(string loopLabel, float loopFadeTime, bool fadeIn, float volumeScaler)
     {
+        if (!_soundDictionary.ContainsKey(loopLabel))
+        {
+            Debug.LogWarning("A loop is trying to fade but it does not exist in the dictionary");
+        }
+        
+        print(_soundDictionary[loopLabel].label);
+        
         if (volumeScaler != -1)
         {
             _soundDictionary[loopLabel].volumeScaler = volumeScaler;
