@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShadowJiggle
-  m_Shader: {fileID: -6465566751694194690, guid: 7fd3a1becb7be5e47945b669506120ed, type: 3}
+  m_Name: LUKE'S JIGGLE
+  m_Shader: {fileID: -6465566751694194690, guid: 7ffb9a1c66d1f824f9521d7ea868d518, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -44,6 +44,7 @@ Material:
     - _Strength: 0.05
     m_Colors:
     - _Colour: {r: 0, g: 0, b: 0, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &8899826959966743373
