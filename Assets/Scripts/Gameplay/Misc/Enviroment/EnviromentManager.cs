@@ -39,7 +39,7 @@ public class EnviromentManager : MonoBehaviour
     [HideInInspector] public float CollectableWireBlendT = 0;
     public float CollectableWireBlendIncreaseSpeed = 0.1f;
     [SerializeField] private Material _collectableWireBlendMaterial;
-    [SerializeField] private Color _collectableWireOffColour;
+    public Color _collectableWireOffColour;
     [SerializeField] private float _collectableWireIncreaseRate;
     private Color _collectableWireOverrideColour;
     private bool _collectableWireOverrideIsIncreasing;
@@ -111,7 +111,9 @@ public class EnviromentManager : MonoBehaviour
 
     private void Start()
     {
-        _collectableWireBlendMaterial.SetColor("_OffColour", _collectableWireOffColour);
+        // Sync material to match colour profile
+        _collectableWireBlendMaterial.SetColor("_OnColour", Helpers.Colours.WireOn);
+        _collectableWireBlendMaterial.SetColor("_OffColour",  Helpers.Colours.WireOff);
 
         _enviromentState = LevelFullMap.Singleton.Levels[0].EnviromentSettings;
         ApplyEnviromentState();

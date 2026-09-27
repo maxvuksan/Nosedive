@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Blend: 0.2
-    - _Intensity: 0.026
+    - _Intensity: 1
     - _OffColour: 0
     - _OnIntensity: 0
     - _QueueControl: 0

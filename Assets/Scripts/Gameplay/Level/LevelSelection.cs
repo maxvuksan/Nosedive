@@ -37,18 +37,6 @@ public class LevelSelection : MonoBehaviour
 
     public void OnEnable()
     {        
-        GameStateManager.OnStateSelectingLevel += OnStateSelectingLevel;
-        StepSelected(0);
-    }
-
-    private void OnDisable()
-    {
-        GameStateManager.OnStateSelectingLevel -= OnStateSelectingLevel;
-    }
-
-    private void OnStateSelectingLevel()
-    {
-        // when we open the level selection screen, make the active chip the last level we had loaded
         _selectedChip = LevelFullMap.Singleton.LevelToSpawnAtIndex; 
         LevelFullMap.Singleton.LoadLevel(-1);
         LoadLevelPreview();
@@ -79,6 +67,7 @@ public class LevelSelection : MonoBehaviour
     {
         if(_levelChips == null)
         {
+            print("Generating level chips");
             GenerateLevelObjects();
         }
 
@@ -86,11 +75,11 @@ public class LevelSelection : MonoBehaviour
         {
             if (i > SaveManager.Data.Progress.UnlockedScene && !Helpers.Singleton.DebugMode)
             {
-                _levelChips[i].Chip.SetColour(Helpers.Singleton.UiDisabledColour);
+                _levelChips[i].Chip.SetColour(Helpers.Colours.UiDisabled);
             }
             else
             {
-                _levelChips[i].Chip.SetColour(Helpers.Singleton.UiSelectedColour);
+                _levelChips[i].Chip.SetColour(Helpers.Colours.UiSelected);
             }
         }
     }
@@ -98,21 +87,21 @@ public class LevelSelection : MonoBehaviour
     
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        if (InputManager.LeftInputOnPress())
         {
             if (StepSelected(-1))
             {
                 AudioManager.Singleton.Play(Helpers.Singleton.UiBlipDownSoundLabel);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        else if (InputManager.RightInputOnPress())
         {
             if (StepSelected(1))
             {
                 AudioManager.Singleton.Play(Helpers.Singleton.UiBlipUpSoundLabel);
             }
         }
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(InputManager.JumpInputOnPress() || InputManager.InteractInputOnPress())
         {
             LoadLevel(_selectedChip);
             GameStateManager.Singleton.SetState(GameStateManager.GameState.Playing);

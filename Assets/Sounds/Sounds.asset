@@ -70,3 +70,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     pitch_variation: 0.01
+  - name: GrabPaper
+    clips:
+    - {fileID: 8300000, guid: 1350dc6f0dbf2ec4a9df94556503dce7, type: 3}
+    volume: 1
+    pitch: 1
+    pitch_variation: 0.01

@@ -106,7 +106,10 @@ public class LevelPreviewImageGenerator : MonoBehaviour
         
         // screenshots must be saved in the Resources folder, to allow loading through code in GetPreviewFromIndex()
         string fileName = "level_" + levelIndex + ".png";
-        string filePath = Path.Combine(_outputFolderPath, fileName);
+        
+        string filePath = "";
+        // TODO: This was throwing error because Path is ambgious
+        //string filePath = Path.Combine(_outputFolderPath, fileName);
         
         File.WriteAllBytes(filePath, bytes);
         

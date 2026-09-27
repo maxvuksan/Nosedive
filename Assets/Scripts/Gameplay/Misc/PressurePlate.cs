@@ -4,8 +4,6 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
 
-    [SerializeField] public Material _offMaterial;
-    [SerializeField] public Material _onMaterial;
     [SerializeField] public MeshRenderer _mesh;
     [SerializeField] public PressurePlateListener[] _listeners;
     [SerializeField] private Animator _animator;
@@ -16,11 +14,16 @@ public class PressurePlate : MonoBehaviour
     /// </summary>
     [SerializeField] public int _plateIndex; 
     private bool _onState = false;
+    private MaterialOverrides _materialOverrides;
+
+    private void Awake()
+    {
+        _materialOverrides = GetComponent<MaterialOverrides>();
+    }
 
     private void OnEnable() {
         
         _onState = false;
-        _mesh.material = _offMaterial;
         _animator.SetBool("Pressed", false);
     }
 
@@ -60,13 +63,13 @@ public class PressurePlate : MonoBehaviour
 
         if (state)
         {
-            _mesh.material = _onMaterial;
+            _materialOverrides.AssignFloatOverride("_Intensity", 0.0f);
             _animator.SetBool("Pressed", true);
             AudioManager.Singleton.Play("PressurePlate_SwitchDown");
         }
         else
         {
-            _mesh.material = _offMaterial;
+            _materialOverrides.AssignFloatOverride("_Intensity", 0.0f);
             AudioManager.Singleton.Play("PressurePlate_SwitchUp");
         }
 

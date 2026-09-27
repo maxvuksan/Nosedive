@@ -177,7 +177,7 @@ public class LevelFullMap : MonoBehaviour
     {
         if(levelIndex < 0)
         {
-            Helpers.SetActiveMonoBehaviourArray(_levels, false);
+            Helpers.SetActiveMonoBehaviorArray(_levels, false);
         }
         
         // ensure new index is within valid range

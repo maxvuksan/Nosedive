@@ -11,7 +11,7 @@ public class GameStateManager : MonoBehaviour
     {
         MainMenu,
         OptionsMenu,
-        SelectingLevel,
+        Inventory,
         Playing,
         LoseBlackScreenWipe,
         WinWhiteScreenWipe,
@@ -23,7 +23,7 @@ public class GameStateManager : MonoBehaviour
 
     public GameObject[] enableWhenMainMenu;
     public GameObject[] enableWhenOptionsMenu;
-    public GameObject[] enableWhenSelectingLevel;
+    public GameObject[] enableWhenInventoryOpen;
     public GameObject[] enableWhenPlaying;
     public GameObject[] enableWhenLose;
     public GameObject[] enableWhenWin;
@@ -52,7 +52,6 @@ public class GameStateManager : MonoBehaviour
     void Start()
     {
         SaveManager.Load();
-        LevelSelection.Singleton.LoadLevelPreview();
         SetState(GameState.MainMenu);
     }
     
@@ -65,7 +64,7 @@ public class GameStateManager : MonoBehaviour
         {
             enableWhenMainMenu,
             enableWhenOptionsMenu,
-            enableWhenSelectingLevel,
+            enableWhenInventoryOpen,
             enableWhenPlaying,
             enableWhenLose,
             enableWhenWin
@@ -98,9 +97,9 @@ public class GameStateManager : MonoBehaviour
                 SetActiveArrayExclusive(enableWhenOptionsMenu);
                 break;
             }
-            case GameState.SelectingLevel:
+            case GameState.Inventory:
             {
-                SetActiveArrayExclusive(enableWhenSelectingLevel);
+                SetActiveArrayExclusive(enableWhenInventoryOpen);
                 OnStateSelectingLevel?.Invoke();
                 break;
             }
@@ -131,10 +130,23 @@ public class GameStateManager : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (InputManager.EscapeInputOnPress())
         {
+            if(CurrentState == GameState.Inventory)
+            {
+                SetState(GameState.Playing);
+            }
+            else if(CurrentState == GameState.Playing)
+            {
+                NpcDialoguePresenter.Singleton.UnloadLine();
+                SetState(GameState.Inventory);
+            }
+            else if(CurrentState == GameState.OptionsMenu)
+            {
+                SetState(GameState.MainMenu);
+            }
+
             AudioManager.Singleton.Play(Helpers.Singleton.UiBlipSubmitSoundLabel);
-            SetState(GameState.MainMenu);
         }
     }
 }

@@ -141,7 +141,7 @@ float CalculateHighlightRingMask(float3 worldPos, float distanceToCamera)
 /*
     Fake point light originating from player position
 */
-float3 CalculateCameraSourcedLight(float sceneColour, float distanceToCamera){
+float3 CalculateCameraSourcedLight(float3 sceneColour, float distanceToCamera){
 
     // Soften radius boundaries using our safe parameters
     //float maxRadius = max(_CameraPointLightRadius, 0.001f);

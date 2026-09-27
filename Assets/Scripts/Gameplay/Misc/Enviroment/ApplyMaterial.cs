@@ -5,5 +5,13 @@ using UnityEngine;
 /// </summary>
 public class ApplyMaterial : MonoBehaviour
 {
+    /// <summary>
+    /// The texture this surface should sound like (e.g. wood, metal, concrete)
+    /// </summary>
     public MaterialTypes Material;
+
+    /// <summary>
+    /// If true the player will die instantly touching when landing on this 
+    /// </summary>
+    public bool KillOnImpact = false;
 }

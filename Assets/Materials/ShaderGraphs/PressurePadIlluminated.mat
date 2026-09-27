@@ -46,8 +46,8 @@ Material:
     - _QueueOffset: 0
     - _SideScaler: 2.81
     m_Colors:
-    - _EmissiveColour: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
-    - _OffColour: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveColour: {r: 1, g: 1, b: 1, a: 1}
+    - _OffColour: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
     - _OnColour: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -15,16 +15,18 @@ public class Helpers : MonoBehaviour
             return _singleton;
         }
     }
+    [SerializeField] private ColoursProfile _coloursProfile;
+    public static ColoursProfile Colours
+    {
+        get => Singleton._coloursProfile;
+    }
 
     public bool DebugMode;
     public bool RenderFpsText;
     public LayerMask GroundLayerMask;
-    public Material BezierCurveWireMaterial;
+    
 
     [Header("UI")]
-    public Color UiIdleColour;
-    public Color UiSelectedColour;
-    public Color UiDisabledColour;
     public float UiJoltStrength = 4f;
     public float UiJoltSpeed = 1f;
     public float UiHorizontalJoltStrength = 4f;
@@ -33,14 +35,29 @@ public class Helpers : MonoBehaviour
     public string UiBlipUpSoundLabel = "UiBlip_Up";
     public string UiBlipDownSoundLabel = "UiBlip_Down";
 
-    [Header("World")]
+    [Header("Materials")]
     public Material MaterialEmissiveWhite;
     public Material MaterialEmissiveDim;
+    public Material MaterialWire;
+    public Material MaterialPressurePlate;
     
     void Awake()
     {
         Application.targetFrameRate = 300;
         QualitySettings.vSyncCount = 0;
+
+        AssignDefaultMaterialValues();
+    }
+
+
+    void AssignDefaultMaterialValues()
+    {
+        // Sync material to match colour profile
+        MaterialWire.SetColor("_OnColour", Helpers.Colours.WireOn);
+        MaterialWire.SetColor("_OffColour",  Helpers.Colours.WireOff);
+
+        MaterialPressurePlate.SetColor("_EmissiveColour", Helpers.Colours.PressurePadOn);
+        MaterialPressurePlate.SetColor("_OffColour",  Helpers.Colours.PressurePadOff);
     }
 
 
@@ -60,7 +77,8 @@ public class Helpers : MonoBehaviour
         }
 
         Singleton = callingClass;
-        DontDestroyOnLoad(Singleton.gameObject);
+        
+        // Note: For Nosedive, DontDestroyOnLoad() has been removed because everything is in 1 scene
     }
 
     /// <summary>
@@ -74,7 +92,7 @@ public class Helpers : MonoBehaviour
         }
     }
 
-    public static void SetActiveMonoBehaviourArray(MonoBehaviour[] array, bool state)
+    public static void SetActiveMonoBehaviorArray(MonoBehaviour[] array, bool state)
     {
         for(int i = 0; i < array.Length; i++)
         {

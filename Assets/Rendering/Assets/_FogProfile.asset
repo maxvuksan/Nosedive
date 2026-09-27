@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: _FogProfile
   m_EditorClassIdentifier: Assembly-CSharp::FogProfile
   Data:
-    Colour: {r: 0.6421791, g: 0.6421791, b: 0.6421791, a: 1}
-    Density: 0.0026393912
+    Colour: {r: 0.25, g: 0.25, b: 0.25, a: 1}
+    Density: 0.003
     BlobNoiseScale: 0.0067
-    BlobNoiseIntensity: 0.06875402
+    BlobNoiseIntensity: 0.077
     RandomNoise: 0
     WindDirection: {x: 2, y: 1, z: 1}
     WindSpeed: 300
-    GroundFogStartHeight: -2334.0664
+    GroundFogStartHeight: -3274.5881
     GroundFogDepth: 7028
     LuminanceThresholdMin: 0.9
     LuminanceThresholdMax: 1
@@ -33,5 +33,5 @@ MonoBehaviour:
     HighlightRingFeather: 14.996098
     HighlightRingDistanceFalloffStart: 500
     HighlightRingDistanceFalloffEnd: 1000
-    CameraPointLightRadius: 23.040562
+    CameraPointLightRadius: 0
     CameraPointLightStrength: 0

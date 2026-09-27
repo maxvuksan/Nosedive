@@ -17,14 +17,14 @@ public class MenuFunctions : MonoBehaviour
 
     private void Awake()
     {
-        SaveManager.OnLoad += OnLoad;
+        SaveManager.OnLoad += RestoreSavedSettings;
     }
     private void OnDestroy()
     {
-        SaveManager.OnLoad -= OnLoad;
+        SaveManager.OnLoad -= RestoreSavedSettings;
     }
 
-    private void OnLoad()
+    private void RestoreSavedSettings()
     {
         _soundAudioSlider.Value = SaveManager.Data.Settings.SoundVolume;
         _enviromentAudioSlider.Value = SaveManager.Data.Settings.EnvironmentVolume;
@@ -33,32 +33,29 @@ public class MenuFunctions : MonoBehaviour
 
 
     /// <summary>
-    /// Sets the the game to a specific state through GameStateManager
+    /// Sets the game to a specific state through GameStateManager
     /// </summary>
 
     #region  Game States 
 
-    public void SetState_Play()
+    public static void SetState_Play()
     {
         GameStateManager.Singleton.SetState(GameStateManager.GameState.Playing);
     }
-    public void SetState_MainMenu()
+    public static void SetState_MainMenu()
     {
         GameStateManager.Singleton.SetState(GameStateManager.GameState.MainMenu);
     }
-    public void SetState_LevelSelect()
+    public static void SetState_Inventory()
     {
-        GameStateManager.Singleton.SetState(GameStateManager.GameState.SelectingLevel);
+        GameStateManager.Singleton.SetState(GameStateManager.GameState.Inventory);
     }
-    public void SetState_Options()
+    public static void SetState_Options()
     {
         GameStateManager.Singleton.SetState(GameStateManager.GameState.OptionsMenu);
     }
 
     #endregion
-
-
-
 
     public void QuitGame()
     {
@@ -89,10 +86,14 @@ public class MenuFunctions : MonoBehaviour
 
     public void OnDisplayModeChange(int displayModeIndex)
     {
+        // displayModeIndex index values map to the following values
+        
         // 0: Fullscreen
         // 1: Windowed
         // 2: Borderless
-
+        
+        // Note: This was not made an enum because enums can't be assigned to the UnityEvent callbacks
+        
         int width = Screen.currentResolution.width;
         int height = Screen.currentResolution.height;
 
@@ -103,6 +104,7 @@ public class MenuFunctions : MonoBehaviour
                 break;
 
             case 1:
+                // Scale window by 0.9 so that you windowed mode fits on the screen
                 int windowWidth = Mathf.RoundToInt(width * 0.9f);
                 int windowHeight = Mathf.RoundToInt(height * 0.9f);
                 Screen.SetResolution(windowWidth, windowHeight, FullScreenMode.Windowed);

@@ -88,3 +88,22 @@ ehthumbs.db
 /[Xx]64.meta
 /[Xx]86/
 /[Xx]86.meta
+
+# Modern Unity updates
+/[Pp]ackages/*
+!/[Pp]ackages/manifest.json
+!/[Pp]ackages/packages-lock.json
+/[ProjectSettings]/ProjectVersion.txt.bak
+
+# Asset Store local overrides
+/[Aa]ssets/AssetStoreTools*
+/[Aa]ssets/AssetStoreTools.meta
+
+# PlasticSCM remnants if you switch back and forth
+.plastic/
+
+# OS and Editor Extras
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

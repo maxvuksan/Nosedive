@@ -41,6 +41,7 @@ public class CollectablePulseColours
 /// </summary>
 public class CollectableSphere : PressurePlateListener
 {
+    [SerializeField] private IlluminatedWire _wire;
     [SerializeField] private int _sphereIndex = 0;
     [SerializeField] private Light[] _lightSources;
     [SerializeField] private float _minLightSourceIntensity;
@@ -50,12 +51,21 @@ public class CollectableSphere : PressurePlateListener
     private float _wireLerpT;
     private bool _lastPressurePlateState;
     private Level _level;
+    private MaterialOverrides _materialOverrides;
+    public float WireFillSpeedScale = 1;
     
 
     private void Awake() 
     {
+        _materialOverrides = GetComponent<MaterialOverrides>();
+
         _level = GetComponentInParent<Level>();
         _active = true;    
+    }
+    
+    private void Start()
+    {
+        _materialOverrides.AssignColourOverride("_BaseColor", EnviromentManager.Singleton._collectableWireOffColour);
     }
 
     private void OnEnable()
@@ -105,17 +115,21 @@ public class CollectableSphere : PressurePlateListener
 
         EnviromentManager.Singleton.SetTemporaryCollectableWireColourOveride(Color.white);
 
-        _wireLerpT += Time.deltaTime * EnviromentManager.Singleton.CollectableWireBlendIncreaseSpeed;
-        _wireLerpT = Mathf.Clamp01(_wireLerpT);
-        EnviromentManager.Singleton.CollectableWireBlendT = _wireLerpT;
+        _wireLerpT += Time.deltaTime * EnviromentManager.Singleton.CollectableWireBlendIncreaseSpeed * WireFillSpeedScale;
+        float clampedWireLerpT = Mathf.Clamp01(_wireLerpT);
+        _wire.SetBlendLerpT(clampedWireLerpT);
 
-        SetPointLightsIntensity(Mathf.Lerp(_minLightSourceIntensity, _maxLightSourceIntensity, _wireLerpT));
+        // Delay lerp value so has a delay before lighting up 
+        float delayedWireLerpT = Mathf.Clamp01(_wireLerpT - 1.0f);
+        _materialOverrides.AssignColourOverride("_BaseColor", Color.Lerp(EnviromentManager.Singleton._collectableWireOffColour, Color.white, delayedWireLerpT)); 
 
-        if (_wireLerpT == 1)
+        //SetPointLightsIntensity(Mathf.Lerp(_minLightSourceIntensity, _maxLightSourceIntensity, _wireLerpT));
+
+        if (_wireLerpT == 2)
         {
             _active = false;
-            SetPointLightsIntensity(0);
-            GetComponent<Animator>().SetTrigger("Pulse");
+            //SetPointLightsIntensity(0);
+            //GetComponent<Animator>().SetTrigger("Pulse");
         }
     }
 

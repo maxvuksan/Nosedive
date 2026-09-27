@@ -334,35 +334,43 @@ public class PlayerController : MonoBehaviour
 
         // Movement ...
 
-        if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        if (!WorldInteractionDetector.Singleton.HasActiveInteraction)
         {
-            _inputMovementVector.x = -1;
-        }
-        else if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        {
-            _inputMovementVector.x = 1;
+            if (InputManager.LeftInputPressed())
+            {
+                _inputMovementVector.x = -1;
+            }
+            else if (InputManager.RightInputPressed())
+            {
+                _inputMovementVector.x = 1;
+            }
+            else
+            {
+                _inputMovementVector.x = 0;
+            }
+
+            if (InputManager.UpInputPressed())
+            {
+                _inputMovementVector.y = 1;
+            }
+            else if (InputManager.DownInputPressed())
+            {
+                _inputMovementVector.y = -1;
+            }
+            else
+            {
+                _inputMovementVector.y = 0;
+            }
         }
         else
         {
             _inputMovementVector.x = 0;
-        }
-
-        if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-        {
-            _inputMovementVector.y = 1;
-        }
-        else if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-        {
-            _inputMovementVector.y = -1;
-        }
-        else
-        {
             _inputMovementVector.y = 0;
         }
 
         // Jumping ...
 
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(InputManager.JumpInputOnPress()){
             _timeSinceLastJumpInput = 0;
         }
     }
@@ -508,12 +516,18 @@ public class PlayerController : MonoBehaviour
             Vector3.Angle(hit.normal, Vector3.up) <= slopeLimit)
         {
 
-
             ApplyMaterial applyMat = hit.collider.GetComponent<ApplyMaterial>();
+
 
             if(applyMat != null)
             {
                 _groundedMaterialType = hit.collider.GetComponent<ApplyMaterial>().Material;
+
+                // Trigger player kill
+                if (applyMat.KillOnImpact)
+                {
+                    KillPlayerFromFall();
+                }
             }
             else
             {   
@@ -550,11 +564,22 @@ public class PlayerController : MonoBehaviour
             }
             else  
             {
-                AudioManager.Singleton.Play("DeathImpact");
-                AudioManager.Singleton.Play("DeathImpactBones");
-                GameStateManager.Singleton.SetState(GameStateManager.GameState.LoseBlackScreenWipe);   
+                KillPlayerFromFall();
             }
         }
+    }
+
+    private void KillPlayerFromFall()
+    {
+        // Do not play sounds if we are not in the playing state
+        if (GameStateManager.CurrentState != GameStateManager.GameState.Playing)
+        {
+            return;
+        }
+        
+        AudioManager.Singleton.Play("DeathImpact");
+        AudioManager.Singleton.Play("DeathImpactBones");
+        GameStateManager.Singleton.SetState(GameStateManager.GameState.LoseBlackScreenWipe);   
     }
 
     void OnDrawGizmosSelected()
