@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Given a player spawn poisiton, shoots a ray to find the where it hits the ground, then shifts up up by the players collider
+    /// Given a player spawn position, shoots a ray to find the where it hits the ground, then shifts up up by the players collider
     /// </summary>
     /// <param name="spawnpoint">The spawnpoint to cast from</param>
     /// <returns>The spawnpoint after levelling</returns>
