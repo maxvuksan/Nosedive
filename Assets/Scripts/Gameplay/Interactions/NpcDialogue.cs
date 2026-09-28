@@ -1,6 +1,13 @@
 ﻿
 using UnityEngine;
 
+
+public enum DialogueLineOrigin
+{
+    Player,
+    Npc,
+}
+
 /// <summary>
 /// Configuration for a specific npc interaction sequence
 /// </summary>
@@ -13,5 +20,6 @@ public class NpcDialogue : ScriptableObject{
 [System.Serializable]
 public struct NpcDialogueLine
 {
+    public DialogueLineOrigin Origin;
     public string Content;
 }
