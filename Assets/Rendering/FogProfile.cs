@@ -18,7 +18,14 @@ public class FogProfile : ScriptableObject
 public struct FogDataStruct
 {   
     [Header("Main Fog")]
-    public Color Colour;
+    public Color StartColour;
+    public Color EndColour;
+
+    public float FogInterpolationStart;
+    public float FogInterpolationDepth;
+
+    [HideInInspector] public Vector2  _padding0;
+    
     [Range(0,1)]
     public float Density;
 

@@ -1,12 +1,17 @@
 #ifndef HELPER_CALCULATIONS_INCLUDED
 #define HELPER_CALCULATIONS_INCLUDED
             
-#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+// #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
 CBUFFER_START(FogVariables)
-    float4 _FogColour;                  // Row 1
+    float4 _FogStartColour;             // Row 1
+    float4 _FogEndColour;               
     
+    float _FogInterpolationStart;
+    float _FogInterpolationDepth;
+    float2 _padRow3;
+
     float  _FogDensity;                 // Row 2
     float  _NoiseScale;
     float  _NoiseIntensity;
@@ -35,6 +40,7 @@ CBUFFER_START(FogVariables)
 
     float _CameraPointLightRadius;
     float _CameraPointLightStrength;
+    float3 _padRow6;
 
 CBUFFER_END
 
@@ -96,7 +102,6 @@ float CalculateGroundFog(float3 rayStart, float3 rayDir, float maxDistance)
 
     float linearFogFactor = (thicknessStart + thicknessEnd) * 0.5;
 
-    // --- THE FIXED OPAQUE BLOCK MATH ---
     // Instead of scaling by simple vertical delta fractions, calculate the literal 3D metric 
     // distance the ray spent passing through the vertical bounds of the slab container.
     float verticalDist = abs(validYStart - validYEnd);
@@ -153,20 +158,29 @@ float3 CalculateCameraSourcedLight(float3 sceneColour, float distanceToCamera){
     float lightMask = pow(distance01, 3.0f) * saturate(_CameraPointLightStrength);
     
     // Blend the scene colour towards the local fog base colour using the light sphere factor
-    return lerp(sceneColour, _FogColour.rgb, lightMask);
-    
-
+    return lerp(sceneColour, _FogStartColour.rgb, lightMask);
 }
 
-/*
-    Calculates the fog colour and intensity (alpha channel of colour)
-*/
-float3 CalculateBlobFog(float3 sceneColour, float3 worldPos, float2 screenUV, float distanceToCamera, float screenSpaceNoiseStrength = 1.0)
+float CalculateInterpolatedColourLerpTFromPoint(float3 worldPos, float3 originPoint)
 {
+    // Treat the custom origin point as your tracking "camera position"
+    float distanceToOrigin = distance(originPoint, worldPos);
     
-    float3 litSceneColour = CalculateCameraSourcedLight(sceneColour, distanceToCamera);
+    float rangeDenominator = max(_FogInterpolationDepth, 0.001);
     
-    
+    // Maps distance cleanly to 0.0 at the start bounds and 1.0 at the end bounds
+    return saturate((distanceToOrigin - _FogInterpolationStart) / rangeDenominator);
+}
+
+
+float3 GetInterpolatedFogColour(float3 worldPos)
+{
+    float colourLerpT = CalculateInterpolatedColourLerpTFromPoint(worldPos, _WorldSpaceCameraPos);
+    return lerp(_FogStartColour, _FogEndColour, colourLerpT);
+}
+
+float CalculateDensityLerpT( float3 worldPos, float2 screenUV, float distanceToCamera, float screenSpaceNoiseStrength = 1.0)
+{
     float3 windDirNormalized = normalize(_WindDirection);
     float3 noiseSamplePos = (worldPos + (windDirNormalized * _WindSpeed * _Time.y)) * _NoiseScale;
 
@@ -179,12 +193,23 @@ float3 CalculateBlobFog(float3 sceneColour, float3 worldPos, float2 screenUV, fl
 
     noiseVal = saturate(noiseVal + grainErosion);
     noiseVal = smoothstep(0.2, 0.8, noiseVal);
-
+    
     float modulatedDensity = _FogDensity * lerp(1.0 - _NoiseIntensity, 1.0 + _NoiseIntensity, noiseVal);
     float fogFactor = modulatedDensity * distanceToCamera;
+    return saturate(exp2(-(fogFactor * fogFactor) * 1.442695));
+}
 
-    float fogLerpT = saturate(exp2(-(fogFactor * fogFactor) * 1.442695));
-    float3 finalColour = lerp(_FogColour.rgb, litSceneColour, fogLerpT);
+/*
+    Calculates the fog colour and intensity (alpha channel of colour)
+*/
+float3 CalculateBlobFog(float3 sceneColour, float3 worldPos, float2 screenUV, float distanceToCamera, float screenSpaceNoiseStrength = 1.0)
+{
+    float3 litSceneColour = CalculateCameraSourcedLight(sceneColour, distanceToCamera);
+    
+    float densityLerpT = CalculateDensityLerpT(worldPos, screenUV, distanceToCamera, screenSpaceNoiseStrength);
+    
+    float3 interpolatedColour = GetInterpolatedFogColour(worldPos);
+    float3 finalColour = lerp(interpolatedColour, litSceneColour, densityLerpT);
 
     // Calculate our smooth ring structure
     float ringMask = CalculateHighlightRingMask(worldPos, distanceToCamera);
@@ -194,7 +219,6 @@ float3 CalculateBlobFog(float3 sceneColour, float3 worldPos, float2 screenUV, fl
 
     return finalColour;
 }
-
 
 
 /*

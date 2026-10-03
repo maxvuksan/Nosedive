@@ -43,15 +43,15 @@ Shader "Hidden/CustomFog"
                 float3 worldPos = ComputeWorldSpacePosition(input.uv, depth, UNITY_MATRIX_I_VP);
                 float3 rayStart = _WorldSpaceCameraPos;
                 float3 rayDir = worldPos - rayStart;
-                float distance = length(rayDir);
+                float distanceFromCamera = length(rayDir);
                 rayDir = normalize(rayDir);
 
                 // Ground Fog
-                float volumetricGroundFactor = CalculateGroundFog(rayStart, rayDir, distance);
-                float3 layer1Color = lerp(sceneColor, _FogColour.rgb, volumetricGroundFactor);
+                float volumetricGroundFactor = CalculateGroundFog(rayStart, rayDir, distanceFromCamera);
+                float3 layer1Color = lerp(sceneColor, GetInterpolatedFogColour(worldPos), volumetricGroundFactor);
 
                 // Main Fog 
-                float3 fogOutput = CalculateBlobFog(layer1Color, worldPos, input.uv, distance);
+                float3 fogOutput = CalculateBlobFog(layer1Color, worldPos, input.uv, distanceFromCamera);
 
                 // Ensure bright objects ignore fog
                 float luminance = dot(sceneColor, float3(0.2126, 0.7152, 0.0722));

@@ -163,7 +163,13 @@ public class EnviromentManager : MonoBehaviour
         // apply custom fog profile
 
         _fogProfile.Data.Density = _enviromentState.FogDensity;
-        _fogProfile.Data.Colour = _enviromentState.FogColour;
+
+        // The fog shader will interpolate between .StartColour and .EndColour, depending on the distance from the camera
+        _fogProfile.Data.StartColour = _enviromentState.FogColour;
+        _fogProfile.Data.EndColour = _enviromentState.FogEndColour;
+        _fogProfile.Data.FogInterpolationStart = _enviromentState.FogInterpolationStart;
+        _fogProfile.Data.FogInterpolationDepth = _enviromentState.FogInterpolationDepth;
+        
         _fogProfile.Data.BlobNoiseIntensity = _enviromentState.FogBlobNoiseIntensity;
         _fogProfile.Data.GroundFogStartHeight = _enviromentState.DeathZoneHeight + _fogGroundLayerOffset;
         _fogProfile.Data.CameraPointLightStrength = _enviromentState.CameraLightSourceIntensity;
@@ -202,6 +208,8 @@ public class EnviromentManager : MonoBehaviour
         _enviromentState.WindStrength = Mathf.Lerp(stateCurrent.WindStrength, stateNext.WindStrength, _lerpT);
         _enviromentState.RainStrength = Mathf.Lerp(stateCurrent.RainStrength, stateNext.RainStrength, _lerpT);
         _enviromentState.DeathZoneHeight = Mathf.Lerp(stateCurrent.DeathZoneHeight, stateNext.DeathZoneHeight, _lerpT);
+        _enviromentState.FogInterpolationStart = Mathf.Lerp(stateCurrent.FogInterpolationStart, stateNext.FogInterpolationStart, _lerpT);
+        _enviromentState.FogInterpolationDepth = Mathf.Lerp(stateCurrent.FogInterpolationDepth, stateNext.FogInterpolationDepth, _lerpT);
 
         _enviromentState.FogDensity = Mathf.Lerp(stateCurrent.FogDensity, stateNext.FogDensity, _lerpT);
         _enviromentState.FogBlobNoiseIntensity = Mathf.Lerp(stateCurrent.FogBlobNoiseIntensity, stateNext.FogBlobNoiseIntensity, _lerpT);
@@ -226,9 +234,22 @@ public class EnviromentManager : MonoBehaviour
             _overrideFogColourTrackedT -= Time.deltaTime * _overrideFogColourDecreaseRate;
         }
         _overrideFogColourTrackedT = Mathf.Clamp01(_overrideFogColourTrackedT);
+
+        if (!stateCurrent.UseInterpolatedFogColour)
+        {
+            stateCurrent.FogEndColour = stateCurrent.FogColour;
+        }
+        if (!stateNext.UseInterpolatedFogColour)
+        {
+            stateNext.FogEndColour = stateNext.FogColour;
+        }
         
         Color trueFogColour = Color.Lerp(stateCurrent.FogColour, stateNext.FogColour, _lerpT);
+        Color trueFogEndColour = Color.Lerp(stateCurrent.FogEndColour, stateNext.FogEndColour, _lerpT);
+        
         _enviromentState.FogColour = Color.Lerp(trueFogColour, _overrideFogColour, _overrideFogColourTrackedT);
+        _enviromentState.FogEndColour = Color.Lerp(trueFogEndColour, _overrideFogColour, _overrideFogColourTrackedT);
+        
 
 
         if (_collectableWireOverrideIsIncreasing)

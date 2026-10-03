@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 /// <summary>
@@ -31,18 +32,45 @@ public struct LevelEnviromentSettings
     
     /// <summary>
     /// Directly controls the assigned FogProfile
+    ///
+    /// UseInterpolatedFogColour determines if a single fog colour or interpolated fog colour should be used
+    /// If true, the fog colour will interpolate based on the distance (FogColour -> FogEndColour)
     /// </summary>
     [Header("Fog Profile Settings")]
-
+    public bool UseInterpolatedFogColour;
+    
     public Color FogColour;
-
+    
+    /// <summary>
+    /// The end of the fog colour, this is only applied if fog interpolation is enabled
+    /// </summary>
+    [ShowIf("UseInterpolatedFogColour")] [AllowNesting]
+    public Color FogEndColour;
+    
+    /// <summary>
+    /// At what distance does the fog colour begin interpolating from start->end
+    /// </summary>
+    [ShowIf("UseInterpolatedFogColour")] [AllowNesting]
+    public float FogInterpolationStart;
+    
+    /// <summary>
+    /// From the start interpolation distance, how much further is the end distance
+    /// </summary>
+    [ShowIf("UseInterpolatedFogColour")] [AllowNesting]
+    public float FogInterpolationDepth;
+    
+    /// <summary>
+    /// The exponential density of the fog 
+    /// </summary>
     [Range(0, 0.05f)]
     public float FogDensity;
     
-    [Tooltip("The intensity which the fog density fluctuates (this is driven by 3D noise)")]
+    /// <summary>
+    /// The intensity which the fog density fluctuates (this is driven by 3D noise)
+    /// </summary>
     [Range(0, 1)]
     public float FogBlobNoiseIntensity;
-
+    
     [Range(0,0.5f)]
     public float DirectionalLightSourceIntensity; 
 
