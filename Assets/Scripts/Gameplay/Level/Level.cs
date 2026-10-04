@@ -7,7 +7,7 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {   
     /// <summary>
-    /// GameObjects to enable when the player is in the range of this lkevl
+    /// GameObjects to enable when the player is in the range of this level
     /// </summary>
     public GameObject[] ActiveDetails;
 
@@ -29,7 +29,7 @@ public class Level : MonoBehaviour
 
 
     /// <summary>
-    /// Is set by LevelFullMap, this is the the index of the level in relation to all the levels
+    /// Is set by LevelFullMap, this is the index of the level in relation to all the levels
     /// </summary>
     public int LevelIndex { get; set;}
 

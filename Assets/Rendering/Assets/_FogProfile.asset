@@ -13,25 +13,29 @@ MonoBehaviour:
   m_Name: _FogProfile
   m_EditorClassIdentifier: Assembly-CSharp::FogProfile
   Data:
-    Colour: {r: 0.25, g: 0.25, b: 0.25, a: 1}
-    Density: 0.003
+    StartColour: {r: 0.02, g: 0.02, b: 0.02, a: 1}
+    EndColour: {r: 0.01, g: 0.01, b: 0.01, a: 1}
+    FogInterpolationStart: 0
+    FogInterpolationDepth: 500
+    _padding0: {x: 0, y: 0}
+    Density: 0.0013173843
     BlobNoiseScale: 0.0067
-    BlobNoiseIntensity: 0.077
+    BlobNoiseIntensity: 0.023
     RandomNoise: 0
     WindDirection: {x: 2, y: 1, z: 1}
     WindSpeed: 300
-    GroundFogStartHeight: -3274.5881
+    GroundFogStartHeight: -2346
     GroundFogDepth: 7028
     LuminanceThresholdMin: 0.9
     LuminanceThresholdMax: 1
     LuminanceCutThroughStrength: 1
     _padding1: {x: 0, y: 0, z: 0}
     HighlightRingColour: {r: 1, g: 1, b: 1, a: 0.0007573434}
-    HighlightRingOriginPosition: {x: -923.8, y: -2171.3901, z: -5804.98}
+    HighlightRingOriginPosition: {x: 0, y: 0, z: 0}
     HighlightRingRadius: 300.53366
     HighlightRingBandSize: 2.9988852
     HighlightRingFeather: 14.996098
     HighlightRingDistanceFalloffStart: 500
     HighlightRingDistanceFalloffEnd: 1000
-    CameraPointLightRadius: 0
+    CameraPointLightRadius: 281
     CameraPointLightStrength: 0
