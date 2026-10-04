@@ -14,12 +14,6 @@
       "dependencies": {},
       "hash": "395236f9a7a057d2362857e5bb4f3f9a808a9627"
     },
-    "com.prenominal.realtimecsg": {
-      "version": "file:realtime-CSG-for-unity-master",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
