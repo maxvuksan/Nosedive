@@ -168,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56359544880955371}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2496.2585, z: -5194}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -860,7 +860,7 @@ MonoBehaviour:
     CameraLightSourceRadius: 0
     CameraLightSourceIntensity: 0
   _geometryBounds:
-    m_Center: {x: -786.92285, y: -7096.1245, z: -7578.43}
+    m_Center: {x: -730.7637, y: -7096.1245, z: -5130.9155}
     m_Extent: {x: 1994.061, y: 5584.723, z: 1545.8599}
 --- !u!1 &441869163133632223
 GameObject:
@@ -4591,7 +4591,6 @@ GameObject:
   - component: {fileID: 4306278947230976207}
   - component: {fileID: 2428604429778191842}
   - component: {fileID: 4359339285066954955}
-  - component: {fileID: 2733769014536121510}
   - component: {fileID: 432952300066194361}
   m_Layer: 6
   m_Name: Field (3)
@@ -4672,28 +4671,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2733769014536121510
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2360174244410226800}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6485634995613352290, guid: 7a759e021e8e00b458a1801f70bd00a5, type: 3}
 --- !u!114 &432952300066194361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5528,7 +5505,7 @@ Transform:
   m_GameObject: {fileID: 2899238825316600361}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0001564587, y: 0.9998173, z: -0.016640179, w: 0.009400746}
-  m_LocalPosition: {x: 28.004272, y: -464.41638, z: -1744.0332}
+  m_LocalPosition: {x: 28.004578, y: -464.41675, z: -1744.0352}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7337,7 +7314,7 @@ Transform:
   m_GameObject: {fileID: 3664191603772949447}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0001564587, y: 0.9998173, z: -0.016640179, w: 0.009400746}
-  m_LocalPosition: {x: 54, y: -153, z: -639}
+  m_LocalPosition: {x: 54, y: -238.5105, z: -639}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8169,7 +8146,7 @@ Transform:
   m_GameObject: {fileID: 4366180575313366711}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0001564587, y: 0.9998173, z: -0.016640179, w: 0.009400746}
-  m_LocalPosition: {x: -57.999985, y: -666.9971, z: -523}
+  m_LocalPosition: {x: -57.999695, y: -666.9973, z: -523}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10696,8 +10673,8 @@ MonoBehaviour:
     CameraLightSourceRadius: 0
     CameraLightSourceIntensity: 0
   _geometryBounds:
-    m_Center: {x: -151.10303, y: -7345.2427, z: -7861.224}
-    m_Extent: {x: 545.4534, y: 5664.652, z: 429.2788}
+    m_Center: {x: -94.943726, y: -7345.2427, z: -5413.71}
+    m_Extent: {x: 545.4534, y: 5664.652, z: 429.2793}
 --- !u!1 &6212530671033761406
 GameObject:
   m_ObjectHideFlags: 0
@@ -12326,8 +12303,8 @@ MonoBehaviour:
     CameraLightSourceRadius: 0
     CameraLightSourceIntensity: 0
   _geometryBounds:
-    m_Center: {x: -240.49646, y: -6364.734, z: -9032.039}
-    m_Extent: {x: 1126.7339, y: 4397.2056, z: 1140.0156}
+    m_Center: {x: -184.33716, y: -6364.734, z: -6686.3135}
+    m_Extent: {x: 1126.7339, y: 4397.2056, z: 809.91797}
 --- !u!1 &7374240540385311732
 GameObject:
   m_ObjectHideFlags: 0
@@ -14937,8 +14914,8 @@ MonoBehaviour:
     CameraLightSourceRadius: 0
     CameraLightSourceIntensity: 0
   _geometryBounds:
-    m_Center: {x: -587.156, y: -6526.85, z: -6564.7437}
-    m_Extent: {x: 614.51514, y: 5366.0103, z: 765.0571}
+    m_Center: {x: -512.9155, y: -6526.85, z: -4068.919}
+    m_Extent: {x: 5124.838, y: 5366.0103, z: 813.3672}
 --- !u!1001 &63397345643576076
 PrefabInstance:
   m_ObjectHideFlags: 0
