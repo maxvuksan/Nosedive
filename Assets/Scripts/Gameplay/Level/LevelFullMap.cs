@@ -11,9 +11,14 @@ using UnityEngine;
 public class LevelFullMap : MonoBehaviour
 {
 
-    public Level[] Levels { get => _levels; }
-
-    [SerializeField] private Level[] _levels;
+    public List<Level> Levels { get => _levels; }
+    
+    private List<Level> _levels;
+    
+    /// <summary>
+    /// At runtime, the levels in each scene group are extracted and added to the levels list
+    /// </summary>
+    [SerializeField] private SceneGroup[] _sceneGroups;
     
     public static LevelFullMap Singleton;
 
@@ -55,7 +60,20 @@ public class LevelFullMap : MonoBehaviour
  
     void Awake()
     {   
+        
+        _levels = new();
+        
+        // Iterate over each scene group, and construct a flat list of every level
+        foreach (var sceneGroups in _sceneGroups)
+        {
+            foreach (var level in sceneGroups.Levels)
+            {
+                _levels.Add(level);
+            }
+        }
+
         #if UNITY_EDITOR
+            // Note: I'm not sure if these should be only in the editor?
             PreprocessData();
         #endif
 
@@ -75,7 +93,7 @@ public class LevelFullMap : MonoBehaviour
         LevelToSpawnAtIndex = SaveManager.Data.Progress.CurrentScene;
 
         // Incase scenes have been added/removed or we are in debug scene
-        if (_levelToSpawnAtIndex > Levels.Length)
+        if (_levelToSpawnAtIndex > Levels.Count)
         {
             _levelToSpawnAtIndex = 0;
         }
@@ -90,13 +108,18 @@ public class LevelFullMap : MonoBehaviour
     [Button("Invoke PreprocessData()")]
     public void PreprocessData()
     {
-        foreach(var level in _levels)
+        // Note: we are using the sceneGroup structure here instead of the level list because this may be called at compile time
+        foreach (var sceneGroups in _sceneGroups)
         {
-            PreprocessLevel_LogErrorIfMultipleCollectableSpheresArePresent(level);
-            PreprocessLevel_RaycastBirdSpawnpoints(level);
-            PreprocessLevel_RaycastPlayerSpawnpoint(level);
-            PreprocessLevel_ComputeBounds(level);
+            foreach (var level in sceneGroups.Levels)
+            {
+                PreprocessLevel_LogErrorIfMultipleCollectableSpheresArePresent(level);
+                PreprocessLevel_RaycastBirdSpawnpoints(level);
+                PreprocessLevel_RaycastPlayerSpawnpoint(level);
+                PreprocessLevel_ComputeBounds(level);
+            }
         }
+
     }
 
     /// <summary>
@@ -186,7 +209,7 @@ public class LevelFullMap : MonoBehaviour
         }
         
         // ensure new index is within valid range
-        _loadedLevelIndex = Mathf.Clamp(levelIndex, 0, _levels.Length - 1);
+        _loadedLevelIndex = Mathf.Clamp(levelIndex, 0, _levels.Count - 1);
 
         var levelIndexHashSet = new HashSet<int> { levelIndex };
 
@@ -244,7 +267,7 @@ public class LevelFullMap : MonoBehaviour
             shouldBeVisible.Add(i + 1);
         }
 
-        for (int i = 0; i < _levels.Length; i++)
+        for (int i = 0; i < _levels.Count; i++)
         {
             if (!shouldBeVisible.Contains(i))
             {

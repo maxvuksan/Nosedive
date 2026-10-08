@@ -160,10 +160,16 @@ public class EnviromentManager : MonoBehaviour
 
         _cavityMaterial.SetFloat("_Opacity", _enviromentState.CavityLightingOpacity);
 
-        // apply custom fog profile
+        // Apply custom fog profile...
 
         _fogProfile.Data.Density = _enviromentState.FogDensity;
 
+        // If we aren't interpolating fog, assign end to start colour
+        if (!_enviromentState.UseInterpolatedFogColour)
+        {
+            _enviromentState.FogEndColour = _enviromentState.FogColour;
+        }
+        
         // The fog shader will interpolate between .StartColour and .EndColour, depending on the distance from the camera
         _fogProfile.Data.StartColour = _enviromentState.FogColour;
         _fogProfile.Data.EndColour = _enviromentState.FogEndColour;
@@ -196,7 +202,7 @@ public class EnviromentManager : MonoBehaviour
         int nextIndex = _activeLevelIndex + 1;
 
         // Handle end of the map safely
-        if (nextIndex >= LevelFullMap.Singleton.Levels.Length) 
+        if (nextIndex >= LevelFullMap.Singleton.Levels.Count) 
         {
             _enviromentState = LevelFullMap.Singleton.Levels[_activeLevelIndex].EnviromentSettings;
             return;
@@ -234,15 +240,7 @@ public class EnviromentManager : MonoBehaviour
             _overrideFogColourTrackedT -= Time.deltaTime * _overrideFogColourDecreaseRate;
         }
         _overrideFogColourTrackedT = Mathf.Clamp01(_overrideFogColourTrackedT);
-
-        if (!stateCurrent.UseInterpolatedFogColour)
-        {
-            stateCurrent.FogEndColour = stateCurrent.FogColour;
-        }
-        if (!stateNext.UseInterpolatedFogColour)
-        {
-            stateNext.FogEndColour = stateNext.FogColour;
-        }
+        
         
         Color trueFogColour = Color.Lerp(stateCurrent.FogColour, stateNext.FogColour, _lerpT);
         Color trueFogEndColour = Color.Lerp(stateCurrent.FogEndColour, stateNext.FogEndColour, _lerpT);
@@ -278,7 +276,7 @@ public class EnviromentManager : MonoBehaviour
     private float CalculateLerpTFromProjectedPlayerPosition()
     {
         int nextIndex = _activeLevelIndex + 1;
-        if(nextIndex >= LevelFullMap.Singleton.Levels.Length)
+        if(nextIndex >= LevelFullMap.Singleton.Levels.Count)
         {
             return 0;
         }
@@ -293,13 +291,13 @@ public class EnviromentManager : MonoBehaviour
 
     private void UpdateActiveLevelIndexByZAxis()
     {
-        // We are likley not in the WorldScene
+        // We are likely not in the WorldScene
         if(LevelFullMap.Singleton == null)
         {
             return;
         }
         
-        int totalLevels = LevelFullMap.Singleton.Levels.Length;
+        int totalLevels = LevelFullMap.Singleton.Levels.Count;
 
         if (totalLevels < 2) {
             return;
@@ -345,8 +343,14 @@ public class EnviromentManager : MonoBehaviour
     {
         LevelFullMap levelFullMap = FindFirstObjectByType<LevelFullMap>();
 
+        // TODO: This will be null at compile time, should use sceneGroup for this
+        if (levelFullMap.Levels == null)
+        {
+            return;
+        }
+        
         Gizmos.color = Color.yellow;
-        for(int i = 0; i < levelFullMap.Levels.Length - 1; i++)
+        for(int i = 0; i < levelFullMap.Levels.Count - 1; i++)
         {
             Gizmos.DrawLine(levelFullMap.Levels[i].PlayerSpawn.transform.position, levelFullMap.Levels[i + 1].PlayerSpawn.transform.position);
         }
@@ -357,7 +361,7 @@ public class EnviromentManager : MonoBehaviour
         }
 
         int nextIndex = _activeLevelIndex + 1;
-        if(nextIndex >= LevelFullMap.Singleton.Levels.Length)
+        if(nextIndex >= LevelFullMap.Singleton.Levels.Count)
         {
             return;
         }

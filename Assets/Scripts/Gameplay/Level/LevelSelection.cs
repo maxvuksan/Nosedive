@@ -69,7 +69,7 @@ public class LevelSelection : MonoBehaviour
     {
         _levelChips = new List<LevelSelectionChipData>();
 
-        for(int i = 0; i < LevelFullMap.Singleton.Levels.Length; i++)
+        for(int i = 0; i < LevelFullMap.Singleton.Levels.Count; i++)
         {
             GameObject newGameobject = Instantiate(_levelChipPrefab, _levelChipParent);
             LevelSelectionChip chip = newGameobject.GetComponent<LevelSelectionChip>();
@@ -89,7 +89,7 @@ public class LevelSelection : MonoBehaviour
             GenerateLevelObjects();
         }
 
-        for(int i = 0; i < LevelFullMap.Singleton.Levels.Length; i++)
+        for(int i = 0; i < LevelFullMap.Singleton.Levels.Count; i++)
         {
             if (i > SaveManager.Data.Progress.UnlockedScene && !Helpers.Singleton.DebugMode)
             {

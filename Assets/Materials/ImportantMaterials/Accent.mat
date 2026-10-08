@@ -8,16 +8,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Accent
-  m_Shader: {fileID: -6465566751694194690, guid: 7fd3a1becb7be5e47945b669506120ed, type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _EMISSION
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -119,7 +121,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Metallic: 1
+    - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -144,9 +146,9 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.12, g: 0.12, b: 0.12, a: 1}
-    - _Color: {r: 0.11999995, g: 0.11999995, b: 0.11999995, a: 1}
-    - _Colour: {r: 0.12156863, g: 0.12156863, b: 0.12156863, a: 1}
+    - _BaseColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
+    - _Color: {r: 0.23584905, g: 0.23584905, b: 0.23584905, a: 1}
+    - _Colour: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
     - _EdgeColour: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.00009839892, g: 0.00009839892, b: 0.00009839892, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

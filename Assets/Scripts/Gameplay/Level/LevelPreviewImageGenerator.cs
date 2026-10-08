@@ -35,7 +35,7 @@ public class LevelPreviewImageGenerator : MonoBehaviour
     {
         EnsureOutputFolderExists();
         
-        for(int i = 0; i < _fullMap.Levels.Length; i++)
+        for(int i = 0; i < _fullMap.Levels.Count; i++)
         {
 
 

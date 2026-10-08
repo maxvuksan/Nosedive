@@ -30,6 +30,6 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _SourceTexSize: {r: 1920, g: 1080, b: 0, a: 0}
+    - _SourceTexSize: {r: 1280, g: 720, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

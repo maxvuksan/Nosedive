@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Helpers : MonoBehaviour
@@ -92,9 +93,17 @@ public class Helpers : MonoBehaviour
         }
     }
 
-    public static void SetActiveMonoBehaviorArray(MonoBehaviour[] array, bool state)
+    public static void SetActiveMonoBehaviorArray<T>(T[] array, bool state) where T : MonoBehaviour
     {
         for(int i = 0; i < array.Length; i++)
+        {
+            array[i].gameObject.SetActive(state);
+        }
+    }
+    
+    public static void SetActiveMonoBehaviorArray<T>(List<T> array, bool state) where T : MonoBehaviour
+    {
+        for(int i = 0; i < array.Count; i++)
         {
             array[i].gameObject.SetActive(state);
         }

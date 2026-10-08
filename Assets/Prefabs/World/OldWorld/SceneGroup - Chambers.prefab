@@ -27327,7 +27327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6411769772789159473}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -27352,6 +27352,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d8268338f914a4795a7ac0c86cb164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneGroup
+  Levels:
+  - {fileID: 1829018003542005950}
+  - {fileID: 9047750796465321238}
+  - {fileID: 8147286907155834492}
+  - {fileID: 6673601029682006233}
+  - {fileID: 8536317564102049157}
+  - {fileID: 8325715848849443402}
 --- !u!1 &6425330086651248163
 GameObject:
   m_ObjectHideFlags: 0

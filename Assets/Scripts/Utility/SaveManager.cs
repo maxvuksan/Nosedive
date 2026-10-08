@@ -76,8 +76,8 @@ public static class SaveManager
         bool loadSuccess = DataSerializer.LoadObjectFromFile(_saveFileName, ref loadedData);
 
         // Allocate a SceneData entry for each scene/level
-        List<SceneData> sceneDataList = new List<SceneData>(LevelFullMap.Singleton.Levels.Length);
-        for (int i = 0; i < LevelFullMap.Singleton.Levels.Length; i++)
+        List<SceneData> sceneDataList = new List<SceneData>(LevelFullMap.Singleton.Levels.Count);
+        for (int i = 0; i < LevelFullMap.Singleton.Levels.Count; i++)
         {
             sceneDataList.Add(new SceneData());
         }
@@ -89,7 +89,7 @@ public static class SaveManager
 
             Data.Progress.SceneDataList = sceneDataList;
 
-            for (int i = 0; i < LevelFullMap.Singleton.Levels.Length; i++)
+            for (int i = 0; i < LevelFullMap.Singleton.Levels.Count; i++)
             {
                 // If the entry exists use that data
                 if(loadedData.Progress.SceneDataList.Count > i)

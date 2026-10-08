@@ -179,7 +179,7 @@ float3 GetInterpolatedFogColour(float3 worldPos)
     return lerp(_FogStartColour, _FogEndColour, colourLerpT);
 }
 
-float CalculateDensityLerpT( float3 worldPos, float2 screenUV, float distanceToCamera, float screenSpaceNoiseStrength = 1.0)
+float CalculateDensityLerpT( float3 worldPos, float2 screenUV, float distanceToCamera, float screenSpaceNoiseStrength = 1.0, float fogDensityScaler = 1.0)
 {
     float3 windDirNormalized = normalize(_WindDirection);
     float3 noiseSamplePos = (worldPos + (windDirNormalized * _WindSpeed * _Time.y)) * _NoiseScale;
@@ -194,7 +194,7 @@ float CalculateDensityLerpT( float3 worldPos, float2 screenUV, float distanceToC
     noiseVal = saturate(noiseVal + grainErosion);
     noiseVal = smoothstep(0.2, 0.8, noiseVal);
     
-    float modulatedDensity = _FogDensity * lerp(1.0 - _NoiseIntensity, 1.0 + _NoiseIntensity, noiseVal);
+    float modulatedDensity = _FogDensity * fogDensityScaler * lerp(1.0 - _NoiseIntensity, 1.0 + _NoiseIntensity, noiseVal);
     float fogFactor = modulatedDensity * distanceToCamera;
     return saturate(exp2(-(fogFactor * fogFactor) * 1.442695));
 }
@@ -202,11 +202,11 @@ float CalculateDensityLerpT( float3 worldPos, float2 screenUV, float distanceToC
 /*
     Calculates the fog colour and intensity (alpha channel of colour)
 */
-float3 CalculateBlobFog(float3 sceneColour, float3 worldPos, float2 screenUV, float distanceToCamera, float screenSpaceNoiseStrength = 1.0)
+float3 CalculateBlobFog(float3 sceneColour, float3 worldPos, float2 screenUV, float distanceToCamera, float screenSpaceNoiseStrength = 1.0, float fogDensityScaler = 1.0)
 {
     float3 litSceneColour = CalculateCameraSourcedLight(sceneColour, distanceToCamera);
     
-    float densityLerpT = CalculateDensityLerpT(worldPos, screenUV, distanceToCamera, screenSpaceNoiseStrength);
+    float densityLerpT = CalculateDensityLerpT(worldPos, screenUV, distanceToCamera, screenSpaceNoiseStrength, fogDensityScaler);
     
     float3 interpolatedColour = GetInterpolatedFogColour(worldPos);
     float3 finalColour = lerp(interpolatedColour, litSceneColour, densityLerpT);
@@ -221,17 +221,25 @@ float3 CalculateBlobFog(float3 sceneColour, float3 worldPos, float2 screenUV, fl
 }
 
 
+
+
 /*
     Fog calculation to apply for 
 */
-float3 CalculateObjectSpaceFoggedColour(float3 sceneColour, float3 worldPos, float3 cameraPosition){
+float3 CalculateObjectSpaceFoggedColour(float3 sceneColour, float3 worldPos, float3 cameraPosition, float fogDensityScaler = 1.0){
 
     float distanceToCamera = distance(worldPos, cameraPosition);
 
-    float3 finalColour = CalculateBlobFog(sceneColour, worldPos, float2(0,0), distanceToCamera, 0.0);
+    float3 finalColour = CalculateBlobFog(sceneColour, worldPos, float2(0,0), distanceToCamera, 0.0, fogDensityScaler);
 
     return finalColour;
 }
 
+// For shader graph CustomFunction usage
+void CalculateObjectSpaceFoggedColour_float(float3 sceneColour, float3 worldPos, float3 cameraPosition, float fogDensityScaler, out float3 OutColor)
+{
+    // Note: fogDensityScaler is used for cloud rendering, to make the clouds appear visible further away despite fog density being thick
+    OutColor = CalculateObjectSpaceFoggedColour(sceneColour, worldPos, cameraPosition, fogDensityScaler);
+}
 
 #endif // HELPER_CALCULATIONS_INCLUDED

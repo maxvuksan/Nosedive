@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class SceneGroup : MonoBehaviour
 {
-    
-    
+    /// <summary>
+    /// The levels attached to this scene group
+    /// </summary>
+    public Level[] Levels;
 }
