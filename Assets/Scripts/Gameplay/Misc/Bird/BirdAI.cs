@@ -34,7 +34,10 @@ public class BirdConfig
 
 public class BirdAI : MonoBehaviour
 {
+
+    [HideInInspector] public bool DisableFlyingAway;
     [HideInInspector] public Vector3 PreferredFlyDirection = new(0,0,0);
+    
     private Animator _animator;
     public BirdConfig Config;
     private float _flySpeedTracked;
@@ -86,7 +89,7 @@ public class BirdAI : MonoBehaviour
         _trackedFacingAngleDegrees = _targetFacingAngleDegrees;
         _scareAwayInTimeTracked = 0;
 
-        // pick inital idle animation
+        // pick initial idle animation
         OnIdleAnimationFinish();
     }
 
@@ -139,6 +142,11 @@ public class BirdAI : MonoBehaviour
         float distance;
         foreach(var bird in otherBirds)
         {
+            if (bird.DisableFlyingAway)
+            {
+                continue;
+            }
+            
             distance = Vector3.Distance(transform.position, bird.transform.position);
 
             if(distance < Config.ScareOtherBirdsDistance)
@@ -174,6 +182,11 @@ public class BirdAI : MonoBehaviour
     {
         // already in air, ignore scare away
         if (_flying)
+        {
+            return;
+        }
+
+        if (DisableFlyingAway)
         {
             return;
         }

@@ -9,6 +9,12 @@ using UnityEngine.Events;
 [RequireComponent(typeof(MaterialOverrides))]
 public class WireTransmitterListener : PressurePlateListener
 {
+    
+    /// <summary>
+    /// Should the base leak effect be removed, set to true if we want the wire to be a uniform colour
+    /// </summary>
+    [SerializeField] private bool RemoveBaseLeakEffect;
+    
     /// <summary>
     /// Invokes a specific function when the power finishes traveling through the fire
     /// </summary>
@@ -35,6 +41,15 @@ public class WireTransmitterListener : PressurePlateListener
         
         _filledAmountTracked = 0;
         _wireActive = false;    
+    }
+
+    private void Start()
+    {
+        if (RemoveBaseLeakEffect)
+        {
+            // Set base leak to 0 to essentially hide it
+            _materialOverrides.AssignFloatOverride("_BaseLeak", 0);
+        }
     }
 
     public override void OnSwitchState(bool pressurePlateState)

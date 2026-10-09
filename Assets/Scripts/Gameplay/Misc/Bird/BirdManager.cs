@@ -106,9 +106,11 @@ public class BirdManager : MonoBehaviour
         if(config == null)
         {
             newBird.GetComponent<BirdAI>().PreferredFlyDirection = Vector3.zero;
+            newBird.GetComponent<BirdAI>().DisableFlyingAway = false;
         }
         else
         {
+            newBird.GetComponent<BirdAI>().DisableFlyingAway = config.DisableFlyingAway;
             newBird.GetComponent<BirdAI>().PreferredFlyDirection = config.PreferredFlyDirection;
         }
     }

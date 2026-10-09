@@ -7,21 +7,6 @@
       "dependencies": {},
       "hash": "613d1e8e553054cd5130b3c2b27da75a8b41ff33"
     },
-    "com.diversion.vcs": {
-      "version": "file:../Diversion/com.diversion.vcs-0.1.5.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.2.1"
-      }
-    },
-    "com.hammerunity.meshtools": {
-      "version": "https://github.com/Kornflakes1/sledge.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "d17b252f81e86b7f01a437a52bd8536226983b60"
-    },
     "com.marijnzwemmer.unity-toolbar-extender": {
       "version": "https://github.com/marijnz/unity-toolbar-extender.git",
       "depth": 0,
@@ -125,13 +110,6 @@
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.6",
       "depth": 3,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.nuget.newtonsoft-json": {
-      "version": "3.2.2",
-      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"

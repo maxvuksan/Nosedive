@@ -1,8 +1,7 @@
+using System;
 using JetBrains.Annotations;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// Manages the players interactions with interactable in the world, this should be placed at the cameras position / player head
@@ -28,6 +27,8 @@ public class WorldInteractionDetector : MonoBehaviour
     /// </summary>
     [CanBeNull] private InteractableBase _activeInteraction;
 
+    public static Action OnPostInteractionSearch;
+    
     public bool HasActiveInteraction => _hasActiveInteraction;
 
     private bool _hasActiveInteraction;
@@ -47,7 +48,7 @@ public class WorldInteractionDetector : MonoBehaviour
     public void AssignActiveInteraction(InteractableBase interactable)
     {
         _activeInteraction = interactable;
-        _hasActiveInteraction = true;
+        _hasActiveInteraction = true; 
     }
 
     public void ReleaseActiveInteraction()
@@ -82,16 +83,13 @@ public class WorldInteractionDetector : MonoBehaviour
     {
         SetInteractionFocusText("");
 
-        if(!InCorrectGameState())
+        if(InCorrectGameState() && !_hasActiveInteraction)
         {
-            return;
-        }
-        if (_hasActiveInteraction)
-        {
-            return;
+            SearchForFocusedInteractable();
         }
         
-        SearchForFocusedInteractable();
+        // Tell other scripts we are finished search for interactions
+        OnPostInteractionSearch?.Invoke();
     }
 
     private bool InCorrectGameState()
@@ -126,12 +124,18 @@ public class WorldInteractionDetector : MonoBehaviour
     {
         _focusedInteractable = null; 
         _hasFocusedInteraction = false;
+        HeldInteractable.Singleton.PowerBoxAttractSpot = null;
 
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, _interactionDistance))
         {
-            if (hitInfo.collider.TryGetComponent<InteractableBase>(out var interactable))
+            if (hitInfo.collider.TryGetComponent<PowerBoxAttractSpot>(out var powerBoxAttractSpot))
             {
-                if (interactable.CanBeInteractedWith)
+                HeldInteractable.Singleton.PowerBoxAttractSpot = powerBoxAttractSpot;
+            }
+            else if (hitInfo.collider.TryGetComponent<InteractableBase>(out var interactable))
+            {
+                // Ensure the interactable isn't currently being held 
+                if (HeldInteractable.Singleton.PowerBox != interactable && interactable.CanBeInteractedWith)
                 {
                     SetInteractionFocusText(interactable.InteractionText);
                     

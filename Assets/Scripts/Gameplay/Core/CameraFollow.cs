@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -5,13 +6,24 @@ using UnityEngine;
 /// </summary>
 public class CameraFollow : MonoBehaviour
 {
+    
+    /// <summary>
+    /// The source to do the following.
+    /// </summary>
+    [CanBeNull] public Transform Source;
+    
     /// <summary>
     /// The target we wish to follow
     /// </summary>
-    public Transform Target;
+    [CanBeNull] public Transform Target;
 
     /// <summary>
-    /// The offset to apply to the target
+    /// The rotational offset the source is from the target
+    /// </summary>
+    public Quaternion TargetRotationalOffset = Quaternion.identity;
+    
+    /// <summary>
+    /// The positional offset to apply to the target
     /// </summary>
     public Vector3 TargetOffset = new(0,0,0);
     
@@ -21,37 +33,59 @@ public class CameraFollow : MonoBehaviour
     [Tooltip("Speed multiplier for rotation. Higher = faster tracking.")]
     public float RotationSmoothSpeed = 5.0f;
 
+
+    public Quaternion DesiredRotation
+    {
+        get => Target.rotation * TargetRotationalOffset;
+    }
+
+    public Vector3 DesiredPosition
+    {
+        get => Target.position + TargetOffset;
+    }
+    
+    
     private Vector3 _positionVelocity;
+
 
 
     void LateUpdate()
     {
-        if (Target == null) return;
+        if (Target == null || Source == null)
+        {
+            return;
+        }
 
-        // 1. Position Smoothing (SmoothDamp is excellent, keep this!)
-        transform.position = Vector3.SmoothDamp(
-            transform.position, 
-            Target.position + TargetOffset, 
+        // Position Smoothing (SmoothDamp is excellent, keep this!)
+        Source.position = Vector3.SmoothDamp(
+            Source.position, 
+            DesiredPosition, 
             ref _positionVelocity, 
             PositionSmoothTime
         );
 
-        // 2. Corrected Rotation Smoothing
+        // Corrected Rotation Smoothing
         // Using a higher speed factor makes the exponential decay responsive.
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation, 
-            Target.rotation, 
+        Source.rotation = Quaternion.Slerp(
+            Source.rotation, 
+            // Note: This is intentionally multiply, this is how we rotate one quaternion by another
+            DesiredRotation, 
             1f - Mathf.Exp(-RotationSmoothSpeed * Time.deltaTime)
         );
     }
 
 
     /// <summary>
-    /// Telports the camera position to Target.position + TargetOffset 
+    /// Teleports the camera position to Target.position + TargetOffset 
     /// </summary>
     public void SnapToTarget()
     {
-        transform.position = Target.transform.position + TargetOffset;
-        transform.rotation = Target.transform.rotation;
+        if (Target == null || Source == null)
+        {
+            return;
+        }
+        
+        Source.position = Target.position + TargetOffset;
+        Source.rotation = Target.rotation;
     }
 }

@@ -72,10 +72,11 @@ public class LevelFullMap : MonoBehaviour
             }
         }
 
-        #if UNITY_EDITOR
-            // Note: I'm not sure if these should be only in the editor?
-            PreprocessData();
-        #endif
+        // #if UNITY_EDITOR
+         // Note: I'm not sure if these should be only in the editor?
+
+          PreprocessData();
+        // #endif
 
         Helpers.CreateSingleton(ref Singleton, this);
         

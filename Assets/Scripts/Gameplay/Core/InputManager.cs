@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 /// <summary>
 /// Provides an abstract over user input (to enable different input modes e.g. keyboard + mouse, controller)
@@ -55,7 +56,7 @@ public static class InputManager {
     }
     public static bool InteractInputOnPress()
     {
-        return Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E);
+        return Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown((int)MouseButton.Left);
     }
     public static bool EscapeInputOnPress()
     {

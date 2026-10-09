@@ -14,8 +14,8 @@ TagManager:
   - Ground
   - Climbable
   - Interactables
-  - 
-  - 
+  - Interactables_WithCollisions
+  - PowerBoxAttractSpot
   - 
   - 
   - 

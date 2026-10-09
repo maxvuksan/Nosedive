@@ -1,8 +1,6 @@
 {
   "dependencies": {
     "com.cqf.urpvolumetricfog": "https://github.com/CristianQiu/Unity-URP-Volumetric-Light.git",
-    "com.diversion.vcs": "file:../Diversion/com.diversion.vcs-0.1.5.tgz",
-    "com.hammerunity.meshtools": "https://github.com/Kornflakes1/sledge.git",
     "com.marijnzwemmer.unity-toolbar-extender": "https://github.com/marijnz/unity-toolbar-extender.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.14",

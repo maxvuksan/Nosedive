@@ -206,9 +206,7 @@ public class LevelSelection : MonoBehaviour
         PlayerController playerMovement = FindFirstObjectByType<PlayerController>(FindObjectsInactive.Include);
 
         var cameraFollow = Camera.main.GetComponentInParent<CameraFollow>();
-        
         Camera.main.fieldOfView = playerMovement.CameraMinFov;
-
         cameraFollow.Target = LevelFullMap.Singleton.GetActiveLevel().CameraPreviewPosition;
         cameraFollow.TargetOffset = new Vector3(0, playerHead.GetCameraTargetYOffset(), 0);
 

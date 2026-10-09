@@ -66,7 +66,7 @@ public class HeadMovement : MonoBehaviour
 
         ReflectRotation();
 
-        FindFirstObjectByType<CameraFollow>().SnapToTarget();
+        Camera.main.GetComponentInParent<CameraFollow>().SnapToTarget();
 
     }
 

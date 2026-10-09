@@ -18,7 +18,7 @@ MonoBehaviour:
     FogInterpolationStart: 1
     FogInterpolationDepth: 11
     _padding0: {x: 0, y: 0}
-    Density: 0
+    Density: 0.0025
     BlobNoiseScale: 0.0067
     BlobNoiseIntensity: 0
     RandomNoise: 0
