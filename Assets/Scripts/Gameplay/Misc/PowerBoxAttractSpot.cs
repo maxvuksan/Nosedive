@@ -64,7 +64,13 @@ public class PowerBoxAttractSpot : MonoBehaviour
         {
             // Turn off collider if a box is present, this is to prevent the attract spot from block raycasts
             _boxCollider.enabled = false;
-            _pressurePlate.SetOnState(true);
+
+            // Only power the plate if the box is powered
+            if (powerBox.Powered)
+            {
+                _pressurePlate.SetOnState(true);
+            }
+            
             _yPositiomOffset = 0;
         }
         else

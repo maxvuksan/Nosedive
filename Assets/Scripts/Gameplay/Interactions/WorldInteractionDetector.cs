@@ -16,6 +16,8 @@ public class WorldInteractionDetector : MonoBehaviour
     [SerializeField] private float _interactionDistance = 10;
 
     [SerializeField] private TextMeshProUGUI _interactionText;
+    [SerializeField] private LayerMask _interactableLayerMask;
+    [SerializeField] private LayerMask _powerBoxAttractLayerMask;
 
     /// <summary>
     /// The interactable the ray is currently hitting
@@ -126,13 +128,22 @@ public class WorldInteractionDetector : MonoBehaviour
         _hasFocusedInteraction = false;
         HeldInteractable.Singleton.PowerBoxAttractSpot = null;
 
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, _interactionDistance))
+        // Only check for attract spots if we are actually holding something
+        if (HeldInteractable.Singleton.PowerBox != null)
         {
-            if (hitInfo.collider.TryGetComponent<PowerBoxAttractSpot>(out var powerBoxAttractSpot))
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, _interactionDistance, _powerBoxAttractLayerMask))
             {
-                HeldInteractable.Singleton.PowerBoxAttractSpot = powerBoxAttractSpot;
+                if (hitInfo.collider.TryGetComponent<PowerBoxAttractSpot>(out var powerBoxAttractSpot))
+                {
+                    HeldInteractable.Singleton.PowerBoxAttractSpot = powerBoxAttractSpot;
+                    return;
+                }
             }
-            else if (hitInfo.collider.TryGetComponent<InteractableBase>(out var interactable))
+        }
+        
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo2, _interactionDistance, _interactableLayerMask))
+        {
+            if (hitInfo2.collider.TryGetComponent<InteractableBase>(out var interactable))
             {
                 // Ensure the interactable isn't currently being held 
                 if (HeldInteractable.Singleton.PowerBox != interactable && interactable.CanBeInteractedWith)

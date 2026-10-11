@@ -198,7 +198,19 @@ public class EnviromentManager : MonoBehaviour
         // Dynamically find the correct segment based on world position
         UpdateActiveLevelIndexByZAxis();
 
+        // Get the raw tracking value
         _lerpT = CalculateLerpTFromProjectedPlayerPosition();
+        // Force clamp _lerpT between 0 and 1 so mathematical errors don't overshoot boundaries
+        _lerpT = Mathf.Clamp01(_lerpT);
+
+        // If the player is firmly in the first zone or behind it, clamp to pure Level 0 settings
+        if (_activeLevelIndex == 0 && _lerpT <= 0.01f)
+        {
+            _enviromentState = LevelFullMap.Singleton.Levels[0].EnviromentSettings;
+            return;
+        }
+
+        // Otherwise evaluate multiple levels
         int nextIndex = _activeLevelIndex + 1;
 
         // Handle end of the map safely
@@ -207,7 +219,7 @@ public class EnviromentManager : MonoBehaviour
             _enviromentState = LevelFullMap.Singleton.Levels[_activeLevelIndex].EnviromentSettings;
             return;
         }
-
+        
         LevelEnviromentSettings stateCurrent = LevelFullMap.Singleton.Levels[_activeLevelIndex].EnviromentSettings;
         LevelEnviromentSettings stateNext = LevelFullMap.Singleton.Levels[nextIndex].EnviromentSettings;
 
@@ -224,6 +236,9 @@ public class EnviromentManager : MonoBehaviour
         _enviromentState.CameraLightSourceRadius = Mathf.Lerp(stateCurrent.CameraLightSourceRadius, stateNext.CameraLightSourceRadius, _lerpT);
         _enviromentState.DirectionalLightSourceIntensity = Mathf.Lerp(stateCurrent.DirectionalLightSourceIntensity, stateNext.DirectionalLightSourceIntensity, _lerpT);
 
+        // TODO: This should really have only interpolation logic above in this ^ 
+        // TODO: This is because this function will return early for first and last level (meaning we may miss important code)
+        
         CollectableSphere.UpdateCurrentPulse(_fogProfile, CollectableSpherePulse);
 
         if (_overrideFogColourIncreasing)

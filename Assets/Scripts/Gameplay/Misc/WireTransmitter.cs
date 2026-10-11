@@ -9,7 +9,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(MaterialOverrides))]
 public class WireTransmitterListener : PressurePlateListener
 {
-    
     /// <summary>
     /// Should the base leak effect be removed, set to true if we want the wire to be a uniform colour
     /// </summary>

@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 4819384458436707271}
   - component: {fileID: 3721208738373563751}
   - component: {fileID: 8384798779703253479}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: CubeAttractSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8255066681554826460}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00047391653, y: 0.70710665, z: 0.70710665, w: -0.00047391653}
+  m_LocalRotation: {x: 0.0004751469, y: 0.70710665, z: 0.70710665, w: -0.0004751469}
   m_LocalPosition: {x: 3.0452986, y: -2.8300002, z: 4.4727173}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -441,7 +441,7 @@ Transform:
   - {fileID: 8883775375052124519}
   - {fileID: 399124825548895049}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 279.104, z: -10.827}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0.07699585}
 --- !u!114 &6251224886424001529
 MonoBehaviour:
   m_ObjectHideFlags: 0

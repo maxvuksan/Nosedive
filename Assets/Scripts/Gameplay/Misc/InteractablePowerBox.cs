@@ -3,10 +3,20 @@ using UnityEngine;
 
 public class InteractablePowerBox : InteractableBase
 {
+    
+    /// <summary>
+    /// Is the box powered?
+    /// </summary>
+    public bool Powered
+    {
+        get => _powered; 
+        set => SetPowerState(value);
+    }
+    
     /// <summary>
     /// Determines whether this box has power initially
     /// </summary>
-    [SerializeField] private bool _initallyPowered;
+    [SerializeField] private bool _powered;
     
     private BoxCollider _collider;
     private Rigidbody _rigidbody;
@@ -21,7 +31,7 @@ public class InteractablePowerBox : InteractableBase
         _collider = GetComponent<BoxCollider>();
         Release();
 
-        SetPowerState(_initallyPowered);
+        SetPowerState(_powered);
     }
 
     private void Start()
@@ -69,6 +79,8 @@ public class InteractablePowerBox : InteractableBase
 
     private void SetPowerState(bool powered)
     {
+        _powered = powered; 
+        
         Material[] mats = _renderer.materials; 
 
         // Change the specific index in the copy
