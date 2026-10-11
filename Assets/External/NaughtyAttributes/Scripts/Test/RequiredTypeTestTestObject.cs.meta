@@ -6,5 +6,5 @@ AssetOrigin:
   productId: 129996
   packageName: NaughtyAttributes
   packageVersion: 2.1.6
-  assetPath: Assets/NaughtyAttributes/Scripts/Test/RequiredTypeTestTestObject.cs
+  assetPath: Assets/External/NaughtyAttributes/Scripts/Test/RequiredTypeTestTestObject.cs
   uploadId: 943610

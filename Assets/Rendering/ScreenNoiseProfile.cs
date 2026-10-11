@@ -1,7 +1,6 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Custom/Screen Noise Profile")]
 [System.Serializable]
 public class ScreenNoiseProfile : IProfile<ScreenNoiseDataStruct>
 {

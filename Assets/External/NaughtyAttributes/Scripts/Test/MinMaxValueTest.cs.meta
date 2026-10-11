@@ -14,5 +14,5 @@ AssetOrigin:
   productId: 129996
   packageName: NaughtyAttributes
   packageVersion: 2.1.6
-  assetPath: Assets/NaughtyAttributes/Scripts/Test/MinMaxValueTest.cs
+  assetPath: Assets/External/NaughtyAttributes/Scripts/Test/MinMaxValueTest.cs
   uploadId: 943610

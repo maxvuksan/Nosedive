@@ -14,5 +14,5 @@ AssetOrigin:
   productId: 129996
   packageName: NaughtyAttributes
   packageVersion: 2.1.6
-  assetPath: Assets/NaughtyAttributes/Scripts/Core/MetaAttributes/ShowIfAttribute.cs
+  assetPath: Assets/External/NaughtyAttributes/Scripts/Core/MetaAttributes/ShowIfAttribute.cs
   uploadId: 943610

@@ -58,7 +58,7 @@ public class WorldInteractionDetector : MonoBehaviour
     }
     
     
-    private void Update()
+    private void LateUpdate()
     {
         if(!InCorrectGameState())
         {

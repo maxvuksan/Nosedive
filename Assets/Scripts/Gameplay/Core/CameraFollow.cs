@@ -6,7 +6,6 @@ using UnityEngine;
 /// </summary>
 public class CameraFollow : MonoBehaviour
 {
-    
     /// <summary>
     /// The source to do the following.
     /// </summary>
@@ -55,8 +54,8 @@ public class CameraFollow : MonoBehaviour
         {
             return;
         }
-
-        // Position Smoothing (SmoothDamp is excellent, keep this!)
+        
+        // Position Smoothing 
         Source.position = Vector3.SmoothDamp(
             Source.position, 
             DesiredPosition, 

@@ -62,10 +62,17 @@ public class HeldInteractable : MonoBehaviour
                 _powerBox.PlaceOnPlate(PowerBoxAttractSpot);
                 _powerBox = null;
             }
+            else
+            {
+                _powerBox.Release();
+                _heldInteractableCameraFollow.Source = null;
+                _powerBox = null;
+            }
             
         }
             
     }
+    
     
     void FixedUpdate()
     {

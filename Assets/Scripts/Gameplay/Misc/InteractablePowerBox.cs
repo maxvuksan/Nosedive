@@ -3,20 +3,41 @@ using UnityEngine;
 
 public class InteractablePowerBox : InteractableBase
 {
+    /// <summary>
+    /// Determines whether this box has power initially
+    /// </summary>
+    [SerializeField] private bool _initallyPowered;
+    
     private BoxCollider _collider;
+    private Rigidbody _rigidbody;
     private PowerBoxAttractSpot _attractSpot;
+    private Transform _previousParent;
+    private MeshRenderer _renderer;
     
     private void Awake()
     {
+        _renderer = GetComponent<MeshRenderer>();
+        _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
+        Release();
+
+        SetPowerState(_initallyPowered);
     }
 
+    private void Start()
+    {
+        _previousParent = transform.parent;
+    }
 
     public override void OnInteract(WorldInteractionDetector interactionDetector)
     {
         HeldInteractable.Singleton.SetInteractableAsHeld(this);
         transform.localRotation = Quaternion.identity;
+        
         _collider.enabled = false;
+        _rigidbody.isKinematic = true;
+        _rigidbody.detectCollisions = false;
+        _rigidbody.interpolation = RigidbodyInterpolation.None;
 
         if (_attractSpot != null)
         {
@@ -28,10 +49,34 @@ public class InteractablePowerBox : InteractableBase
     public void PlaceOnPlate(PowerBoxAttractSpot powerBoxAttractSpot)
     {
         _collider.enabled = true;
+        _rigidbody.isKinematic = true;
+        _rigidbody.detectCollisions = true;
+        _rigidbody.interpolation = RigidbodyInterpolation.None;
+        
+        transform.parent = powerBoxAttractSpot?.transform;
         powerBoxAttractSpot.SetOccupiedByPowerBox(this);
         _attractSpot = powerBoxAttractSpot;
     }
 
+    public void Release()
+    {
+        transform.parent = _previousParent;
+        _collider.enabled = true;
+        _rigidbody.isKinematic = false;
+        _rigidbody.detectCollisions = true;
+        _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+    }
+
+    private void SetPowerState(bool powered)
+    {
+        Material[] mats = _renderer.materials; 
+
+        // Change the specific index in the copy
+        mats[0] = powered ? Helpers.Singleton.MaterialEmissiveWhite : Helpers.Singleton.MaterialEmissiveDim;
+
+        // Assign the modified array back to the renderer
+        _renderer.materials = mats; 
+    }
   
   
 }
