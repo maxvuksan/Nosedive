@@ -1,3 +1,11 @@
 ﻿# FMOD
 Assets/Plugins/FMOD/**/*.bundle text eol=lf
 Assets/Plugins/FMOD/**/Info.plist text eol=lf
+
+# Track FMOD banks
+*.bank filter=lfs diff=lfs merge=lfs -text
+
+# Track source audio formats
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
