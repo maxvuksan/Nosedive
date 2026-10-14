@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -29,7 +30,9 @@ public class EnviromentManager : MonoBehaviour
 
     private LoopingSound _rainSound;
     private LoopingSound _windSound;
-    
+
+    private EventInstance _rainSoundInstance;
+    private EventInstance _windSoundInstance;
 
     [Header("Collectable Sphere Settings")]
     public CollectablePulse CollectableSpherePulse;
@@ -127,31 +130,34 @@ public class EnviromentManager : MonoBehaviour
     private void EnableSounds()
     {
         // Looping Audio Manager singleton may not be ready when this is enabled
-        if(_soundsEnabled || LoopingAudioManager.Singleton == null)
+        if (!_soundsEnabled || FmodAudioManager.Singleton == null)
         {
-            return;
+            _windSoundInstance = FmodAudioManager.PlayLoop("WeatherWind");
+            _rainSoundInstance = FmodAudioManager.PlayLoop("WeatherRain");
+
+            // Note: we are ignoring seek speed to ensure the audio loops snap to 0 volume to start
+            _windSoundInstance.setParameterByName("Intensity", 0, true);
+            _rainSoundInstance.setParameterByName("Intensity", 0, true);
+            
+            _soundsEnabled = true;
         }
-        
-        // Default volumes to 0 so initially volume does not spike 
-        _windSound = LoopingAudioManager.Singleton.EnableLoop("WeatherWind", LoopingAudioManager.Singleton.DefaultFadeInTime, 0);
-        _rainSound = LoopingAudioManager.Singleton.EnableLoop("WeatherRain", LoopingAudioManager.Singleton.DefaultFadeInTime, 0);
-        _soundsEnabled = true;        
     }
 
     private void OnDisable()
     {
         if (_soundsEnabled)
         {
-            LoopingAudioManager.Singleton.DisableLoop("WeatherWind");
-            LoopingAudioManager.Singleton.DisableLoop("WeatherRain");
+            FmodAudioManager.StopLoop("WeatherWind");
+            FmodAudioManager.StopLoop("WeatherRain");
             _soundsEnabled = false;
         }
     }
 
     private void ApplyEnviromentState()
     {
-        _windSound.volumeScaler = _enviromentState.WindStrength;
-        _rainSound.volumeScaler = _enviromentState.RainStrength;
+        // Scale the intensity of the audio loops with the environment state        
+        _windSoundInstance.setParameterByName("Intensity", _enviromentState.WindStrength);
+        _rainSoundInstance.setParameterByName("Intensity", _enviromentState.RainStrength);
 
         _mainCamera.backgroundColor = _enviromentState.FogColour;
 
@@ -286,7 +292,7 @@ public class EnviromentManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Projects the players position on the axis between the curret and next spawn point, this allows us to calculate the lerp T value between these points
+    /// Projects the players position on the axis between the current and next spawn point, this allows us to calculate the lerp T value between these points
     /// </summary>
     private float CalculateLerpTFromProjectedPlayerPosition()
     {

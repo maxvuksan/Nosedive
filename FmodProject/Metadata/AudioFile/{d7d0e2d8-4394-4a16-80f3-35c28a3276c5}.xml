@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{d7d0e2d8-4394-4a16-80f3-35c28a3276c5}">
+		<property name="assetPath">
+			<value>Loops/Music/LOOP_RainOnCity_Pad.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>182.85714285714286</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f28335cd-cc26-4b5d-a0a7-844d2cf145da}</destination>
+		</relationship>
+	</object>
+</objects>

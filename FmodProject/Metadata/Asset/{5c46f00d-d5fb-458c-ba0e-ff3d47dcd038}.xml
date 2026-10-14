@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EncodableAsset" id="{5c46f00d-d5fb-458c-ba0e-ff3d47dcd038}">
+		<property name="assetPath">
+			<value>FieldRecordingLibrary/Categorized/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f28335cd-cc26-4b5d-a0a7-844d2cf145da}</destination>
+		</relationship>
+	</object>
+</objects>

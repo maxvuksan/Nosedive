@@ -5112,14 +5112,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 573163979}
     m_Modifications:
     - target: {fileID: 261444539831336608, guid: e8d7239e9fe786341987424bd5df9e3d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 150.00008
-      objectReference: {fileID: 0}
-    - target: {fileID: 261444539831336608, guid: e8d7239e9fe786341987424bd5df9e3d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 150.00008
-      objectReference: {fileID: 0}
-    - target: {fileID: 261444539831336608, guid: e8d7239e9fe786341987424bd5df9e3d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -25.9
       objectReference: {fileID: 0}
@@ -5159,14 +5151,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3952098477151867308, guid: e8d7239e9fe786341987424bd5df9e3d, type: 3}
-      propertyPath: _initallyPowered
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6114941035923501052, guid: e8d7239e9fe786341987424bd5df9e3d, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 431797500444815141, guid: f18a9b9bf0d86634b9f818776cfbaa7c, type: 2}
     - target: {fileID: 6703719345910159133, guid: e8d7239e9fe786341987424bd5df9e3d, type: 3}
       propertyPath: m_Name
       value: PowerBlock (3)
@@ -7652,7 +7636,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 650250205080932324, guid: bc1904cafeeaa4441b8d8f538a1c3e4e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3715114626325331016, guid: bc1904cafeeaa4441b8d8f538a1c3e4e, type: 3}

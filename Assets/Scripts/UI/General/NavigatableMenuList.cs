@@ -1,10 +1,14 @@
 using UnityEngine;
 
 /// <summary>
-/// A list of entries
+/// A list ui entries that can be navigating with the keyboard
 /// </summary>
 public class NavigatableMenuList : MonoBehaviour
-{   
+{
+    private const string UiBlipDownSoundLabel = "UIBlipDown";
+    private const string UiBlipUpSoundLabel = "UIBlipUp";
+    private const string UiBlipSubmitSoundLabel = "UIBlipSubmit";
+    
     /// <summary>
     /// Decides if the selectedItem reverts to 0 when the component enables
     /// </summary>
@@ -46,7 +50,7 @@ public class NavigatableMenuList : MonoBehaviour
             if(Items[_selectedItem].HorizontalJoltTarget != null)
             {
                 Items[_selectedItem].HorizontalJoltTarget.GetComponent<UIElementJolt>().Jolt(new Vector2(-1, 0));
-                AudioManager.Singleton.Play(Helpers.Singleton.UiBlipDownSoundLabel);
+                FmodAudioManager.PlayOneShot(UiBlipDownSoundLabel);
             }
             Items[_selectedItem].OnLeftInput?.Invoke();
         }
@@ -55,7 +59,8 @@ public class NavigatableMenuList : MonoBehaviour
             if(Items[_selectedItem].HorizontalJoltTarget != null)
             {
                 Items[_selectedItem].HorizontalJoltTarget.GetComponent<UIElementJolt>().Jolt(new Vector2(1, 0));
-                AudioManager.Singleton.Play(Helpers.Singleton.UiBlipUpSoundLabel);
+                FmodAudioManager.PlayOneShot(UiBlipUpSoundLabel);
+
             }
             Items[_selectedItem].OnRightInput?.Invoke();
         }
@@ -64,13 +69,13 @@ public class NavigatableMenuList : MonoBehaviour
         if(InputManager.UpInputOnPress()) 
         {
             StepToNextItem(-1);
-            AudioManager.Singleton.Play(Helpers.Singleton.UiBlipUpSoundLabel);
+            FmodAudioManager.PlayOneShot(UiBlipDownSoundLabel);
 
         }
         else if(InputManager.DownInputOnPress()) 
         {
-            AudioManager.Singleton.Play(Helpers.Singleton.UiBlipDownSoundLabel);
             StepToNextItem(1);
+            FmodAudioManager.PlayOneShot(UiBlipUpSoundLabel);
         }
         
 
@@ -78,7 +83,7 @@ public class NavigatableMenuList : MonoBehaviour
         // Note: We only allow this to execute if a function is assigned to OnMainInput
         if(InputManager.JumpInputOnPress() && Items[_selectedItem].OnMainInput.GetPersistentEventCount() > 0) 
         {
-            AudioManager.Singleton.Play(Helpers.Singleton.UiBlipSubmitSoundLabel);
+            FmodAudioManager.PlayOneShot(UiBlipSubmitSoundLabel);
             Items[_selectedItem].OnMainInput?.Invoke(); 
         }
     }

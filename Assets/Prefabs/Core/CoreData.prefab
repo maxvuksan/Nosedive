@@ -5989,9 +5989,9 @@ GameObject:
   m_Component:
   - component: {fileID: 821931393713321758}
   - component: {fileID: 710731453399566494}
-  - component: {fileID: 650250205080932324}
   - component: {fileID: 3023699205765233456}
   - component: {fileID: 8341374092620231801}
+  - component: {fileID: 2337296579557471850}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6065,14 +6065,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &650250205080932324
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1354860002923783509}
-  m_Enabled: 1
 --- !u!114 &3023699205765233456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6131,6 +6123,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   _interactionDistance: 23
   _interactionText: {fileID: 2740981812720028910}
+  _interactableLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _powerBoxAttractLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &2337296579557471850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354860002923783509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1 &1487962305093990351
 GameObject:
   m_ObjectHideFlags: 0
@@ -16713,16 +16725,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   Properties:
-  - PlayerFootstepSoundLeft: Footstep_Left
-    PlayerFootstepSoundRight: Footstep_Right
-  - PlayerFootstepSoundLeft: MetalFootstep_Left
-    PlayerFootstepSoundRight: MetalFootstep_Right
-  - PlayerFootstepSoundLeft: WoodBoardFootstep_Left
-    PlayerFootstepSoundRight: WoodBoardFootstep_Right
-  - PlayerFootstepSoundLeft: Footstep_Dirt_Left
-    PlayerFootstepSoundRight: Footstep_Dirt_Right
-  - PlayerFootstepSoundLeft: Footstep_Sand_Left
-    PlayerFootstepSoundRight: Footstep_Sand_Right
+  - PlayerFootstepSoundLeft: FootstepConcreteL
+    PlayerFootstepSoundRight: FootstepConcreteR
+  - PlayerFootstepSoundLeft: FootstepMetalL
+    PlayerFootstepSoundRight: FootstepMetalR
+  - PlayerFootstepSoundLeft: FootstepWoodBoardL
+    PlayerFootstepSoundRight: FootstepWoodBoardR
+  - PlayerFootstepSoundLeft: FootstepDirtL
+    PlayerFootstepSoundRight: FootstepDirtR
+  - PlayerFootstepSoundLeft: FootstepSandL
+    PlayerFootstepSoundRight: FootstepSandR
 --- !u!1 &8848601525594332997
 GameObject:
   m_ObjectHideFlags: 0

@@ -109,21 +109,21 @@ public class LevelSelection : MonoBehaviour
         {
             if (StepSelected(-1))
             {
-                AudioManager.Singleton.Play(Helpers.Singleton.UiBlipDownSoundLabel);
+                FmodAudioManager.PlayOneShot("UIBlipDown");
             }
         }
         else if (InputManager.RightInputOnPress())
         {
             if (StepSelected(1))
             {
-                AudioManager.Singleton.Play(Helpers.Singleton.UiBlipUpSoundLabel);
+                FmodAudioManager.PlayOneShot("UIBlipUp");
             }
         }
         if(InputManager.JumpInputOnPress() || InputManager.InteractInputOnPress())
         {
             LoadLevel(_selectedChip);
             GameStateManager.Singleton.SetState(GameStateManager.GameState.Playing);
-            AudioManager.Singleton.Play(Helpers.Singleton.UiBlipSubmitSoundLabel);
+            FmodAudioManager.PlayOneShot("UIBlipSubmit");
         }
     }
 

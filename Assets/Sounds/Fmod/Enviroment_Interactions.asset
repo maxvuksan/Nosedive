@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be21bb26ad794940a97e3a00578788de, type: 3}
+  m_Name: Enviroment_Interactions
+  m_EditorClassIdentifier: Assembly-CSharp::FmodSoundGroup
+  FmodSounds:
+  - Name: PressurePlateUp
+    EventReference:
+      Guid:
+        Data1: 795184273
+        Data2: 1230072608
+        Data3: -950157410
+        Data4: 299171893
+      Path: event:/Enviroment/Interactions/PressurePlateUp
+  - Name: PressurePlateDown
+    EventReference:
+      Guid:
+        Data1: -986911082
+        Data2: 1221329520
+        Data3: -338634333
+        Data4: 715200494
+      Path: event:/Enviroment/Interactions/PressurePlateDown

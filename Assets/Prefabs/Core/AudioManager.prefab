@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 733908409720493883}
   - component: {fileID: 4516398624217878521}
   - component: {fileID: 6638374577896660017}
+  - component: {fileID: 1965692462351236418}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -84,3 +85,20 @@ MonoBehaviour:
     PlayerFootstepSoundRight: FootstepLayer_GlassCrunch
   - PlayerFootstepSoundLeft: FootstepLayer_Grass_Left
     PlayerFootstepSoundRight: FootstepLayer_Grass_Right
+--- !u!114 &1965692462351236418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359040277822182011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb674700a24449fa869e8ea9851f1ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FmodAudioManager
+  _soundGroups:
+  - {fileID: 11400000, guid: fc6bdaa1e6837314fa6960c47efe793f, type: 2}
+  - {fileID: 11400000, guid: f08dc749eda00a344a551a542484925f, type: 2}
+  - {fileID: 11400000, guid: c5fb74899c71a374eb71ba07b1713f92, type: 2}
+  - {fileID: 11400000, guid: 42b171760be9d1b4a9cae09ab3be8a8d, type: 2}

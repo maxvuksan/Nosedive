@@ -160,11 +160,11 @@ public class PressurePlate : PressurePlateListener
         
         if (state)
         {
-            AudioManager.Singleton.Play("PressurePlate_SwitchDown");
+            FmodAudioManager.PlayOneShot("PressurePlateDown");
         }
         else
-        {
-            AudioManager.Singleton.Play("PressurePlate_SwitchUp");
+        { 
+            FmodAudioManager.PlayOneShot("PressurePlateUp");
         }
 
         foreach(var listener in _listeners){

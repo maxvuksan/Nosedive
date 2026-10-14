@@ -148,7 +148,7 @@ public class GameStateManager : MonoBehaviour
                 SetState(GameState.MainMenu);
             }
 
-            AudioManager.Singleton.Play(Helpers.Singleton.UiBlipSubmitSoundLabel);
+            FmodAudioManager.PlayOneShot("UIBlipSubmit");
         }
     }
 }
