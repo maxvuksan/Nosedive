@@ -17,10 +17,8 @@ public class EnviromentManager : MonoBehaviour
     /// </summary>
     [SerializeField] private int _fogGroundLayerOffset; 
 
-
     [Header("Cavity/Rim Light Settings")]
     [SerializeField] private Material _cavityMaterial;
-
 
     [Header("Rain Settings")]
 
@@ -34,18 +32,6 @@ public class EnviromentManager : MonoBehaviour
     private EventInstance _rainSoundInstance;
     private EventInstance _windSoundInstance;
 
-    [Header("Collectable Sphere Settings")]
-    public CollectablePulse CollectableSpherePulse;
-    [SerializeField] private CollectablePulseColours[] _collectablePulseConfigurations;
-    [HideInInspector] public float CollectableWireBlendT = 0;
-    public float CollectableWireBlendIncreaseSpeed = 0.1f;
-    [SerializeField] private Material _collectableWireBlendMaterial;
-    public Color _collectableWireOffColour;
-    [SerializeField] private float _collectableWireIncreaseRate;
-    private Color _collectableWireOverrideColour;
-    private bool _collectableWireOverrideIsIncreasing;
-    private float _collectableWireOverrideTrackedT = 0;
- 
     // The fog override colour fades in (increase rate) then when reaches full intensity begins fading out (decrease rate)
     [SerializeField] private float _overrideFogColourIncreaseRate;
     [SerializeField] private float _overrideFogColourDecreaseRate;
@@ -53,8 +39,6 @@ public class EnviromentManager : MonoBehaviour
     private bool _overrideFogColourIncreasing = false;
     private Color _overrideFogColour;
 
-    
-    
     private float _lerpT;
 
     /// <summary>
@@ -74,15 +58,6 @@ public class EnviromentManager : MonoBehaviour
     private bool _soundsEnabled = false;
 
     /// <summary>
-    /// Gets the collectable pulse colour data set at a specific collectable index
-    /// </summary>
-    public CollectablePulseColours GetCollectablePulseColours(int index)
-    {
-        index %= _collectablePulseConfigurations.Length;
-        return _collectablePulseConfigurations[index];
-    }
-
-    /// <summary>
     /// Temporarily overrides the colour of the fog, this override colour slowly fades back to the active colour
     /// </summary>
     public void SetTemporarilyFogColourOverride(Color fogOverrideColour)
@@ -91,17 +66,6 @@ public class EnviromentManager : MonoBehaviour
         _overrideFogColour = fogOverrideColour;
         _overrideFogColourIncreasing = true;
     }
-
-    /// <summary>
-    /// Overrides the colour of the wire powered colour
-    /// </summary>
-    /// <param name="wireOverrideColour">The colour the wire should be</param>
-    public void SetTemporaryCollectableWireColourOveride(Color wireOverrideColour)
-    {
-        _collectableWireOverrideColour = wireOverrideColour;
-        _collectableWireOverrideIsIncreasing = true;
-    }
-
 
     private void Awake()
     {
@@ -113,10 +77,6 @@ public class EnviromentManager : MonoBehaviour
 
     private void Start()
     {
-        // Sync material to match colour profile
-        _collectableWireBlendMaterial.SetColor("_OnColour", Helpers.Colours.WireOn);
-        _collectableWireBlendMaterial.SetColor("_OffColour",  Helpers.Colours.WireOff);
-
         _enviromentState = LevelFullMap.Singleton.Levels[0].EnviromentSettings;
         EnableSounds();
         ApplyEnviromentState();
@@ -245,8 +205,6 @@ public class EnviromentManager : MonoBehaviour
         // TODO: This should really have only interpolation logic above in this ^ 
         // TODO: This is because this function will return early for first and last level (meaning we may miss important code)
         
-        CollectableSphere.UpdateCurrentPulse(_fogProfile, CollectableSpherePulse);
-
         if (_overrideFogColourIncreasing)
         {
             _overrideFogColourTrackedT += Time.deltaTime * _overrideFogColourIncreaseRate;
@@ -268,27 +226,6 @@ public class EnviromentManager : MonoBehaviour
         
         _enviromentState.FogColour = Color.Lerp(trueFogColour, _overrideFogColour, _overrideFogColourTrackedT);
         _enviromentState.FogEndColour = Color.Lerp(trueFogEndColour, _overrideFogColour, _overrideFogColourTrackedT);
-        
-
-
-        if (_collectableWireOverrideIsIncreasing)
-        {
-            _collectableWireOverrideIsIncreasing = false;
-            _collectableWireOverrideTrackedT += Time.deltaTime * _collectableWireIncreaseRate;
-
-        }
-        else
-        {
-            // Lerp back to the off colour sharply
-            _collectableWireOverrideTrackedT -= Time.deltaTime * _collectableWireIncreaseRate * 6;
-        }
-        _collectableWireOverrideTrackedT = Mathf.Clamp01(_collectableWireOverrideTrackedT);
-
-        _collectableWireBlendMaterial.SetFloat("_Blend", CollectableWireBlendT);
-
-        _collectableWireBlendMaterial.SetColor("_OnColour", Color.Lerp(_collectableWireOffColour, _collectableWireOverrideColour, _collectableWireOverrideTrackedT));
-
-
     }
 
     /// <summary>

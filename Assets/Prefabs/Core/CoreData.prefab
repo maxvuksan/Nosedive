@@ -6089,7 +6089,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 3
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 1
@@ -6125,10 +6125,10 @@ MonoBehaviour:
   _interactionText: {fileID: 2740981812720028910}
   _interactableLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 768
   _powerBoxAttractLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!114 &2337296579557471850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6454,9 +6454,9 @@ MonoBehaviour:
   UiJoltSpeed: 3.5
   UiHorizontalJoltStrength: 2
   UiHorizontalJoltSpeed: 6
-  UiBlipSubmitSoundLabel: UiBlip_Submit
-  UiBlipUpSoundLabel: UiBlip_Up
-  UiBlipDownSoundLabel: UiBlip_Down
+  WireUnderBlendDisapateSpeed: 3
+  WireUnderBlendDisapateInitalOpacity: 0.55
+  WireTransmitSpeed: 100
   MaterialEmissiveWhite: {fileID: 2100000, guid: 196c7547ac9a37747a7b224896a4a1f7, type: 2}
   MaterialEmissiveDim: {fileID: 2100000, guid: 3d038308b2f0f744ba550a03b03aca8e, type: 2}
   MaterialWire: {fileID: 2100000, guid: c4ab497b8cd4a2a428ccbe3e71f175d8, type: 2}
@@ -7201,7 +7201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 494ff871938c80b4c94979d269f8ad7e, type: 2}
+  m_Texture: {fileID: 8400000, guid: 357e8f29ce5e0b3488c49d0f40b69107, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -8396,6 +8396,7 @@ RectTransform:
   m_Children:
   - {fileID: 6550281636798733287}
   - {fileID: 7489200736721579394}
+  - {fileID: 5846509320933674220}
   - {fileID: 7258118353221285827}
   - {fileID: 7913169345937623250}
   - {fileID: 6907850690696275872}
@@ -15834,6 +15835,81 @@ MonoBehaviour:
   GraphicTargets:
   - {fileID: 5144293793213071065}
   - {fileID: 4341306916388224026}
+--- !u!1 &7724808550498145079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5846509320933674220}
+  - component: {fileID: 1837443695547715453}
+  - component: {fileID: 669091550053490321}
+  m_Layer: 5
+  m_Name: Crosshair
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5846509320933674220
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724808550498145079}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.8}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3715114626325331016}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 7, y: 7}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1837443695547715453
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724808550498145079}
+  m_CullTransparentMesh: 1
+--- !u!114 &669091550053490321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724808550498145079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7828433868193990546
 GameObject:
   m_ObjectHideFlags: 0
@@ -16161,35 +16237,6 @@ MonoBehaviour:
   _rainHeightAbovePlayer: 150
   _rainParticleSource: {fileID: 1191712506476533992}
   _rainPerSecond: 1000
-  CollectableSpherePulse:
-    RadiusInital: 0
-    RadiusIncreaseRateInital: 200
-    RadiusIncreaseRateMax: 0
-    ColourInital: {r: 0.6191575, g: 0.3160377, b: 1, a: 1}
-    ColourMax: {r: 0.6349165, g: 0.3443396, b: 1, a: 0}
-    BandSizeInital: 1
-    BandSizeMax: 3
-    FeatherInital: 8
-    FeatherMax: 15
-    OriginPoint: {x: -685.29, y: -1078.67, z: -1589.14}
-    Duration: 3
-    DurationTracked: 0.4022145
-    PulseCompleted: 1
-  _collectablePulseConfigurations:
-  - ColourInital: {r: 1, g: 1, b: 1, a: 0.77254903}
-    ColourMax: {r: 1, g: 1, b: 1, a: 0}
-    FogColour: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
-  - ColourInital: {r: 0.32549024, g: 0.4524082, b: 1, a: 1}
-    ColourMax: {r: 0.3254902, g: 0.45098042, b: 1, a: 0}
-    FogColour: {r: 0.18752226, g: 0.3236962, b: 0.8113208, a: 1}
-  - ColourInital: {r: 1, g: 0.69524544, b: 0.32549024, a: 1}
-    ColourMax: {r: 1, g: 0.69411767, b: 0.3254902, a: 0}
-    FogColour: {r: 0.8113208, g: 0.43841833, b: 0.17986828, a: 1}
-  CollectableWireBlendT: 0
-  CollectableWireBlendIncreaseSpeed: 1
-  _collectableWireBlendMaterial: {fileID: 2100000, guid: c4ab497b8cd4a2a428ccbe3e71f175d8, type: 2}
-  _collectableWireOffColour: {r: 0.12156863, g: 0.12156863, b: 0.12156863, a: 1}
-  _collectableWireIncreaseRate: 1.5
   _overrideFogColourIncreaseRate: 15
   _overrideFogColourDecreaseRate: 0.25
 --- !u!1 &8498881077019730813

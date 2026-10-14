@@ -63,11 +63,6 @@ public class CollectableSphere : PressurePlateListener
         _active = true;    
     }
     
-    private void Start()
-    {
-        _materialOverrides.AssignColourOverride("_BaseColor", EnviromentManager.Singleton._collectableWireOffColour);
-    }
-
     private void OnEnable()
     {
         if (!_active)
@@ -108,29 +103,30 @@ public class CollectableSphere : PressurePlateListener
 
     void Update()
     {
-        if (!_lastPressurePlateState || !_active)
-        {
-            return;
-        }
-
-        EnviromentManager.Singleton.SetTemporaryCollectableWireColourOveride(Color.white);
-
-        _wireLerpT += Time.deltaTime * EnviromentManager.Singleton.CollectableWireBlendIncreaseSpeed * WireFillSpeedScale;
-        float clampedWireLerpT = Mathf.Clamp01(_wireLerpT);
-        _wire.SetBlendLerpT(clampedWireLerpT);
-
-        // Delay lerp value so has a delay before lighting up 
-        float delayedWireLerpT = Mathf.Clamp01(_wireLerpT - 1.0f);
-        _materialOverrides.AssignColourOverride("_BaseColor", Color.Lerp(EnviromentManager.Singleton._collectableWireOffColour, Color.white, delayedWireLerpT)); 
-
-        //SetPointLightsIntensity(Mathf.Lerp(_minLightSourceIntensity, _maxLightSourceIntensity, _wireLerpT));
-
-        if (_wireLerpT == 2)
-        {
-            _active = false;
-            //SetPointLightsIntensity(0);
-            //GetComponent<Animator>().SetTrigger("Pulse");
-        }
+        // TODO: The collectable sphere logic will need revisiting, I have removed the logic from EnviromentManager this depended on
+        // if (!_lastPressurePlateState || !_active)
+        // {
+        //     return;
+        // }
+        //
+        // EnviromentManager.Singleton.SetTemporaryCollectableWireColourOveride(Color.white);
+        //
+        // _wireLerpT += Time.deltaTime * EnviromentManager.Singleton.CollectableWireBlendIncreaseSpeed * WireFillSpeedScale;
+        // float clampedWireLerpT = Mathf.Clamp01(_wireLerpT);
+        // _wire.SetBlendLerpT(clampedWireLerpT);
+        //
+        // // Delay lerp value so has a delay before lighting up 
+        // float delayedWireLerpT = Mathf.Clamp01(_wireLerpT - 1.0f);
+        // _materialOverrides.AssignColourOverride("_BaseColor", Color.Lerp(EnviromentManager.Singleton._collectableWireOffColour, Color.white, delayedWireLerpT)); 
+        //
+        // //SetPointLightsIntensity(Mathf.Lerp(_minLightSourceIntensity, _maxLightSourceIntensity, _wireLerpT));
+        //
+        // if (_wireLerpT == 2)
+        // {
+        //     _active = false;
+        //     //SetPointLightsIntensity(0);
+        //     //GetComponent<Animator>().SetTrigger("Pulse");
+        // }
     }
 
     /// <summary>
@@ -172,18 +168,5 @@ public class CollectableSphere : PressurePlateListener
     public void PlaySparkNoise()
     {
         AudioManager.Singleton.Play("CollectableSphere_Pulse", transform.position);
-    }
-
-    /// <summary>
-    /// Begins the collection sphere fog pulse effect
-    /// </summary>
-    public void GeneratePulse()
-    {
-        EnviromentManager.Singleton.CollectableSpherePulse.OriginPoint = transform.position;
-        EnviromentManager.Singleton.CollectableSpherePulse.DurationTracked = 0;
-        EnviromentManager.Singleton.CollectableSpherePulse.ColourInital = EnviromentManager.Singleton.GetCollectablePulseColours(_sphereIndex).ColourInital;
-        EnviromentManager.Singleton.CollectableSpherePulse.ColourMax = EnviromentManager.Singleton.GetCollectablePulseColours(_sphereIndex).ColourMax;
-        EnviromentManager.Singleton.CollectableSpherePulse.PulseCompleted = false;
-        EnviromentManager.Singleton.SetTemporarilyFogColourOverride(EnviromentManager.Singleton.GetCollectablePulseColours(_sphereIndex).FogColour);
     }
 }

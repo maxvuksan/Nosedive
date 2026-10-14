@@ -26,13 +26,19 @@ public class Helpers : MonoBehaviour
     public bool RenderFpsText;
     public LayerMask GroundLayerMask;
     
-
     [Header("UI")]
     public float UiJoltStrength = 4f;
     public float UiJoltSpeed = 1f;
     public float UiHorizontalJoltStrength = 4f;
     public float UiHorizontalJoltSpeed = 1f;
 
+    [Header("World")] 
+    public float WireUnderBlendDisapateSpeed = 5.0f;
+    [Range(0,1)]
+    public float WireUnderBlendDisapateInitalOpacity = 0.7f;
+
+    public float WireTransmitSpeed = 1.0f;
+    
     [Header("Materials")]
     public Material MaterialEmissiveWhite;
     public Material MaterialEmissiveDim;

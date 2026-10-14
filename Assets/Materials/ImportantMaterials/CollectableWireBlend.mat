@@ -52,12 +52,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _BaseLeak: 0.127
-    - _Blend: 0
+    - _Blend: 0.279
     - _OnIntensity: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _UnderBlend: 0.535
     m_Colors:
     - _OffColour: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
     - _OnColour: {r: 1, g: 1, b: 1, a: 1}
+    - _UnderColour: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
