@@ -99,6 +99,12 @@ public class ScissorLift : PressurePlateListener
         RecalculateExtension();
     }
 
+    private void OnValidate()
+    {
+        CalculateExtensionSegments();
+        RecalculateExtension();
+    }
+
     private void RecalculateExtension()
     {
         float remappedExtension = Mathf.Lerp(_extensionMinRemap, 1.0f, _currentExtensionAmount);
