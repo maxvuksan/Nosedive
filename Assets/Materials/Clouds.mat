@@ -62,7 +62,7 @@ Material:
     - _Displacement: 0.5
     - _EdgeOpacity: 0
     - _EdgeSharpness: 1.2
-    - _FogDensityScaler: 0.243
+    - _FogDensityScaler: 0.128
     - _MaxDensity: 1
     - _MinDensity: 1
     - _Power: 1.5

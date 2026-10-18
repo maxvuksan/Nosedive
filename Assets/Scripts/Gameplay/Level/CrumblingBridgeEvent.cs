@@ -20,7 +20,7 @@ public class CrumblingBridgeEvent : MonoBehaviour
 
     public void ExplodeBridge()
     {
-        AudioManager.Singleton.Play("CrumblingBridge_Explode");
+        FmodAudioManager.PlayOneShot("BridgeExplode");
         _animator.SetBool("Exploded", true);
 
         foreach(var entry in _fxObjectSpawns)

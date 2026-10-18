@@ -71,6 +71,8 @@ public class PowerBoxAttractSpot : MonoBehaviour
                 _pressurePlate.SetOnState(true);
             }
             
+            FmodAudioManager.PlayOneShot("PowerBoxAttractSpot");
+            
             _yPositiomOffset = 0;
         }
         else

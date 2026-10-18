@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Timeline;
 
 /// <summary>
@@ -25,12 +26,21 @@ public class TriggeredEvent : MonoBehaviour
     /// </summary>
     public AnimationTrigger[] AnimationTriggers;
 
+    /// <summary>
+    /// Events to invoke on trigger
+    /// </summary>
+    public UnityEvent[] UnityEvents;
 
     public void TriggerEvent()
     {
         foreach (var trigger in AnimationTriggers)
         {
             trigger.Animator.SetTrigger(trigger.TriggerName);
+        }
+        
+        foreach(var unityEvent in UnityEvents)
+        {
+            unityEvent?.Invoke();
         }
     }
     

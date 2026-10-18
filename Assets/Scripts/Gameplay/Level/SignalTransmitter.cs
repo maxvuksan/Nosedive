@@ -105,7 +105,7 @@ public class SignalTransmitter : PressurePlateListener
         
         if(_otherTransmitterTrigger != null)
         {
-            AudioManager.Singleton.Play("SignalTransmitter_Blip", transform.position);
+            FmodAudioManager.PlayOneShot("WireBoxOn", transform.position);
             _otherTransmitterTrigger.OnRecieveSignal();
         }
     }

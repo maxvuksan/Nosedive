@@ -48,6 +48,8 @@ public class InteractablePowerBox : InteractableBase
         _rigidbody.isKinematic = true;
         _rigidbody.detectCollisions = false;
         _rigidbody.interpolation = RigidbodyInterpolation.None;
+        
+        FmodAudioManager.PlayOneShot("PowerBoxPickup");
 
         if (_attractSpot != null)
         {
@@ -75,6 +77,8 @@ public class InteractablePowerBox : InteractableBase
         _rigidbody.isKinematic = false;
         _rigidbody.detectCollisions = true;
         _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+        
+        FmodAudioManager.PlayOneShot("PowerBoxPutdown");
     }
 
     private void SetPowerState(bool powered)

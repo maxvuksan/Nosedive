@@ -70,13 +70,12 @@ public class EnviromentManager : MonoBehaviour
     private void Awake()
     {
         Helpers.CreateSingleton(ref Singleton, this);
-        
-        _mainCamera = Camera.main;
-        _playerCamera = FindFirstObjectByType<CameraFollow>(FindObjectsInactive.Include);
     }
 
     private void Start()
     {
+        _mainCamera = Camera.main;
+        _playerCamera = Camera.main.GetComponentInParent<CameraFollow>();
         _enviromentState = LevelFullMap.Singleton.Levels[0].EnviromentSettings;
         EnableSounds();
         ApplyEnviromentState();

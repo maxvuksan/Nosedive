@@ -29,3 +29,51 @@ MonoBehaviour:
         Data3: -338634333
         Data4: 715200494
       Path: event:/Enviroment/Interactions/PressurePlateDown
+  - Name: WireBoxOn
+    EventReference:
+      Guid:
+        Data1: -376365202
+        Data2: 1332030138
+        Data3: 1251135629
+        Data4: 1039708008
+      Path: event:/Enviroment/Interactions/WireBoxOn
+  - Name: SluiceOpen
+    EventReference:
+      Guid:
+        Data1: 962444509
+        Data2: 1221260464
+        Data3: 644412825
+        Data4: 1039794804
+      Path: event:/Enviroment/Interactions/SluiceOpen
+  - Name: PowerBoxPickup
+    EventReference:
+      Guid:
+        Data1: 1406428924
+        Data2: 1198873012
+        Data3: 1145939372
+        Data4: -1402729019
+      Path: event:/Enviroment/Interactions/PowerBoxPickup
+  - Name: PowerBoxPutdown
+    EventReference:
+      Guid:
+        Data1: -887488726
+        Data2: 1258148498
+        Data3: -1719128914
+        Data4: 1651529519
+      Path: event:/Enviroment/Interactions/PowerBoxPutdown
+  - Name: PowerBoxAttractSpot
+    EventReference:
+      Guid:
+        Data1: 459753395
+        Data2: 1315539786
+        Data3: 697678738
+        Data4: 1681307687
+      Path: event:/Enviroment/Interactions/PowerBoxPutdownAttractSpot
+  - Name: BridgeExplode
+    EventReference:
+      Guid:
+        Data1: 1711128662
+        Data2: 1092388892
+        Data3: 948653975
+        Data4: -268303195
+      Path: event:/Enviroment/Interactions/BridgeExplode

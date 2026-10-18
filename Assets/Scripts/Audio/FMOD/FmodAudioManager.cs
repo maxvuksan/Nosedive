@@ -144,7 +144,7 @@ public class FmodAudioManager : MonoBehaviour
     /// </summary>
     private static EventInstance CreateEventInstance(EventReference eventReference, bool is3D, Vector3 position, float volume = 1.0f, float pitch = 1.0f)
     {
-        EventInstance soundInstance = RuntimeManager.CreateInstance(eventReference.Path);
+        EventInstance soundInstance = RuntimeManager.CreateInstance(eventReference);
      
         if (is3D)
         {
