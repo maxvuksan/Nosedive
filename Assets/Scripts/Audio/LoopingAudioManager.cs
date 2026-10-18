@@ -119,7 +119,8 @@ public class LoopingAudioManager : MonoBehaviour
             float t = (Mathf.Sin(Time.time * sound.Value.volume * sound.Value.volumeModulationRate) + 1.0f) * 0.5f;
             float volumeMod = sound.Value.volume * Mathf.Lerp(sound.Value.minVolumeScale, sound.Value.maxVolumeScale, t);
 
-            _loopingSourcePool[sound.Value.PoolIndex].volume = volume * volumeMod * volumeScaler * SaveManager.Data.Settings.EnvironmentVolume;
+            // TODO: We are ripping LoopingAudioManager from the project, replaced by FmodAudioManager
+            // _loopingSourcePool[sound.Value.PoolIndex].volume = volume * volumeMod * volumeScaler * SaveManager.Data.Settings.EnvironmentVolume;
 
         }
     }

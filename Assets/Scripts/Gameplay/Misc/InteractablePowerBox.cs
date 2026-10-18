@@ -29,7 +29,7 @@ public class InteractablePowerBox : InteractableBase
         _renderer = GetComponent<MeshRenderer>();
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
-        Release();
+        Release(false);
 
         SetPowerState(_powered);
     }
@@ -70,15 +70,18 @@ public class InteractablePowerBox : InteractableBase
         _attractSpot = powerBoxAttractSpot;
     }
 
-    public void Release()
+    public void Release(bool playSound = true)
     {
         transform.parent = _previousParent;
         _collider.enabled = true;
         _rigidbody.isKinematic = false;
         _rigidbody.detectCollisions = true;
         _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-        
-        FmodAudioManager.PlayOneShot("PowerBoxPutdown");
+
+        if (playSound)
+        {
+            FmodAudioManager.PlayOneShot("PowerBoxPutdown");
+        }
     }
 
     private void SetPowerState(bool powered)

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 [System.Serializable]
 public struct UserSettings{
     public float SoundVolume;
-    public float EnvironmentVolume;
     public float MouseSensitivityScaler;
     public int DisplayMode;
 }
@@ -106,7 +105,6 @@ public static class SaveManager
             Data.Settings = new UserSettings 
             { 
                 SoundVolume = 1.0f, 
-                EnvironmentVolume = 1.0f, 
                 MouseSensitivityScaler = 1.0f,
                 DisplayMode = 0 
             };

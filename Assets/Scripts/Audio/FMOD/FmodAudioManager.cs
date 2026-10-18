@@ -5,7 +5,7 @@ using FMODUnity;
 using UnityEngine;
 
 /// <summary>
-/// Manager to control playing FMOD sounds
+/// Manager to interface with FMOD 
 /// </summary>
 public class FmodAudioManager : MonoBehaviour
 {
@@ -137,6 +137,16 @@ public class FmodAudioManager : MonoBehaviour
         // Play the sound, then free the instance
         instance.start();
         instance.release();
+    }
+    
+    /// <summary>
+    /// Sets a global float parameter to a specific value
+    /// </summary>
+    public static void SetGlobalParameter(string name, float target, bool ignoreSeekSpeed = false)
+    {
+        // Note: ignoreSeekSpeed allows us to instantly snap parameters to specific values,
+        // otherwise the configured seek in FmodStudio with move the parameter towards our target
+        RuntimeManager.StudioSystem.setParameterByName(name, target, ignoreSeekSpeed);
     }
     
     /// <summary>

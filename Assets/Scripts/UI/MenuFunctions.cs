@@ -11,7 +11,6 @@ public class MenuFunctions : MonoBehaviour
     /// </summary>
     [Header("Settings")]
     [SerializeField] private CustomSlider _soundAudioSlider;
-    [SerializeField] private CustomSlider _enviromentAudioSlider;
     [SerializeField] private CustomSlider _mouseSensitivitySlider;
     
     [SerializeField] private CustomTextCarousel _displayModeCarousel;
@@ -29,9 +28,10 @@ public class MenuFunctions : MonoBehaviour
     private void RestoreSavedSettings()
     {
         _soundAudioSlider.Value = SaveManager.Data.Settings.SoundVolume;
-        _enviromentAudioSlider.Value = SaveManager.Data.Settings.EnvironmentVolume;
         _mouseSensitivitySlider.Value = SaveManager.Data.Settings.MouseSensitivityScaler;
         _displayModeCarousel.Index = SaveManager.Data.Settings.DisplayMode;
+        
+        FmodAudioManager.SetGlobalParameter("GlobalVolume", _soundAudioSlider.Value, true);
     }
 
 
@@ -75,14 +75,10 @@ public class MenuFunctions : MonoBehaviour
 
     public void OnSoundVolumeChange(float volume)
     {
+        FmodAudioManager.SetGlobalParameter("GlobalVolume", volume);
         SaveManager.Data.Settings.SoundVolume = volume;
     }
 
-    public void OnEnviromentVolumeChange(float volume)
-    {
-        SaveManager.Data.Settings.EnvironmentVolume = volume;
-    }
-    
     public void OnMouseSensitivityChange(float scaler)
     {
         SaveManager.Data.Settings.MouseSensitivityScaler = scaler;
