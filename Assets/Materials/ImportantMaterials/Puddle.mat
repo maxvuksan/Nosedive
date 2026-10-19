@@ -8,18 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Puddle
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 14ab7484e0212eb4abcf211808b835e4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _EMISSION
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -32,6 +30,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CameraRenderTexture:
+        m_Texture: {fileID: 8400000, guid: 494ff871938c80b4c94979d269f8ad7e, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -50,6 +52,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _FeatherNoise:
+        m_Texture: {fileID: 2800000, guid: f66c3b1a154601c48aee7d3f9aabea5c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -64,6 +70,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleReflectedCubemap_ddd8cc0c2e55483cbe989c4eb27b8314_Cube_1_Cubemap:
+        m_Texture: {fileID: 8900000, guid: 9ba71538a8cca344a9e9c395dd7bcefe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_49bfd24fec6e4b7991bb4cfd580e14eb_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 4aea02ebf8659314c988c9f5629d5036, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -86,6 +100,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _UVDistortion_2867f85031284874858a64da8383a528_NoiseMap_647888222_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 757ecbc1443e938439dfed9765fc8129, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UVDistortion_fde5efcc109c400395b44f671040a2e2_NoiseMap_647888222_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 757ecbc1443e938439dfed9765fc8129, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -101,12 +123,16 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
+    - _Alpha: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _BaseLerp: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
+    - _Blur: 0.1
     - _BumpScale: 1
+    - _CastShadows: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -118,15 +144,20 @@ Material:
     - _EdgeOpacity: 0
     - _EdgeSharpness: 1.2
     - _EnvironmentReflections: 1
+    - _FeatherNoiseScale: 2.03
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
+    - _NoiseScale: 3.6
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _RippleScale: 0
+    - _RippleSpeed: 11
+    - _RippleStrength: 0
     - _RoundFactor: 1e-16
     - _SampleGI: 0
     - _Scale: 0.2
@@ -140,11 +171,15 @@ Material:
     - _TopBlend: -0.153
     - _TopScale: 0.2
     - _TriplanarScale: 0.005
+    - _UVFeather: 0.3
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
+    - _BaseColour: {r: 0.07547141, g: 0.07547141, b: 0.07547141, a: 0.039215688}
     - _Color: {r: 0.25471696, g: 0.25471696, b: 0.25471696, a: 1}
     - _EdgeColour: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

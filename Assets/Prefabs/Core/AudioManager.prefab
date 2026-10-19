@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FmodAudioManager
   _soundGroups:
   - {fileID: 11400000, guid: fc6bdaa1e6837314fa6960c47efe793f, type: 2}
+  - {fileID: 11400000, guid: 25a2ed568e1ee234f838881d6fe94e51, type: 2}
   - {fileID: 11400000, guid: f08dc749eda00a344a551a542484925f, type: 2}
   - {fileID: 11400000, guid: c5fb74899c71a374eb71ba07b1713f92, type: 2}
   - {fileID: 11400000, guid: 42b171760be9d1b4a9cae09ab3be8a8d, type: 2}

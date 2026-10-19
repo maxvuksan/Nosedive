@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using UnityEngine;
 
 /// <summary>
@@ -20,7 +21,7 @@ public class PlayerBreathing : MonoBehaviour
     [SerializeField] private float _idleBreathingIncreaseRate;
 
     private float _lastGaspTime;
-    private LoopingSound _idleBreathingSound;
+    private EventInstance _idleBreathingSound;
     private Rigidbody _rigidBody;
     private PlayerController _playerController;
     private float _idleBreathingVolume;
@@ -29,8 +30,16 @@ public class PlayerBreathing : MonoBehaviour
     {
         _playerController = GetComponent<PlayerController>();
         _rigidBody = GetComponent<Rigidbody>();
-        _idleBreathingSound = LoopingAudioManager.Singleton.EnableLoop("Breathing_Idle");
+        
+        _idleBreathingSound = FmodAudioManager.PlayLoop("BreathingIdleLoop");
+        _idleBreathingSound.setParameterByName("Intensity", 0, true);
+        
         _idleBreathingVolume = 0;
+    }
+
+    void OnDestroy()
+    {
+        FmodAudioManager.StopLoop("BreathingIdleLoop");        
     }
 
     public void Update()
@@ -53,7 +62,7 @@ public class PlayerBreathing : MonoBehaviour
         }
         else
         {
-            _idleBreathingSound.volumeScaler -= _idleBreathingIncreaseRate * Time.deltaTime;
+            _idleBreathingVolume -= _idleBreathingIncreaseRate * Time.deltaTime;
         }
 
         float velocityVolumeMask = (Mathf.SmoothStep(_idleBreathingMaxVelocity, _idleBreathingMaxVelocity + _idleBreathingMinVelocity, 
@@ -65,7 +74,7 @@ public class PlayerBreathing : MonoBehaviour
         _idleBreathingVolume = Mathf.Clamp01(_idleBreathingVolume);
         float volume = velocityVolumeMask * _idleBreathingVolume;
 
-        _idleBreathingSound.volumeScaler = volume;
+        _idleBreathingSound.setParameterByName("Intensity", _idleBreathingVolume);
     }
 
 
@@ -84,7 +93,7 @@ public class PlayerBreathing : MonoBehaviour
         }
 
         float randomVolume = Random.Range(_minGaspVolume, 1);
-        AudioManager.Singleton.Play("Breathing_Gasp", Vector3.zero, randomVolume);
+        FmodAudioManager.PlayOneShot("BreathingGasp", Vector3.zero, randomVolume);
     
         _lastGaspTime = Time.time;
     }

@@ -27,7 +27,7 @@ public class SteamIntegration : MonoBehaviour
 
         Singleton = this;
         DontDestroyOnLoad(this);
-
+        
         try
         {
             Steamworks.SteamClient.Init(_appId);

@@ -406,6 +406,7 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
+  - Breathing
   - Footsteps
   - Interactions
   - UI
