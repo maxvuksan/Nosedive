@@ -62,7 +62,7 @@ public struct LevelEnviromentSettings
     /// <summary>
     /// The exponential density of the fog 
     /// </summary>
-    [Range(0, 0.05f)]
+    [Range(0, 1f)]
     public float FogDensity;
     
     /// <summary>
