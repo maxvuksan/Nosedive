@@ -93,3 +93,11 @@ MonoBehaviour:
         Data3: 1582530960
         Data4: -2097807271
       Path: event:/Player/Footsteps/FootstepSandR
+  - Name: FootstepSplash
+    EventReference:
+      Guid:
+        Data1: -1255630059
+        Data2: 1292277585
+        Data3: -789764161
+        Data4: 461938353
+      Path: event:/Player/Footsteps/FootstepSplash

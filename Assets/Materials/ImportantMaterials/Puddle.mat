@@ -73,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleReflectedCubemap_ddd8cc0c2e55483cbe989c4eb27b8314_Cube_1_Cubemap:
-        m_Texture: {fileID: 8900000, guid: 9ba71538a8cca344a9e9c395dd7bcefe, type: 3}
+        m_Texture: {fileID: 8900000, guid: 5eab3c5b52ea8d74fa5cc42b626b1c90, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_49bfd24fec6e4b7991bb4cfd580e14eb_Texture_1_Texture2D:
@@ -126,7 +126,7 @@ Material:
     - _Alpha: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BaseLerp: 0
+    - _BaseLerp: 0.43
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
@@ -144,7 +144,8 @@ Material:
     - _EdgeOpacity: 0
     - _EdgeSharpness: 1.2
     - _EnvironmentReflections: 1
-    - _FeatherNoiseScale: 2.03
+    - _FeatherNoiseOffset: 0.24
+    - _FeatherNoiseScale: 0.04
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -171,7 +172,7 @@ Material:
     - _TopBlend: -0.153
     - _TopScale: 0.2
     - _TriplanarScale: 0.005
-    - _UVFeather: 0.3
+    - _UVFeather: 0.15
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZTest: 4
@@ -179,7 +180,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
-    - _BaseColour: {r: 0.07547141, g: 0.07547141, b: 0.07547141, a: 0.039215688}
+    - _BaseColour: {r: 0.48899996, g: 0.47721684, b: 0.47721684, a: 0.019607844}
     - _Color: {r: 0.25471696, g: 0.25471696, b: 0.25471696, a: 1}
     - _EdgeColour: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

@@ -26,10 +26,10 @@ public class FmodAudioManager : MonoBehaviour
     
     private void Awake()
     {
-        Helpers.CreateSingleton(ref Singleton, this, true);
-        
         RunningInstances = new();
         ConstructDictionaryFromSoundGroups();
+        
+        Helpers.CreateSingleton(ref Singleton, this, true);
     }
 
     private void ConstructDictionaryFromSoundGroups()

@@ -449,19 +449,7 @@ public class PlayerController : MonoBehaviour
         {
             var materialProperties = MaterialManager.Singleton.Properties[(int)_groundedMaterialType];
 
-            if (_footstepLeftRightFlipFlop)
-            {
-                FmodAudioManager.PlayOneShot(materialProperties.PlayerFootstepSoundLeft, volume);
-                // AudioManager.Singleton.Play(materialProperties.PlayerFootstepSoundLeft, Vector3.zero, volume);
-            }
-            else
-            {
-                FmodAudioManager.PlayOneShot(materialProperties.PlayerFootstepSoundLeft, volume);
-                // AudioManager.Singleton.Play(materialProperties.PlayerFootstepSoundRight, Vector3.zero, volume);
-            }
-
-            // AudioZoneManager.Singleton.PlayFootstepLayerSounds(_groundedMaterialType, _footstepLeftRightFlipFlop);
-            // AudioManager.Singleton.Play(_footstepWetnessLayerSoundLabel, Vector3.zero, EnviromentManager.Singleton.EnviromentState.RainStrength);
+            AudioZoneManager.Singleton.PlayFootstepLayerSounds(_groundedMaterialType, materialProperties, volume, _footstepLeftRightFlipFlop);
 
             _footstepLeftRightFlipFlop = !_footstepLeftRightFlipFlop;
             _footstepTimeTracked = 0;

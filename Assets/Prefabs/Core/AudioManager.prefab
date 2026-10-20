@@ -81,10 +81,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioZoneManager
   FootstepLayerSounds:
-  - PlayerFootstepSoundLeft: FootstepLayer_GlassCrunch
-    PlayerFootstepSoundRight: FootstepLayer_GlassCrunch
-  - PlayerFootstepSoundLeft: FootstepLayer_Grass_Left
-    PlayerFootstepSoundRight: FootstepLayer_Grass_Right
+  - PlayerFootstepSoundLeft: FootstepSplash
+    PlayerFootstepSoundRight: FootstepSplash
 --- !u!114 &1965692462351236418
 MonoBehaviour:
   m_ObjectHideFlags: 0

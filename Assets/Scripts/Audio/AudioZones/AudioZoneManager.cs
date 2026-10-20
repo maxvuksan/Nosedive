@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -175,8 +176,11 @@ public class AudioZoneManager : MonoBehaviour {
     /// <summary>
     /// Plays the footstep layer sounds using the computed influences as volume scalers
     /// </summary>
-    public void PlayFootstepLayerSounds(MaterialTypes groundMaterial, bool isLeftFoot = true)
+    public void PlayFootstepLayerSounds(MaterialTypes groundMaterial, MaterialManager.MaterialProperties properties, float volume, bool isLeftFoot = true)
     {
+
+        float maxIgnoreFactor = 0;
+        
         foreach(var zone in _inRangeZoneFootsteps)
         {
             // The surface does not match the zones mask, ignore
@@ -185,16 +189,29 @@ public class AudioZoneManager : MonoBehaviour {
                 continue;
             }
 
+            maxIgnoreFactor = Math.Max(zone.Zone.IgnoreActualFootstepSound, maxIgnoreFactor);
+
             if (isLeftFoot)
             {
-                AudioManager.Singleton.Play(FootstepLayerSounds[(int)zone.Zone.Type].PlayerFootstepSoundLeft, _player.transform.position, zone.Influence);
+                FmodAudioManager.PlayOneShot(FootstepLayerSounds[(int)zone.Zone.Type].PlayerFootstepSoundLeft, _player.transform.position, zone.Influence);
             }
             else
             {
-                AudioManager.Singleton.Play(FootstepLayerSounds[(int)zone.Zone.Type].PlayerFootstepSoundRight, _player.transform.position, zone.Influence);
+                FmodAudioManager.PlayOneShot(FootstepLayerSounds[(int)zone.Zone.Type].PlayerFootstepSoundRight, _player.transform.position, zone.Influence);
             }
 
-        }        
+        }   
+        
+        // Play actual footstep sounds
+        
+        if (isLeftFoot)
+        {
+            FmodAudioManager.PlayOneShot(properties.PlayerFootstepSoundLeft, volume * (1f - maxIgnoreFactor));
+        }
+        else
+        {
+            FmodAudioManager.PlayOneShot(properties.PlayerFootstepSoundLeft, volume * (1f - maxIgnoreFactor));
+        }
     }
 
 }
