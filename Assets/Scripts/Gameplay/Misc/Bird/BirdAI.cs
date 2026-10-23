@@ -48,7 +48,7 @@ public class BirdAI : MonoBehaviour
     {
         "Peck",
         "LookAround",
-        "Hop"
+        "Hop",
     };
 
     private static Action s_OnScareAway;

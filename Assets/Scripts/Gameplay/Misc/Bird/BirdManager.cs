@@ -87,6 +87,8 @@ public class BirdManager : MonoBehaviour
     /// </summary>
     private void SpawnBirdInLevel(Level level, Transform birdSpawnPosition)
     {
+        print("Spawn bird");
+        
         GameObject newBird;
 
         if(_inactiveBirds.Count > 0)

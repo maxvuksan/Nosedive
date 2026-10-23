@@ -72,12 +72,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ReflectionProbe:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleReflectedCubemap_ddd8cc0c2e55483cbe989c4eb27b8314_Cube_1_Cubemap:
         m_Texture: {fileID: 8900000, guid: 5eab3c5b52ea8d74fa5cc42b626b1c90, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_49bfd24fec6e4b7991bb4cfd580e14eb_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 4aea02ebf8659314c988c9f5629d5036, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6441104c1db94827810c5cf4e9289fbf_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: acf15dff1e22a3645a55ea019b725ae4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -104,6 +112,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 757ecbc1443e938439dfed9765fc8129, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _UVDistortion_33a1159f084d439cab771a791aee2784_NoiseMap_647888222_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 757ecbc1443e938439dfed9765fc8129, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _UVDistortion_fde5efcc109c400395b44f671040a2e2_NoiseMap_647888222_Texture2D:
         m_Texture: {fileID: 2800000, guid: 757ecbc1443e938439dfed9765fc8129, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -126,11 +138,11 @@ Material:
     - _Alpha: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BaseLerp: 0.415
+    - _BaseLerp: 0.434
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
-    - _Blur: 0.1
+    - _Blur: 0.65
     - _BumpScale: 1
     - _CastShadows: 0
     - _ClearCoatMask: 0
@@ -158,7 +170,7 @@ Material:
     - _ReceiveShadows: 1
     - _RippleScale: 0
     - _RippleSpeed: 11
-    - _RippleStrength: 0
+    - _RippleStrength: 1
     - _RoundFactor: 1e-16
     - _SampleGI: 0
     - _Scale: 0.2
@@ -180,7 +192,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
-    - _BaseColour: {r: 0.51886785, g: 0.51886785, b: 0.51886785, a: 0.019607844}
+    - _BaseColour: {r: 0.53900003, g: 0.53900003, b: 0.53900003, a: 0.03137255}
     - _Color: {r: 0.25471696, g: 0.25471696, b: 0.25471696, a: 1}
     - _EdgeColour: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

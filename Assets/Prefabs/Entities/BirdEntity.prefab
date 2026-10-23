@@ -90,9 +90,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786921965697326554}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.30070576, w: 0.953717}
-  m_LocalPosition: {x: 0.98, y: 2.36, z: -0.47}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.0000000018626451, y: -0, z: 0.3007058, w: 0.953717}
+  m_LocalPosition: {x: 0.06399806, y: 0.35600024, z: -0.10698859}
+  m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7491406878089144193}
@@ -109,7 +109,7 @@ Animator:
   m_GameObject: {fileID: 1786921965697326554}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1f48a4b9115c10848a16e4bd9973ddaa, type: 2}
+  m_Controller: {fileID: 9100000, guid: efca959573eea5247b734be68ad948f0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a470631816dbe3341b990813261a7443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  DisableFlyingAway: 0
   PreferredFlyDirection: {x: 0, y: 0, z: 0}
   Config:
     IdleAnimations:
@@ -193,11 +194,11 @@ MonoBehaviour:
     FlyDirectionVarianceDegrees: 30
     FlyAwayHeight: 20
     FlyAwayDistance: 1000
-    FlySpeedMax: 30
-    FlySpeedInitalMin: 3
-    FlySpeedInitalMax: 13
-    FlySpeedIncrease: 20
-    ScareOtherBirdsDistance: 55
+    FlySpeedMax: 3
+    FlySpeedInitalMin: 0.1
+    FlySpeedInitalMax: 0.5
+    FlySpeedIncrease: 1.5
+    ScareOtherBirdsDistance: 4
     ScareOtherBirdsPropogateTimeMin: 0
     ScareOtherBirdsPropogateTimeMax: 0.1
     FacingAngleLerpSpeed: 5
@@ -220,7 +221,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 150
+  m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2278580757641002070
 GameObject:

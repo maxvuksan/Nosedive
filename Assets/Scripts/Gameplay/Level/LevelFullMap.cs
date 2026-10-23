@@ -186,6 +186,14 @@ public class LevelFullMap : MonoBehaviour
 
         for(int i = 0; i < level.BirdSpawnPositionsParent.childCount; i++)
         {
+            BirdSpawnpointConfiguration config =
+                level.BirdSpawnPositionsParent.GetChild(i).GetComponent<BirdSpawnpointConfiguration>();
+            // Ignore shifting if the config says so
+            if (config != null && !config.ShiftToGround)
+            {
+                continue;
+            }
+            
             if (Physics.Raycast(level.BirdSpawnPositionsParent.GetChild(i).position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, Mathf.Infinity, Helpers.Singleton.GroundLayerMask))
             {
                 // Move the spawnpoint to the hit position

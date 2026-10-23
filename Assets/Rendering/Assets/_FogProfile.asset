@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: _FogProfile
   m_EditorClassIdentifier: Assembly-CSharp::FogProfile
   Data:
-    StartColour: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
-    EndColour: {r: 0.43921572, g: 0.43921572, b: 0.43921572, a: 1}
-    FogInterpolationStart: 1
-    FogInterpolationDepth: 11
+    StartColour: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
+    EndColour: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
+    FogInterpolationStart: 0
+    FogInterpolationDepth: 0
     _padding0: {x: 0, y: 0}
-    Density: 0.0025
-    BlobNoiseScale: 0.0067
-    BlobNoiseIntensity: 0
+    Density: 0.044
+    BlobNoiseScale: 0.085
+    BlobNoiseIntensity: 0.067
     RandomNoise: 0
     WindDirection: {x: 2, y: 1, z: 1}
-    WindSpeed: 300
-    GroundFogStartHeight: -116.09
+    WindSpeed: 15
+    GroundFogStartHeight: -873.38
     GroundFogDepth: 1e+11
     LuminanceThresholdMin: 0.9
     LuminanceThresholdMax: 1

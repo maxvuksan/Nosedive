@@ -71,7 +71,7 @@ public class Level : MonoBehaviour
         Gizmos.color = Color.burlywood;
         for(int i = 0; i < BirdSpawnPositionsParent.childCount; i++)
         {
-            Gizmos.DrawSphere(BirdSpawnPositionsParent.GetChild(i).transform.position, 2.0f);
+            Gizmos.DrawSphere(BirdSpawnPositionsParent.GetChild(i).transform.position, 0.1f);
         }
     }
 

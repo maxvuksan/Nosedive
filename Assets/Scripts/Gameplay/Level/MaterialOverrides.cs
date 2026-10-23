@@ -20,7 +20,7 @@ public class MaterialOverrides : MonoBehaviour
     [ShowIf("TargetSpecificMaterialIndex")] public int TargetMaterialIndex;
 
 
-    private MaterialPropertyBlock propertyBlock;   
+    protected MaterialPropertyBlock propertyBlock;   
 
     /// <summary>
     /// A dictionary to to mapped by
@@ -36,21 +36,22 @@ public class MaterialOverrides : MonoBehaviour
     public void AssignColourOverride(string variableName, Color newColour)
     {
         _colourOverrides[variableName] = newColour;
-        ApplyOverrides();
+        ApplyAll();
     }
 
     public void AssignFloatOverride(string variableName, float newFloat)
     {
         _floatOverrides[variableName] = newFloat;
-        ApplyOverrides();
+        ApplyAll();
     }
 
     #endregion
 
     #region Internal Functionality
     
-    private void Awake() {
-        propertyBlock = new();
+    private void Awake()
+    {
+        ApplyAll();
     }
     /// <summary>
     /// Resets all the renderers' MaterialPropertyBlocks by setting them to null
@@ -86,7 +87,7 @@ public class MaterialOverrides : MonoBehaviour
     /// <summary>
     /// Apply the base and emmisive colours to the material
     /// </summary>
-    private void ApplyOverrides()
+    protected void ApplyOverrides()
     {
         ResetRenderers(); 
 
@@ -104,13 +105,26 @@ public class MaterialOverrides : MonoBehaviour
             propertyBlock.SetFloat(entry.Key, entry.Value);
         }
 
-        SetRenderers(propertyBlock); 
     }
 
     private void OnValidate()
     {
+        ApplyAll();
+    }
+
+    void ApplyAll()
+    {
         propertyBlock = new();
         ApplyOverrides();
+        
+        AdditionalReapply();
+        
+        SetRenderers(propertyBlock); 
+    }
+    
+    public virtual void AdditionalReapply()
+    {
+        // Additional logic on reapply
     }
 
     #endregion

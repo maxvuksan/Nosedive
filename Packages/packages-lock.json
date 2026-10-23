@@ -14,6 +14,13 @@
       "dependencies": {},
       "hash": "613d1e8e553054cd5130b3c2b27da75a8b41ff33"
     },
+    "com.cyanilux.bakeshader": {
+      "version": "https://github.com/Cyanilux/BakeShader.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1fa3269138aee33e57b677ceeae6ffdd2b0cce36"
+    },
     "com.marijnzwemmer.unity-toolbar-extender": {
       "version": "https://github.com/marijnz/unity-toolbar-extender.git",
       "depth": 0,
