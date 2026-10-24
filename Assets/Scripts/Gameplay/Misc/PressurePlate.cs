@@ -46,8 +46,11 @@ public class PressurePlate : PressurePlateListener
     /// <summary>
     /// The index provided to the listener, allows listeners to tell pressure plates apart
     /// </summary>
-    [SerializeField] public int _plateIndex; 
+    [SerializeField] public int _plateIndex;
+    
+    public bool OnState => _onState;
     private bool _onState = false;
+    
     private MaterialOverrides _materialOverrides;
     
     private float _intensityOnState;

@@ -1,16 +1,37 @@
+using System;
 using UnityEngine;
 
-public class PowerBoxCharger : MonoBehaviour
+/// <summary>
+/// A puzzle element for charging PowerBoxes
+/// </summary>
+public class PowerBoxCharger : PressurePlateListener
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+ 
+    private PowerBoxAttractSpot _attractSpot;
+    private PressurePlate _pressurePlate;
+
+    private void Awake()
     {
-        
+        _attractSpot = GetComponentInChildren<PowerBoxAttractSpot>();
+        _pressurePlate = GetComponentInChildren<PressurePlate>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnSwitchState(bool pressurePlateState)
     {
-        
+        TransmitPower();
+    }
+    
+    /// <summary>
+    /// Attempts to transmit power to the attached PowerBox
+    /// Returns true if there is a attached box that can be powered
+    /// </summary>
+    public void TransmitPower()
+    {
+        if (_attractSpot.AttachedPowerBox == null)
+        {
+            return;
+        }
+
+        _attractSpot.AttachedPowerBox.Powered = true;
     }
 }

@@ -8,6 +8,8 @@ public class PowerBoxAttractSpot : MonoBehaviour
     private PressurePlate _pressurePlate;
     private CameraFollow _cameraFollow;
     private BoxCollider _boxCollider;
+    
+    [CanBeNull] public InteractablePowerBox AttachedPowerBox => _attachedPowerBox;
     [CanBeNull] private InteractablePowerBox _attachedPowerBox;
 
     /// <summary>

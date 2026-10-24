@@ -154,6 +154,6 @@ MonoBehaviour:
     Profile:
       NoiseRandomOffsetScale: 3.13
       Data:
-        NoiseIntensity: 0.035
-        _NoiseRandomUvOffset: {x: 0.0052722576, y: 2.421886}
-        _ViewportDimensions: {x: 953, y: 536}
+        NoiseIntensity: 0.015
+        _NoiseRandomUvOffset: {x: 0.5503994, y: 1.3270311}
+        _ViewportDimensions: {x: 845, y: 475}
