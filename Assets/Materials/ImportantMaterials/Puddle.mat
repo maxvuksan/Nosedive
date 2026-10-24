@@ -138,11 +138,11 @@ Material:
     - _Alpha: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BaseLerp: 0.434
+    - _BaseLerp: 0.371
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
-    - _Blur: 0.65
+    - _Blur: 1
     - _BumpScale: 1
     - _CastShadows: 0
     - _ClearCoatMask: 0
@@ -192,7 +192,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
-    - _BaseColour: {r: 0.53900003, g: 0.53900003, b: 0.53900003, a: 0.03137255}
+    - _BaseColour: {r: 0.3773584, g: 0.3773584, b: 0.3773584, a: 0.019607844}
     - _Color: {r: 0.25471696, g: 0.25471696, b: 0.25471696, a: 1}
     - _EdgeColour: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

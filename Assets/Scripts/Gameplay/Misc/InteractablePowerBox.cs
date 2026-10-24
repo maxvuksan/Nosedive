@@ -55,6 +55,7 @@ public class InteractablePowerBox : InteractableBase
         {
             // Remove from slot
             _attractSpot.SetOccupiedByPowerBox(null);
+            _attractSpot = null;
         }
     }
 
@@ -77,7 +78,8 @@ public class InteractablePowerBox : InteractableBase
         _rigidbody.isKinematic = false;
         _rigidbody.detectCollisions = true;
         _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-
+        _attractSpot = null;
+        
         if (playSound)
         {
             FmodAudioManager.PlayOneShot("PowerBoxPutdown");

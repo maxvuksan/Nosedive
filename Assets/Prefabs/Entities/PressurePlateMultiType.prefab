@@ -318,92 +318,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7806182941618316711
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 399124825548895049}
-  - component: {fileID: 4819384458436707271}
-  - component: {fileID: 3721208738373563751}
-  - component: {fileID: 8384798779703253479}
-  m_Layer: 10
-  m_Name: CubeAttractSpot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &399124825548895049
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7806182941618316711}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8612557805491712857}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4819384458436707271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7806182941618316711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 837ec6495499ffa4985ba6350b27a856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
-  Source: {fileID: 0}
-  Target: {fileID: 399124825548895049}
-  TargetRotationalOffset: {x: 0, y: 0, z: 0, w: 1}
-  TargetOffset: {x: 0, y: 0, z: 0}
-  PositionSmoothTime: 0.1
-  RotationSmoothSpeed: 7
---- !u!114 &3721208738373563751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7806182941618316711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534ad748294e8bc409380c00c9d5e905, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  _yOffsetSize: 0.1
---- !u!65 &8384798779703253479
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7806182941618316711}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 0.3978435}
-  m_Center: {x: 0.000000005591473, y: -0.0000000028051175, z: -0.023468109}
 --- !u!1 &8255066681554826460
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,3 +417,76 @@ MonoBehaviour:
   - {fileID: 5796317741590163207}
   TargetSpecificMaterialIndex: 0
   TargetMaterialIndex: 0
+--- !u!1001 &5158835285000047111
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8612557805491712857}
+    m_Modifications:
+    - target: {fileID: 3153363464814227360, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_Name
+      value: CubeAttractSpot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+--- !u!4 &399124825548895049 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4764285802438752590, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+  m_PrefabInstance: {fileID: 5158835285000047111}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3721208738373563751 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373246114521431904, guid: 519af6a83a7ae804d9612d142717f3d5, type: 3}
+  m_PrefabInstance: {fileID: 5158835285000047111}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534ad748294e8bc409380c00c9d5e905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'

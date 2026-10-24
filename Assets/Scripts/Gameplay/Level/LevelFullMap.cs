@@ -114,6 +114,7 @@ public class LevelFullMap : MonoBehaviour
         {
             foreach (var level in sceneGroups.Levels)
             {
+                PreprocessLevel_GenerateWires(level);
                 PreprocessLevel_LogErrorIfMultipleCollectableSpheresArePresent(level);
                 PreprocessLevel_RaycastBirdSpawnpoints(level);
                 PreprocessLevel_RaycastPlayerSpawnpoint(level);
@@ -121,6 +122,19 @@ public class LevelFullMap : MonoBehaviour
             }
         }
 
+    }
+    
+    /// <summary>
+    /// Ensure all wires are generated
+    /// </summary>
+    private void PreprocessLevel_GenerateWires(Level level)
+    {
+        CustomSplineExtrude[] wires = level.GetComponentsInChildren<CustomSplineExtrude>();
+
+        foreach (var wire in wires)
+        {
+            wire.GenerateSpline();
+        }
     }
 
     /// <summary>

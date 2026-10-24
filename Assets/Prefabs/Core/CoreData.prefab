@@ -328,29 +328,29 @@ MonoBehaviour:
   Camera: {fileID: 710731453399566494}
   CameraTiltRotator: {fileID: 6727114901933718905}
   _deathHeightFadeToBlack: {fileID: 7481431639992789163}
-  _extraGravity: 3500
+  _extraGravity: -12000
   runSpeed: 0.5
   maxHorizontalVelocity: 26
-  acceleration: 25
+  acceleration: 15
   deceleration: 4
   airControlMultiplier: 0.9
   airAcceleration: 40
   airDecceleration: 4
   _footstepWetnessLayerSoundLabel: FootstepLayer_Wetness
-  _maxSpeed: 5
+  _maxSpeed: 4
   _crouchingBodyScaleSpeed: 5.5
   _flySpeed: 25
   _jumpHeight: 2
   _coyteTime: 0.15
   _inputCacheTime: 0.3
   slopeLimit: 55
-  _yVelocityDeathThreshold: 80
+  _yVelocityDeathThreshold: 15
   CameraMinFov: 70
   CameraMaxFov: 95
   cameraSpeedToReachMaxFov: 70
   cameraFovLerpSpeed: 6
   cameraSpeedToReachMaxTilt: 10
-  cameraTiltFactor: -1
+  cameraTiltFactor: -2.5
   cameraTiltLerpSpeed: 3
   fallingWindLerpSpeed: 10
   fallingWindSpeedToReachFullVolume: 74.8
@@ -417,7 +417,7 @@ Animator:
   m_GameObject: {fileID: 903268923671645568}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9f0c9063f3a77904eb59857c0827c41f, type: 2}
+  m_Controller: {fileID: 9100000, guid: d3f8fd521d3047140a9d2157e725fd1f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -31,6 +31,11 @@ public class WireTransmitterListener : PressurePlateListener
     /// Invokes a specific function when the wire loses power
     /// </summary>
     [SerializeField] private UnityEvent InvokeOnPowerLost;
+
+    /// <summary>
+    /// If connected to a WireBox, what light index is this targeting?
+    /// </summary>
+    public int WireBoxLightIndexTarget = 0;
     
     private MaterialOverrides _materialOverrides;
     private MeshRenderer _wireMesh;

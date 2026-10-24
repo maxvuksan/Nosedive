@@ -62,28 +62,28 @@ Material:
     - _Displacement: 0.5
     - _EdgeOpacity: 0
     - _EdgeSharpness: 1.2
-    - _FogDensityScaler: 0.128
+    - _FogDensityScaler: 0.277
     - _MaxDensity: 1
     - _MinDensity: 1
     - _Power: 1.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RoundFactor: 1e-16
-    - _Scale: 0.0003
-    - _Scale1Vs2Lerp: 0.486
-    - _Scale2: 0.0002
+    - _Scale: 0.003
+    - _Scale1Vs2Lerp: 0
+    - _Scale2: 0.002
     - _TextureUsesUV: 0
     - _TopBlend: -0.153
     - _TopScale: 0.2
     - _TriplanarScale: 0.005
     - _UVFeather: 0.171
     m_Colors:
-    - _Colour: {r: 1, g: 1, b: 1, a: 1}
+    - _Colour: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
     - _EdgeColour: {r: 1, g: 1, b: 1, a: 1}
     - _EndColour: {r: 0, g: 0, b: 0, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
     - _TopTint: {r: 1, g: 1, b: 1, a: 1}
-    - _Wind: {r: 15, g: 1, b: 0, a: 0}
+    - _Wind: {r: 2, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5136678477023140648
